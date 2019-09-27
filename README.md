@@ -1,19 +1,5 @@
-# Sample Snack app
+Calvin Connect Client
+Calvin Connect is a networking app that allows CS alumni and students to grow their professional networks and organize events. The app will be created with the aim of seeing a thriving community of professionals that helps its members grow through collaborative projects and mentoring opportunities. Unlike other networking apps, our app allows users to connect to a narrower, more intimate group of professionals with shared values and experiences (going to Calvin). It also allows users to recruit interested parties for collaboration on projects by hosting a “Pitch Page”. Additionally, it also matches alumni interested in mentoring, giving career advice, or informational interviews with students based on their background, interests, and career goals.
 
-Open the `App.js` file to start writing some code. You can preview the changes directly on your phone or tablet by clicking the **Run** button or use the simulator by clicking **Tap to Play**. When you're done, click **Save** and share the link!
-
-<<<<<<< HEAD
-When you're ready to see everything that Expo provides (or if you want to use your own editor) you can **Export** your project and use it with [expo-cli](https://docs.expo.io/versions/latest/introduction/installation.html).
-
-Projects created in Snack are publicly available, so you can easily share the link to this project via link, or embed it on a web page with the **Embed** button.
-
-If you're having problems, you can tweet to us [@expo](https://twitter.com/expo) or ask in our [forums](https://forums.expo.io).
-
-Snack is Open Source. You can find the code on the [GitHub repo](https://github.com/expo/snack-web).
-=======
-## Alert 
-
-To run this application navigate to the link https://snack.expo.io/ and click the three dots by the on the left inline with the header "Projects". Select the option "import GitHub Repository" and enter this repository's url
-
-
->>>>>>> 363c889b7d301de780f4937e55d4154a26bccf84
+Alert
+Pleas install expo or use the online IDE at expo.io to build the app and run it on an on-line emulator.
