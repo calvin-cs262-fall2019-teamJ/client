@@ -1,36 +1,27 @@
-import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-
-// You can import from local files
-
-// or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
-
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph}>
-          Hello World from team QPI
-        </Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
+// Import the screens
+import SignIn from './components/SignIn/SignIn';
+// import SignUp from './components/SignUp/SignUp';
+// import Profile from './components/Profile/Profile'
+// import ChatDM from './components/ChatDM/ChatDM'
+// import ChatMessage from './components/ChatMessage/ChatMessage';
+// import NewsFeed from './components/NewsFeed/NewsFeed';
+// import Initialzizing from './components/Initialzizing'
+// Import React Navigation
+import { createStackNavigator } from 'react-navigation-stack'
+import { createAppContainer } from 'react-navigation';
+// Create the navigator
+const navigator = createStackNavigator({
+  SignIn: { screen: SignIn },
+  // SignUp: { screen: SignUp },
+  // Profile: {screen: Profile},
+  // ChatDM: { screen: ChatDM},
+  // ChatMessage: {screen: ChatMessage},
+  // NewsFeed: {screen: NewsFeed},
+  // Initialzizing: {screen: Initialzizing},
 });
+
+// create a container to hold the navigator
+const App = createAppContainer(navigator);
+
+// Export it as the root component
+export default App;
