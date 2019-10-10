@@ -1,20 +1,18 @@
 import React from 'react';
-import { Header} from 'react-native-elements';
-import {Text, View} from 'react-native';
-class SignIn extends React.Component<Props> {
+import { Layout, Text } from 'react-native-ui-kitten';
 
+class SignIn extends React.Component<Props> {
  static navigationOptions = ({ navigation }) => ({
     title: "Sign In Page"
   });
 
- 
   render(){
     return (
-      <View>
+      <Layout>
         <Text> 
           Soon to be changed
         </Text>
-      </View>
+      </Layout>
     );
   }
 

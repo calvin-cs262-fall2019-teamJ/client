@@ -1,6 +1,5 @@
 import React from 'react';
-import { Header} from 'react-native-elements';
-import {Text, View} from 'react-native';
+import { Layout, Text } from 'react-native-ui-kitten';
 
 class SignUp extends React.Component<Props> {
 
@@ -11,14 +10,13 @@ class SignUp extends React.Component<Props> {
  
   render(){
     return (
-      <View>
+      <Layout>
         <Text> 
           Soon to be changed
         </Text>
-      </View>
+      </Layout>
     );
   }
-
 }
 
 export default SignUp;
