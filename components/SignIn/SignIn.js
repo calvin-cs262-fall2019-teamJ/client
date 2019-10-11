@@ -65,6 +65,7 @@ gotoSignUp=()=> {
           style={styles.input}
           onPress={this.gotoSignUp.bind(this)}
         />
+            
       </View>
     );
   }
