@@ -1,5 +1,17 @@
 # Calvin Connect Client
-Calvin Connect is a networking app that allows CS alumni and students to grow their professional networks and organize events. The app will be created with the aim of seeing a thriving community of professionals that helps its members grow through collaborative projects and mentoring opportunities. Unlike other networking apps, our app allows users to connect to a narrower, more intimate group of professionals with shared values and experiences (going to Calvin). It also allows users to recruit interested parties for collaboration on projects by hosting a “Pitch Page”. Additionally, it also matches alumni interested in mentoring, giving career advice, or informational interviews with students based on their background, interests, and career goals.
+Calvin Connect is a networking app that allows CS alumni and students to grow their professional networks and organize events. The app will be created with the aim of seeing a thriving community of professionals that helps its members grow through collaborative projects and mentoring opportunities.
+
+Unlike other networking apps, our app allows users to connect to a narrower, more intimate group of professionals with shared values and experiences (going to Calvin). It also allows users to recruit interested parties for collaboration on projects by hosting a “Pitch Page”. Additionally, it also matches alumni interested in mentoring, giving career advice, or informational interviews with students based on their background, interests, and career goals.
+
+A feature of our feed that differentiates us from other networking/social applications, is that the posts will remain anonymous to prevent bias and focus more on the content of the post versus the person posting. Calvin Connect can also serve as a departmental database for department faculty and staff to more easily connect students to alumni. Outreach to get alumni on the application would be mostly marketed with the help of Calvin's Alumni Association.
+
+## Team Members
+Alvin Chung<br/>
+Emma Chung<br/>
+Cora Jung<br/>
+Juli Lim<br/>
+Enoch Mwesigwa<br/>
+Samuel Zeleke<br/>
 
 
 ## To run on your device 

@@ -11,13 +11,13 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation';
 import { ApplicationProvider, Layout, Text } from 'react-native-ui-kitten';
 import React from 'react';
-import { mapping, light as lightTheme } from '@eva-design/eva';
+import { mapping, light as lightTheme, dark as darkTheme } from '@eva-design/eva';
 
 // Create the navigator
 const navigator = createStackNavigator({
-  //SignIn: { screen: SignIn },
-  // SignUp: { screen: SignUp },
-  // Profile: {screen: Profile},
+  SignUp: { screen: SignUp },
+  SignIn: { screen: SignIn },
+  Profile: {screen: Profile},
   ChatDM: { screen: ChatDM},
   // ChatHome: {screen: ChatHome},
   // NewsFeed: {screen: NewsFeed},
@@ -29,7 +29,7 @@ const ApplicationContent = createAppContainer(navigator);
 
 //set up to allow UI kitten components
 const App = () => (
-  <ApplicationProvider mapping={mapping} theme={lightTheme}>
+  <ApplicationProvider mapping={mapping} theme={darkTheme}>
     <ApplicationContent />
   </ApplicationProvider>
 );
