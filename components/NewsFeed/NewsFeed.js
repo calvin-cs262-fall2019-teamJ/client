@@ -27,7 +27,7 @@ class NewsFeed extends React.Component<Props> {
 
       headerRight: 
       <TouchableHighlight
-      onPress = {() => {alert("You're looking beautifu today!")}}
+      onPress = {() => {alert("You're looking beautiful today!")}}
       >
       <Image
         style = {{
@@ -86,22 +86,11 @@ const styles = StyleSheet.create({
     padding: 0,
     backgroundColor: "#EFEFEF"
   },
-  paragraph: {
-    margin: 24,
-    marginTop: 0,
-    fontSize: 14,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   scrollView: {
     backgroundColor: '#EFEFEF',
-    justifyContent: "center",
-    paddingTop: Constants.statusBarHeight,
+    justifyContent: "space-between",
+    paddingTop: 'flex',
     marginHorizontal: 1,
-    marginTop: 8 
-  },
-  text: {
-    justifyContent: "left",
   }
 });
 

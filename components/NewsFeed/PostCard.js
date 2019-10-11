@@ -45,7 +45,7 @@ export default class PostCard extends React.Component {
         buttonStatus: "success"
       } 
       )
-      alert("Liked " + this.state.likeTally + "times")
+      alert("Liked " + this.state.likeTally + " times")
     }
     else{
       this.setState(
@@ -55,7 +55,7 @@ export default class PostCard extends React.Component {
         buttonStatus: "primary"
       } 
       )
-      alert("Liked " + this.state.likeTally + "times")
+      alert("Liked " + this.state.likeTally + " times")
     }
   }
 
