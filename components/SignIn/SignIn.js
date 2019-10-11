@@ -20,8 +20,12 @@ onLogin() {
   const {username, password} = this.state;
 }
 
-gotoPage=()=> {
+gotoNewsFeed=()=> {
   this.props.navigation.navigate('NewsFeed');
+}
+
+gotoSignUp=()=> {
+  this.props.navigation.navigate('SignUp');
 }
 
   render() {
@@ -53,8 +57,15 @@ gotoPage=()=> {
         <Button
           title={'Login'}
           style={styles.input}
-          onPress={this.gotoPage.bind(this)}
+          onPress={this.gotoNewsFeed.bind(this)}
         />
+
+        <Button
+          title={'Sign Up'}
+          style={styles.input}
+          onPress={this.gotoSignUp.bind(this)}
+        />
+            
       </View>
     );
   }
