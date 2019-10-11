@@ -1,3 +1,4 @@
+/* This file defines the methods and visuals for the "Sign Up"  Component*/
 import React from 'react';
 import {
   Alert,
@@ -25,12 +26,14 @@ class SignUp extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Sign Up',
   });
-
+  
+//displays email when "sign up" is clicked. Will send info to database on future implimentations
   onSignUp() {
     const { email } = this.state;
     Alert.alert('Confirmation Email to ' + `${email}` + ' has been sent!');
   }
-
+  
+  // naviates to the "sign in" page
   gotoPage = () => {
     this.props.navigation.navigate('SignIn');
   };
