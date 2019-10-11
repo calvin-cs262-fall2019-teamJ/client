@@ -99,9 +99,9 @@ const styles = StyleSheet.create({
 
   },
   image: {
-    width: '50%', 
+    width: '55%', 
     height: '35%', 
-    marginBottom: 10
+    marginBottom: 30
   },
   input: {
     width: 200,
