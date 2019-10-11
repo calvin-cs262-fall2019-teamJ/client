@@ -29,7 +29,7 @@ const ApplicationContent = createAppContainer(navigator);
 
 //set up to allow UI kitten components
 const App = () => (
-  <ApplicationProvider mapping={mapping} theme={darkTheme}>
+  <ApplicationProvider mapping={mapping} theme={lightTheme}>
     <ApplicationContent />
   </ApplicationProvider>
 );

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Alert, Button, TextInput, View, StyleSheet, Image } from 'react-native';
-import { Layout, Text, List, ListItem } from 'react-native-ui-kitten';
+import { Alert, TextInput, View, StyleSheet, Image } from 'react-native';
+import { Layout, Text, List, ListItem, Input, Button} from 'react-native-ui-kitten';
 
 
 class SignIn extends React.Component{
@@ -30,43 +30,47 @@ gotoSignUp=()=> {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Layout style={styles.container}>
         <Image
-          style={{width: '35%', height: '25%',}}
-          source={require('../../assets/icons/logo.png')}
+        style={{width: '50%', height: '35%', marginBottom: 10}}
+        source={require('../../assets/icons/logo.png')}
         />
         
-        <Text style={{marginBottom: 20}}>
+        <Text style={styles.text}>
           Calvin Connect
         </Text>
 
-        <TextInput
+        <Input
           value={this.state.username}
           onChangeText={(username) => this.setState({ username })}
           placeholder={'Username'}
           style={styles.input}
         />
-        <TextInput
+        <Input
           value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
           placeholder={'Password'}
           secureTextEntry={true}
           style={styles.input}
         />
-        
-        <Button
-          title={'Login'}
-          style={styles.input}
-          onPress={this.gotoNewsFeed.bind(this)}
-        />
 
         <Button
-          title={'Sign Up'}
-          style={styles.input}
+          style={styles.button}
+          textStyle={styles.buttonText}
+          onPress={this.gotoNewsFeed.bind(this)}
+        >
+          Login
+        </Button>
+
+        <Button
+          style={styles.button}
+          textStyle={styles.buttonText}
           onPress={this.gotoSignUp.bind(this)}
-        />
+        >
+          Sign Up
+        </Button>
             
-      </View>
+      </Layout>
     );
   }
 }
@@ -81,12 +85,17 @@ const styles = StyleSheet.create({
   input: {
     width: 200,
     height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'black',
     borderRadius: 20,
     marginBottom: 10,
+    backgroundColor: '#edf2f2',
   },
+  button: { 
+  borderRadius: 8,
+  backgroundColor: 'white',
+  borderColor: 'white'
+  },
+  buttonText: { color: '#71b1c8' },
+  text: { marginTop: 50, color: '#8c2131', fontSize: 25 },
 });
 
 export default SignIn;

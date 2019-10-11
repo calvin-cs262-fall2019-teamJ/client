@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Alert,
-  Button,
   TextInput,
   View,
   StyleSheet,
@@ -9,6 +8,8 @@ import {
   Text,
   ImageBackground
 } from 'react-native';
+
+import { Input, Button, Layout } from 'react-native-ui-kitten';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class SignUp extends React.Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    title: 'Sign Up Page',
+    title: 'Sign Up',
   });
 
   onSignUp() {
@@ -36,30 +37,30 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Layout style={styles.container}>
         <Image
-          style={{width: '25%', height: '15%', marginBottom: 70, margin: 'center'}}
-          source={require('../../assets/icons/calvinconnect.png')}
+          style={styles.image}
+          source={require('../../assets/icons/logo.png')}
           />
-        <TextInput
+        <Input
           value={this.state.first}
           onChangeText={first => this.setState({ first })}
           placeholder={'First Name'}
           style={styles.input}
         />
-        <TextInput
+        <Input
           value={this.state.last}
           onChangeText={last => this.setState({ last })}
           placeholder={'Last Name'}
           style={styles.input}
         />
-        <TextInput
+        <Input
           value={this.state.email}
           onChangeText={email => this.setState({ email })}
           placeholder={'Email Address'}
           style={styles.input}
         />
-        <TextInput
+        <Input
           value={this.state.password}
           onChangeText={password => this.setState({ password })}
           placeholder={'Password'}
@@ -68,17 +69,21 @@ class SignUp extends React.Component {
         />
 
         <Button
-          title={'Sign Up'}
-          style={styles.input}
-          onPress={this.onSignUp.bind(this)}
-        />
+          onPress={this.onSignUp.bind(this)} 
+          style={styles.button}
+          textStyle={styles.buttonText}
+        >
+          Sign Up
+        </Button>
 
         <Button
-          title={'Sign in'}
-          style={styles.input}
+          style={styles.button}
+          textStyle={styles.buttonText}
           onPress={this.gotoPage.bind(this)}
-        />
-      </View>
+        >
+          Sign In
+        </Button>
+      </Layout>
     );
   }
 }
@@ -90,15 +95,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
   },
+  image: {
+    width: '50%', 
+    height: '35%', 
+    marginBottom: 10
+  },
   input: {
     width: 200,
     height: 44,
-    padding: 10,
-    borderWidth: 1,
     borderRadius: 20,
-    borderColor: 'black',
-    marginBottom: 30,
+    backgroundColor: '#edf2f2',
+    marginBottom: 10,
   },
+  button: { 
+    borderRadius: 8,
+    backgroundColor: 'white',
+    borderColor: 'white'
+    },
+  buttonText: { color: '#71b1c8' },
 });
 
 export default SignUp;
