@@ -32,7 +32,7 @@ gotoSignUp=()=> {
     return (
       <Layout style={styles.container}>
         <Image
-        style={{width: '50%', height: '35%', marginBottom: 10}}
+        style={{width: '45%', height: '25%'}}
         source={require('../../assets/icons/logo.png')}
         />
         
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   borderColor: 'white'
   },
   buttonText: { color: '#71b1c8' },
-  text: { marginTop: 50, color: '#8c2131', fontSize: 25 },
+  text: { marginTop: 10, marginBottom: 20, color: 'black', fontSize: 20 },
 });
 
 export default SignIn;
