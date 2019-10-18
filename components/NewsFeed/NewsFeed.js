@@ -45,6 +45,8 @@ class NewsFeed extends React.Component<Props> {
 profilePress = () => {
   alert("Going to profile")
 }
+
+  /* Renders the component*/
   render(){
     return (
       <SafeAreaView style = {styles.container}>
