@@ -3,7 +3,9 @@ import React from 'react';
 import { Alert, TextInput, View, StyleSheet, Image } from 'react-native';
 import { Layout, Text, List, ListItem, Input, Button} from 'react-native-ui-kitten';
 
-//signIn class with constructor and connect to parents constructor
+/* signIn class accepts props from parent component
+ * sets the default states
+ */
 class SignIn extends React.Component{
   constructor(props){
     super(props)
