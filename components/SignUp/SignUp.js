@@ -11,7 +11,9 @@ import {
 } from 'react-native';
 import { Input, Button, Layout } from 'react-native-ui-kitten';
 
-//signUp class with constructor and connect to parents constructor
+/* signUp class accepts props from parent component
+ * sets the default states
+ */
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
