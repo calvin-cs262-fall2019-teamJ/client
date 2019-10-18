@@ -1,8 +1,9 @@
+/* This file defines the methods and visuals for the "Sign In"  Component*/
 import React from 'react';
 import { Alert, TextInput, View, StyleSheet, Image } from 'react-native';
 import { Layout, Text, List, ListItem, Input, Button} from 'react-native-ui-kitten';
 
-
+//signIn class with constructor and connect to parents constructor
 class SignIn extends React.Component{
   constructor(props){
     super(props)
@@ -11,41 +12,48 @@ class SignIn extends React.Component{
       password: '',
     };
   }
-
+ 
+ //sets navigation of Sign In page
  static navigationOptions = ({ navigation }) => ({
     title: "Welcome"
   });
-
-onLogin() {
-  const {username, password} = this.state;
-}
-
-gotoNewsFeed=()=> {
-  this.props.navigation.navigate('NewsFeed');
-}
-
-gotoSignUp=()=> {
-  this.props.navigation.navigate('SignUp');
-}
-
+  
+  //needs username and password to log in
+  onLogin() {
+    const {username, password} = this.state;
+  }
+  
+  //navigates to "newsfeed" page
+  gotoNewsFeed=()=> {
+    this.props.navigation.navigate('NewsFeed');
+  }
+  
+  //navigates to "sign up" page
+  gotoSignUp=()=> {
+    this.props.navigation.navigate('SignUp');
+  }
+  
+  //displays the page
   render() {
     return (
       <Layout style={styles.container}>
+        //calvin connect logo
         <Image
         style={{width: '45%', height: '25%'}}
         source={require('../../assets/icons/logo.png')}
         />
-        
+        //displays app name
         <Text style={styles.text}>
           Calvin Connect
         </Text>
-
+        //textholder to input username
         <Input
           value={this.state.username}
           onChangeText={(username) => this.setState({ username })}
           placeholder={'Username'}
           style={styles.input}
         />
+        //textholder to input password and make it secure by changing each character to dot
         <Input
           value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
@@ -53,7 +61,7 @@ gotoSignUp=()=> {
           secureTextEntry={true}
           style={styles.input}
         />
-
+        //login button
         <Button
           style={styles.button}
           textStyle={styles.buttonText}
@@ -61,7 +69,7 @@ gotoSignUp=()=> {
         >
           Login
         </Button>
-
+        //sign up button
         <Button
           style={styles.button}
           textStyle={styles.buttonText}
@@ -69,12 +77,12 @@ gotoSignUp=()=> {
         >
           Sign Up
         </Button>
-            
       </Layout>
     );
   }
 }
 
+//organizes and structures display
 const styles = StyleSheet.create({
   container: {
     flex: 1,
