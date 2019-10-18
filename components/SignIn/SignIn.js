@@ -39,23 +39,19 @@ class SignIn extends React.Component{
   render() {
     return (
       <Layout style={styles.container}>
-        //calvin connect logo
         <Image
         style={{width: '45%', height: '25%'}}
         source={require('../../assets/icons/logo.png')}
         />
-        //displays app name
         <Text style={styles.text}>
           Calvin Connect
         </Text>
-        //textholder to input username
         <Input
           value={this.state.username}
           onChangeText={(username) => this.setState({ username })}
           placeholder={'Username'}
           style={styles.input}
         />
-        //textholder to input password and make it secure by changing each character to dot
         <Input
           value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
@@ -63,7 +59,6 @@ class SignIn extends React.Component{
           secureTextEntry={true}
           style={styles.input}
         />
-        //login button
         <Button
           style={styles.button}
           textStyle={styles.buttonText}
@@ -71,7 +66,6 @@ class SignIn extends React.Component{
         >
           Login
         </Button>
-        //sign up button
         <Button
           style={styles.button}
           textStyle={styles.buttonText}
@@ -84,7 +78,6 @@ class SignIn extends React.Component{
   }
 }
 
-//organizes and structures display
 const styles = StyleSheet.create({
   container: {
     flex: 1,
