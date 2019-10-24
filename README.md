@@ -5,6 +5,8 @@ Unlike other networking apps, our app allows users to connect to a narrower, mor
 
 A feature of our feed that differentiates us from other networking/social applications, is that the posts will remain anonymous to prevent bias and focus more on the content of the post versus the person posting. Calvin Connect can also serve as a departmental database for department faculty and staff to more easily connect students to alumni. Outreach to get alumni on the application would be mostly marketed with the help of Calvin's Alumni Association.
 
+The technology platform we are using is REACT-Native supporting both Android and ios. This platform is great for developing mobile apps, because of how fast it builds after it automatically updates the code. The build makes it easier for the programmers to see immediate results and detect any problems throughout the process. It also provides us a copious amount of amazing components, and themes to use for our mobile app which helps us look for more modern, sleek designs for the users.
+
 ## Team Members
 Alvin Chung<br/>
 Emma Chung<br/>

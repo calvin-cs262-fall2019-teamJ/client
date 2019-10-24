@@ -9,9 +9,11 @@ import {
   Text,
   ImageBackground
 } from 'react-native';
-
 import { Input, Button, Layout } from 'react-native-ui-kitten';
 
+/* signUp class accepts props from parent component
+ * sets the default states
+ */
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -23,21 +25,23 @@ class SignUp extends React.Component {
     };
   }
 
+  //sets navigation of Sign Up page
   static navigationOptions = ({ navigation }) => ({
     title: 'Sign Up',
   });
-  
-//displays email when "sign up" is clicked. Will send info to database on future implimentations
+
+  //displays email when "sign up" is clicked. Will send info to database on future implimentations
   onSignUp() {
     const { email } = this.state;
     Alert.alert('Confirmation Email to ' + `${email}` + ' has been sent!');
   }
-  
-  // naviates to the "sign in" page
+
+  //naviates to the "sign in" page
   gotoPage = () => {
     this.props.navigation.navigate('SignIn');
   };
 
+  //displays the page
   render() {
     return (
       <Layout style={styles.container}>
@@ -91,6 +95,7 @@ class SignUp extends React.Component {
   }
 }
 
+//organizes and structures display
 const styles = StyleSheet.create({
   container: {
     flex: 1,
