@@ -1,7 +1,7 @@
 {
-  "name": "project-1-skeleton",
+  "name": "protype1",
   "version": "0.0.0",
-  "description": "No description",
+  "description": "calvin-cs262-fall2019-teamJ/client @ Oct 22, 2019",
   "author": null,
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
@@ -15,10 +15,16 @@
     "react-native-gesture-handler": "1.3.0",
     "react-native-reanimated": "1.2.0",
     "react-native-svg": "9.9.2",
+    "moment": "*",
+    "firebase": "7.2.2",
+    "react-dom": "*",
+    "@eva-design/eva": "1.2.0",
     "react-navigation": "4.0.10",
     "react-native-paper": "2.16.0",
     "react-native-elements": "1.2.6",
+    "react-native-ui-kitten": "4.2.0",
     "react-navigation-stack": "1.9.4",
-    "react-native-navigation": "2.27.9"
+    "react-native-navigation": "2.27.9",
+    "react-native-gifted-chat": "0.11.3"
   }
 }

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Alert, TextInput, View, StyleSheet, Image } from 'react-native';
 import { Layout, Text, List, ListItem, Input, Button} from 'react-native-ui-kitten';
+import Fire from '../Fire';
 
 /* signIn class accepts props from parent component
  * sets the default states
@@ -10,8 +11,8 @@ class SignIn extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      username: '',
-      password: '',
+      email: 'test999@gmail.com',
+      password: 'test123',
     };
   }
  
@@ -19,15 +20,22 @@ class SignIn extends React.Component{
  static navigationOptions = ({ navigation }) => ({
     title: "Welcome"
   });
-  
-  //needs username and password to log in
-  onLogin() {
-    const {username, password} = this.state;
-  }
-  
+    
   //navigates to "newsfeed" page
-  gotoNewsFeed=()=> {
-    this.props.navigation.navigate('NewsFeed');
+  handleLogin=()=> {
+    if(this.state.email== '' || this.state.password == ''){
+      alert("Fill in the required fields")
+    }
+    else{
+      Fire.shared.Login(this.state.email, this.state.password).then( result=> {
+        if(result=== "success") {
+          this.props.navigation.navigate('NewsFeed')
+        }
+        else{
+          alert(result)
+        }
+      })
+    }
   }
   
   //navigates to "sign up" page
@@ -47,9 +55,9 @@ class SignIn extends React.Component{
           Calvin Connect
         </Text>
         <Input
-          value={this.state.username}
-          onChangeText={(username) => this.setState({ username })}
-          placeholder={'Username'}
+          value={this.state.email}
+          onChangeText={(email) => this.setState({ email })}
+          placeholder={'email'}
           style={styles.input}
         />
         <Input
@@ -62,7 +70,7 @@ class SignIn extends React.Component{
         <Button
           style={styles.button}
           textStyle={styles.buttonText}
-          onPress={this.gotoNewsFeed.bind(this)}
+          onPress={this.handleLogin.bind(this)}
         >
           Login
         </Button>
