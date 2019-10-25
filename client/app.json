@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "github.com/calvin-cs262-fall2019-teamj/client",
+    "description": "calvin-cs262-fall2019-teamJ/client @ Oct 25, 2019",
+    "slug": "snack-10cb7d36-b878-429d-a4e2-0bab20db0dc2",
+    "privacy": "unlisted",
+    "sdkVersion": "35.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
+    "loading": {
+      "icon": "https://d1wp6m56sqw74a.cloudfront.net/~assets/c9aa1be8a6a6fe81e20c3ac4106a2ebc",
+      "hideExponentText": false
+    },
+    "packagerOpts": {
+      "assetExts": [
+        "ttf",
+        "mp4",
+        "otf",
+        "xml"
+      ]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
