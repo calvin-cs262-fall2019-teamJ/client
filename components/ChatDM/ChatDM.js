@@ -1,43 +1,49 @@
+// @flow
 import React from 'react';
-import { Layout, Text, List, ListItem, } from 'react-native-ui-kitten';
+import { GiftedChat } from 'react-native-gifted-chat'; // 0.3.0
 
-class ChatDM extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      selectedIndex: null,
-        data: [
-        { message: 'Hello, that was so much fun!', time: '10:00AM' },
-        { message: 'I agree, good stuff', time: '10:00AM' },
-        { message: 'Never again :(', time: '10:00AM' },
-      ]
+
+import Fire from '../Fire';
+
+type Props = {
+  name?: string,
+};
+
+class ChatDM extends React.Component<Props> {
+  
+ static navigationOptions = ({ navigation }) => ({
+    title: "Chat"
+  });
+
+  state = {
+    messages: [],
+  };
+
+  get user() {
+    return {
+      name: "Joe Shmoe",
+      _id: Fire.shared.uid,
     };
   }
 
- static navigationOptions = ({ navigation }) => ({
-    title: "Chat DM Page"
-  });
+  componentDidMount() {
+    Fire.shared.on(message =>
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, message),
+      }))   
+    );  
+  }
+  componentWillUnmount() {
+    Fire.shared.off();
+  }
 
-renderItem = ({ item, index }) => (
-    <ListItem
-      title={item.message}
-      description={item.time}
-      onPress={this.onItemPress}
-      titleStyle={{fontWeight: 'normal'}}
-    />
-  );
-   onSelect = (selectedIndex) => {
-    this.setState({ selectedIndex });
-  };
-
-  render(){
+  render() {
     return (
-      <Layout>
-           <List
-          data={this.state.data}
-          renderItem={this.renderItem}
-        />
-      </Layout>
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={Fire.shared.send}
+        user={this.user}
+      />
     );
   }
 

@@ -27,7 +27,7 @@ class NewsFeed extends React.Component<Props> {
 
       headerRight: 
       <TouchableHighlight
-      onPress = {() => {alert("You're looking beautiful today!")}}
+      onPress = {() => { alert("You're looking beautiful today!")}}
       >
       <Image
         style = {{
@@ -44,7 +44,10 @@ class NewsFeed extends React.Component<Props> {
 
 profilePress = () => {
   alert("Going to profile")
+  this.props.navigation.navigate('SignIn');
 }
+
+  /* Renders the component*/
   render(){
     return (
       <SafeAreaView style = {styles.container}>

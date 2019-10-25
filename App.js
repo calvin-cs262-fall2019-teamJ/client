@@ -19,11 +19,11 @@ import {
 
 // Create the navigator
 const navigator = createStackNavigator({
-  SignUp: { screen: SignUp },
-  SignIn: { screen: SignIn },
-  Profile: { screen: Profile },
-  ChatDM: { screen: ChatDM },
-  // ChatHome: {screen: ChatHome},
+  //SignUp: { screen: SignUp },
+  //SignIn: { screen: SignIn },
+  //Profile: { screen: Profile },
+  //ChatDM: { screen: ChatDM },
+  ChatHome: {screen: ChatHome},
   NewsFeed: {screen: NewsFeed},
 });
 
