@@ -2,34 +2,49 @@ import React from 'react';
 import { Header } from 'react-native-elements';
 import { Layout, Text, Avatar } from 'react-native-ui-kitten';
 import { StyleSheet} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class Conversation extends React.Component<Props>{
   constructor(props){
     super(props);
   }
-
+  render(){
     return (
-      <Layout style={styles.container}>
-        <Avatar size='medium' style={styles.avatar} source={{ uri: this.props.avatar }} />
-        <Text style={styles.text}> {this.props.name} </Text>
-      </Layout>
+      <TouchableOpacity style={styles.container} onPress={()=>{this.props.openChat(this.props.name)} } >
+        <Avatar style={styles.avatar} size='medium' source={{ uri: this.props.avatar }} />
+        <Text style={styles.name}> {this.props.name} </Text>
+        <Text style={styles.date}> {this.props.date} </Text>
+      </TouchableOpacity>
     );
+  }
 }
 
 
 const styles = StyleSheet.create({
   container: {
-    margin: 5,
-    backgroundColor: 'red',
-    borderColor: 'black',
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 5,
     height: 50,
-    display: 'inline-block',
+    overflow: 'hidden',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomColor: '#E8DC99',
+    borderBottomWidth: 2,
   },
   avatar: {
-    margin: 6,
+    margin: 5,
+    width: 45,
+    marginRight: 12,
   },
-  text:{
-    color: 'black'
+  name:{
+    color: '#E09F9F',
+    fontSize: 20,
+  },
+  date:{
+    marginLeft: 'auto',
+    fontSize: 12,
+    color: '#888888',
   }
 });
 

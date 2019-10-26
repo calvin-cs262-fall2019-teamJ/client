@@ -1,10 +1,12 @@
 // Import the screens
+import {DrawerNavigator} from './components/DrawerNav/DrawerNav';
 import SignIn from './components/SignIn/SignIn';
 import SignUp from './components/SignUp/SignUp';
 import Profile from './components/Profile/Profile';
 import ChatDM from './components/ChatDM/ChatDM';
 import ChatHome from './components/ChatHome/ChatHome';
 import NewsFeed from './components/NewsFeed/NewsFeed';
+
 
 // Import React Navigation
 import { createStackNavigator } from 'react-navigation-stack';
@@ -22,9 +24,10 @@ const navigator = createStackNavigator({
   //SignUp: { screen: SignUp },
   //SignIn: { screen: SignIn },
   //Profile: { screen: Profile },
-  //ChatDM: { screen: ChatDM },
+ // DrawerNav:{screen: DrawerNavigator },
   ChatHome: {screen: ChatHome},
   NewsFeed: {screen: NewsFeed},
+  ChatDM: { screen: ChatDM },
 });
 
 // create a container to hold the navigator
