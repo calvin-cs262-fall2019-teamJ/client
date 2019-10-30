@@ -29,8 +29,6 @@ const navigator = createStackNavigator({
   //SignUp: { screen: SignUp },
   //SignIn: { screen: SignIn },
   Profile: {screen: Profile},
-  Objective: {screen: Objective},
-  // Projects: {screen: Projects},
   // Activities: {screen: Activities},
  // DrawerNav:{screen: DrawerNavigator },
   ChatHome: {

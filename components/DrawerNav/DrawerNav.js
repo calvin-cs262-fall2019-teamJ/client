@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView, createAppContainer} from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import {
   Drawer,
@@ -63,4 +63,6 @@ export const DrawerNavigator = createDrawerNavigator(
     contentComponent: DrawerNav,
   }
 );
+
+export const CustomDrawerNav = createAppContainer(DrawerNavigator);
 
