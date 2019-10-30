@@ -1,7 +1,7 @@
 {
-  "name": "protype1",
+  "name": "github.com/calvin-cs262-fall2019-teamj/client@ekm6",
   "version": "0.0.0",
-  "description": "calvin-cs262-fall2019-teamJ/client @ Oct 22, 2019",
+  "description": "calvin-cs262-fall2019-teamJ/client @ Oct 25, 2019",
   "author": null,
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
@@ -21,10 +21,12 @@
     "@eva-design/eva": "1.2.0",
     "react-navigation": "4.0.10",
     "react-native-paper": "2.16.0",
+    "@ui-kitten/eva-icons": "4.2.0",
     "react-native-elements": "1.2.6",
     "react-native-ui-kitten": "4.2.0",
     "react-navigation-stack": "1.9.4",
     "react-native-navigation": "2.27.9",
+    "react-navigation-drawer": "2.3.1",
     "react-native-gifted-chat": "0.11.3"
   }
 }

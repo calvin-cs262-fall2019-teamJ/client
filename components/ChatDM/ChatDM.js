@@ -1,7 +1,13 @@
 // @flow
 import React from 'react';
 import { GiftedChat } from 'react-native-gifted-chat'; // 0.3.0
-
+import {
+  Icon,
+  Layout,
+  TopNavigation,
+  TopNavigationAction,
+} from 'react-native-ui-kitten';
+import Constants from 'expo-constants';
 
 import Fire from '../Fire';
 
@@ -10,11 +16,6 @@ type Props = {
 };
 
 class ChatDM extends React.Component<Props> {
-  
- static navigationOptions = ({ navigation }) => ({
-    title: "Chat"
-  });
-
   state = {
     messages: [],
   };
@@ -25,28 +26,52 @@ class ChatDM extends React.Component<Props> {
       _id: Fire.shared.uid,
     };
   }
+  
+  setName=()=>{
+    // alert(this.props.navigation.state.params.name)
+     return 'Test Baby'
+  }
+
+
+  BackAction = () => (
+    <TopNavigationAction onPress={()=> this.props.navigation.navigate('ChatHome')} icon={this.BackIcon}/>
+  );
+
+   BackIcon = (style) => (
+  <Icon {...style} name='arrow-back' />
+);
 
   componentDidMount() {
+    //console.log(this.props.navigation.state.params.name)
     Fire.shared.on(message =>
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, message),
       }))   
     );  
   }
+  
   componentWillUnmount() {
     Fire.shared.off();
   }
 
   render() {
     return (
+      <Layout style={{paddingTop: Constants.statusBarHeight,}}>
+      <TopNavigation
+        title={this.props.navigation.state.params.name}
+        alignment='center'
+        leftControl={this.BackAction()}
+      />
       <GiftedChat
         messages={this.state.messages}
         onSend={Fire.shared.send}
         user={this.user}
       />
+      </Layout>
     );
   }
-
 }
+
+
 
 export default ChatDM;
