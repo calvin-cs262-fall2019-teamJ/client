@@ -7,7 +7,7 @@ import {
   TopNavigation,
   TopNavigationAction,
 } from 'react-native-ui-kitten';
-
+import Constants from 'expo-constants';
 
 import Fire from '../Fire';
 
@@ -27,10 +27,22 @@ class ChatDM extends React.Component<Props> {
     };
   }
   
+  setName=()=>{
+    // alert(this.props.navigation.state.params.name)
+     return 'Test Baby'
+  }
 
 
+  BackAction = () => (
+    <TopNavigationAction onPress={()=> this.props.navigation.navigate('ChatHome')} icon={this.BackIcon}/>
+  );
+
+   BackIcon = (style) => (
+  <Icon {...style} name='arrow-back' />
+);
 
   componentDidMount() {
+    //console.log(this.props.navigation.state.params.name)
     Fire.shared.on(message =>
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, message),
@@ -44,11 +56,11 @@ class ChatDM extends React.Component<Props> {
 
   render() {
     return (
-      <Layout>
+      <Layout style={{paddingTop: Constants.statusBarHeight,}}>
       <TopNavigation
         title={this.props.navigation.state.params.name}
         alignment='center'
-        leftControl={BackAction()}
+        leftControl={this.BackAction()}
       />
       <GiftedChat
         messages={this.state.messages}
@@ -60,12 +72,6 @@ class ChatDM extends React.Component<Props> {
   }
 }
 
-  const BackAction = () => (
-    <TopNavigationAction icon={BackIcon}/>
-  );
 
-   const BackIcon = (style) => (
-  <Icon {...style} name='arrow-back' />
-);
 
 export default ChatDM;

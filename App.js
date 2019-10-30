@@ -6,12 +6,13 @@ import Profile from './components/Profile/Profile';
 import ChatDM from './components/ChatDM/ChatDM';
 import ChatHome from './components/ChatHome/ChatHome';
 import NewsFeed from './components/NewsFeed/NewsFeed';
-
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import 'react-native-svg';
 
 // Import React Navigation
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import { ApplicationProvider, Layout, Text } from 'react-native-ui-kitten';
+import { ApplicationProvider, IconRegistry, Layout, Text } from 'react-native-ui-kitten';
 import React from 'react';
 import {
   mapping,
@@ -25,9 +26,21 @@ const navigator = createStackNavigator({
   //SignIn: { screen: SignIn },
   //Profile: { screen: Profile },
  // DrawerNav:{screen: DrawerNavigator },
-  ChatHome: {screen: ChatHome},
+  ChatHome: {
+    screen: ChatHome,
+    navigationOptions:  {
+      header: null,
+      headerLeft: null
+    }
+    },
   NewsFeed: {screen: NewsFeed},
-  ChatDM: { screen: ChatDM },
+  ChatDM: { 
+    screen: ChatDM,
+    navigationOptions:  {
+      header: null,
+      headerLeft: null
+    } 
+},
 });
 
 // create a container to hold the navigator
@@ -35,9 +48,12 @@ const ApplicationContent = createAppContainer(navigator);
 
 //set up to allow UI kitten components
 const App = () => (
-  <ApplicationProvider mapping={mapping} theme={lightTheme}>
-    <ApplicationContent />
-  </ApplicationProvider>
+  <React.Fragment>
+    <IconRegistry icons={EvaIconsPack} />
+    <ApplicationProvider mapping={mapping} theme={lightTheme}>
+      <ApplicationContent />
+    </ApplicationProvider>
+  </React.Fragment>
 );
 // Export it as the root component
 export default App;
