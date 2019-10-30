@@ -34,25 +34,28 @@ export default class Profile extends Component {
     return (
       <View style={styles.container}>
           <View style={styles.header}>
-            <View style={styles.headerLeft}>
+            <View style={styles.headerTop}>
               <Image style={styles.avatar}
                 source = {require ('../../assets/kvlinden1.png')}
               />
-              <Text style={styles.name}>Keith</Text>
+            </View>
+            <View>
+              <Text style={styles.name}>{"\n"}Keith</Text>
               <Text style={styles.name}>Vander Linden</Text>
-              <Text style={styles.userInfo}>Grand Rapids, MI </Text>
+              <Text style={styles.userInfo}>{"\n"}Grand Rapids, MI </Text>
               <Text style={styles.userInfo}>Year: May 2020 </Text>
             </View>
-            <View style={styles.headerRight}>
-              <Text style={styles.major}>
-                Major:
-              </Text>
-              <Text style={styles.userEdu}> 
-                BA in Mathematic{"\n"}
-                MS in Computer Science{"\n"}
-                PhD in Cognitive Science{"\n"}
-              </Text>
-            </View>
+          </View>
+
+          <View style={styles.education}>
+            <Text style={styles.major}>
+              Major:
+            </Text>
+            <Text style={styles.userEdu}> 
+              BA in Mathematics{"\n"}
+              MS in Computer Science{"\n"}
+              PhD in Cognitive Science{"\n"}
+            </Text>
           </View>
 
           <View style={styles.body}>
@@ -97,28 +100,31 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
   header:{
     flexDirection: "row",
-  },
-  headerLeft:{
     display: "flex",
-    width: "50%",
-    height: 300,
-    backgroundColor: "maroon",
+    height: 175,
+    backgroundColor: "maroon"
   },
-  headerRight:{
-    display: "flex",
+  headerTop:{
     width: "50%",
-    height: 300,
-    backgroundColor: "maroon",
   },
   avatar: {
     width: 130,
     height: 130,
-    borderRadius: 63,
-    borderWidth: 4,
-    borderColor: "gold",
+    borderWidth: 2,
+    borderColor: "black",
     marginTop:20,
     marginBottom:20,
     marginLeft: 25,
+  },
+  userInfo:{
+    fontSize:16,
+    color:"white",
+    fontWeight:'600',
+    alignSelf: "center",
+  },
+  education:{
+    backgroundColor: "maroon",
+    height: 120,
   },
   name:{
     fontSize:22,
@@ -131,21 +137,15 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     fontWeight: 500,
-    marginTop: 80,
-    marginBottom: 10,
-  },
-  userInfo:{
-    fontSize:16,
-    color:"white",
-    fontWeight:'600',
-    alignSelf: "center",
+    marginBottom: 5,
+    marginLeft: 30,
   },
   userEdu:{
     fontSize:15,
     fontWeight: 600,
     alignSelf: "left",
     color: "white",
-    // marginTop: 70
+    marginLeft: 30,
   },
   body:{
     backgroundColor: "white",

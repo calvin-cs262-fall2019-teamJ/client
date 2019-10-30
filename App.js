@@ -1,28 +1,39 @@
 // Import the screens
-import SignIn from './components/SignIn/SignIn';
- import SignUp from './components/SignUp/SignUp';
- import Profile from './components/Profile/Profile'
- import ChatDM from './components/ChatDM/ChatDM'
- import ChatHome from './components/ChatHome/ChatHome';
- import NewsFeed from './components/NewsFeed/NewsFeed';
+//import SignIn from './components/SignIn/SignIn';
+//import SignUp from './components/SignUp/SignUp';
+import Profile from './components/Profile/Profile';
+//import ChatDM from './components/ChatDM/ChatDM';
+//import ChatHome from './components/ChatHome/ChatHome';
+//import NewsFeed from './components/NewsFeed/NewsFeed';
+import Objective from './components/Profile/Objective';
+import Experience from './components/Profile/Experience';
+import Projects from './components/Profile/Projects';
+import Activities from './components/Profile/Activities';
 
 // Import React Navigation
-import { createStackNavigator } from 'react-navigation-stack'
+import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import { ApplicationProvider, Layout, Text } from 'react-native-ui-kitten';
 import React from 'react';
-import { mapping, light as lightTheme } from '@eva-design/eva';
+import {
+  mapping,
+  light as lightTheme,
+  dark as darkTheme,
+} from '@eva-design/eva';
 
 // Create the navigator
 const navigator = createStackNavigator({
-  //SignIn: { screen: SignIn },
   // SignUp: { screen: SignUp },
-  // Profile: {screen: Profile},
-  ChatDM: { screen: ChatDM},
+  // SignIn: { screen: SignIn },
+  Profile: {screen: Profile},
+  Objective: {screen: Objective},
+  // Projects: {screen: Projects},
+  // Activities: {screen: Activities},
+  Experience: {screen: Experience},
+  // ChatDM: { screen: ChatDM },
   // ChatHome: {screen: ChatHome},
   // NewsFeed: {screen: NewsFeed},
 });
-
 
 // create a container to hold the navigator
 const ApplicationContent = createAppContainer(navigator);
