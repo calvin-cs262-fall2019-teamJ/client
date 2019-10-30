@@ -1,46 +1,77 @@
+// @flow
 import React from 'react';
-import { Layout, Text, List, ListItem, } from 'react-native-ui-kitten';
+import { GiftedChat } from 'react-native-gifted-chat'; // 0.3.0
+import {
+  Icon,
+  Layout,
+  TopNavigation,
+  TopNavigationAction,
+} from 'react-native-ui-kitten';
+import Constants from 'expo-constants';
 
-class ChatDM extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      selectedIndex: null,
-        data: [
-        { message: 'Hello, that was so much fun!', time: '10:00AM' },
-        { message: 'I agree, good stuff', time: '10:00AM' },
-        { message: 'Never again :(', time: '10:00AM' },
-      ]
-    };
-  }
+import Fire from '../Fire';
 
- static navigationOptions = ({ navigation }) => ({
-    title: "Chat DM Page"
-  });
+type Props = {
+  name?: string,
+};
 
-renderItem = ({ item, index }) => (
-    <ListItem
-      title={item.message}
-      description={item.time}
-      onPress={this.onItemPress}
-      titleStyle={{fontWeight: 'normal'}}
-    />
-  );
-   onSelect = (selectedIndex) => {
-    this.setState({ selectedIndex });
+class ChatDM extends React.Component<Props> {
+  state = {
+    messages: [],
   };
 
-  render(){
+  get user() {
+    return {
+      name: "Joe Shmoe",
+      _id: Fire.shared.uid,
+    };
+  }
+  
+  setName=()=>{
+    // alert(this.props.navigation.state.params.name)
+     return 'Test Baby'
+  }
+
+
+  BackAction = () => (
+    <TopNavigationAction onPress={()=> this.props.navigation.navigate('ChatHome')} icon={this.BackIcon}/>
+  );
+
+   BackIcon = (style) => (
+  <Icon {...style} name='arrow-back' />
+);
+
+  componentDidMount() {
+    //console.log(this.props.navigation.state.params.name)
+    Fire.shared.on(message =>
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, message),
+      }))   
+    );  
+  }
+  
+  componentWillUnmount() {
+    Fire.shared.off();
+  }
+
+  render() {
     return (
-      <Layout>
-           <List
-          data={this.state.data}
-          renderItem={this.renderItem}
-        />
+      <Layout style={{paddingTop: Constants.statusBarHeight,}}>
+      <TopNavigation
+        title={this.props.navigation.state.params.name}
+        alignment='center'
+        leftControl={this.BackAction()}
+      />
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={Fire.shared.send}
+        user={this.user}
+      />
       </Layout>
     );
   }
-
 }
+
+
 
 export default ChatDM;

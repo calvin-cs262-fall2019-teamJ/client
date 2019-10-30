@@ -1,72 +1,87 @@
+/* This file defines the methods and visuals for the "Sign In"  Component*/
 import React from 'react';
-import { Alert, Button, TextInput, View, StyleSheet, Image } from 'react-native';
-import { Layout, Text, List, ListItem } from 'react-native-ui-kitten';
+import { Alert, TextInput, View, StyleSheet, Image } from 'react-native';
+import { Layout, Text, List, ListItem, Input, Button} from 'react-native-ui-kitten';
+import Fire from '../Fire';
 
-
+/* signIn class accepts props from parent component
+ * sets the default states
+ */
 class SignIn extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      username: '',
-      password: '',
+      email: 'test999@gmail.com',
+      password: 'test123',
     };
   }
-
+ 
+ //sets navigation of Sign In page
  static navigationOptions = ({ navigation }) => ({
     title: "Welcome"
   });
-
-onLogin() {
-  const {username, password} = this.state;
-}
-
-gotoNewsFeed=()=> {
-  this.props.navigation.navigate('NewsFeed');
-}
-
-gotoSignUp=()=> {
-  this.props.navigation.navigate('SignUp');
-}
-
+    
+  //navigates to "newsfeed" page
+  handleLogin=()=> {
+    if(this.state.email== '' || this.state.password == ''){
+      alert("Fill in the required fields")
+    }
+    else{
+      Fire.shared.Login(this.state.email, this.state.password).then( result=> {
+        if(result=== "success") {
+          this.props.navigation.navigate('NewsFeed')
+        }
+        else{
+          alert(result)
+        }
+      })
+    }
+  }
+  
+  //navigates to "sign up" page
+  gotoSignUp=()=> {
+    this.props.navigation.navigate('SignUp');
+  }
+  
+  //displays the page
   render() {
     return (
-      <View style={styles.container}>
+      <Layout style={styles.container}>
         <Image
-          style={{width: '35%', height: '25%',}}
-          source={require('../../assets/icons/logo.png')}
+        style={{width: '45%', height: '25%'}}
+        source={require('../../assets/icons/logo.png')}
         />
-        
-        <Text style={{marginBottom: 20}}>
+        <Text style={styles.text}>
           Calvin Connect
         </Text>
-
-        <TextInput
-          value={this.state.username}
-          onChangeText={(username) => this.setState({ username })}
-          placeholder={'Username'}
+        <Input
+          value={this.state.email}
+          onChangeText={(email) => this.setState({ email })}
+          placeholder={'email'}
           style={styles.input}
         />
-        <TextInput
+        <Input
           value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
           placeholder={'Password'}
           secureTextEntry={true}
           style={styles.input}
         />
-        
         <Button
-          title={'Login'}
-          style={styles.input}
-          onPress={this.gotoNewsFeed.bind(this)}
-        />
-
+          style={styles.button}
+          textStyle={styles.buttonText}
+          onPress={this.handleLogin.bind(this)}
+        >
+          Login
+        </Button>
         <Button
-          title={'Sign Up'}
-          style={styles.input}
+          style={styles.button}
+          textStyle={styles.buttonText}
           onPress={this.gotoSignUp.bind(this)}
-        />
-            
-      </View>
+        >
+          Sign Up
+        </Button>
+      </Layout>
     );
   }
 }
@@ -81,12 +96,17 @@ const styles = StyleSheet.create({
   input: {
     width: 200,
     height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'black',
     borderRadius: 20,
     marginBottom: 10,
+    backgroundColor: '#edf2f2',
   },
+  button: { 
+  borderRadius: 8,
+  backgroundColor: 'white',
+  borderColor: 'white'
+  },
+  buttonText: { color: '#71b1c8' },
+  text: { marginTop: 10, marginBottom: 20, color: 'black', fontSize: 20 },
 });
 
 export default SignIn;
