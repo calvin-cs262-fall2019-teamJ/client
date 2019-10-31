@@ -57,31 +57,24 @@ profilePress = () => {
             text = {postText}
             imageSrc = './quick-brown-fox-18.jpg'
             userImageSrc = '../../assets/kvlinden.png'
-            userName = "Keith VanderLinden"
-            timeStamp = "7d ago"
           />
           <PostCard 
             bgcolor = "white"
             text = {postText}
             imageSrc = './quick-brown-fox-18.jpg'
             userImageSrc = '../../assets/kvlinden.png'
-            userName = "Keith VanderLinden"
-            timeStamp = "1m ago"
           />
           <PostCard 
             bgcolor = "white"
             text = {postText}
             imageSrc = './quick-brown-fox-18.jpg'
             userImageSrc = '../../assets/kvlinden.png'
-            userName = "Keith VanderLinden"
-            timeStamp = "13min ago"
           />
           <PostCard 
             bgcolor = "white"
             text = {postText}
             imageSrc = './quick-brown-fox-18.jpg'
             userImageSrc = '../../assets/kvlinden.png'
-            userName = "Keith VanderLinden"
           />
         </ScrollView>
       </SafeAreaView>
@@ -98,12 +91,11 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     backgroundColor: '#EFEFEF',
-    alignItems: "left",
     justifyContent: "space-between",
     paddingTop: 'flex',
     marginHorizontal: 1,
   }
 });
 
-const postText = "The quick brown fox jumped over the lazy dog. A pangram, or holoalphabetic sentence, is a sentence that contains every letter of the alphabet at least once."
+const postText = "The quick brown fox jumped over the lazy dog"
 export default NewsFeed;
