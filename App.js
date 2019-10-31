@@ -33,7 +33,6 @@ const navigator = createStackNavigator({
   Experience: {screen: Experience},
   Projects: {screen: Projects},
   Qualifications: {screen: Qualifications},
-
  // DrawerNav:{screen: DrawerNavigator },
   ChatHome: {
     screen: ChatHome,
