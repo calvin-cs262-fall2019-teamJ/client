@@ -6,7 +6,7 @@ import Profile from './components/Profile/Profile';
 import Objective from './components/Profile/Objective';
 import Experience from './components/Profile/Experience';
 import Projects from './components/Profile/Projects';
-import Activities from './components/Profile/Activities';
+import Qualifications from './components/Profile/Qualifications';
 import ChatDM from './components/ChatDM/ChatDM';
 import ChatHome from './components/ChatHome/ChatHome';
 import NewsFeed from './components/NewsFeed/NewsFeed';
@@ -29,10 +29,11 @@ const navigator = createStackNavigator({
   //SignUp: { screen: SignUp },
   //SignIn: { screen: SignIn },
   Profile: {screen: Profile},
-  Activities: {screen: Activities},
   Objective: {screen: Objective},
   Experience: {screen: Experience},
   Projects: {screen: Projects},
+  Qualifications: {screen: Qualifications},
+
  // DrawerNav:{screen: DrawerNavigator },
   ChatHome: {
     screen: ChatHome,
