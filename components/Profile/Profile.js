@@ -18,8 +18,8 @@ export default class Profile extends Component {
      this.props.navigation.navigate('Objective');
   }
 
-   goToActivities = () => {
-     this.props.navigation.navigate('Activities');
+   goToQualifications = () => {
+     this.props.navigation.navigate('Qualifications');
   }
 
    goToExperience = () => {
@@ -61,7 +61,7 @@ export default class Profile extends Component {
           <View style={styles.body}>
             <View style={styles.item}>
               <View style={styles.infoContent}>
-                <Text style={styles.info}> Objective / Summary</Text>
+                <Text style={styles.info}> Objective </Text>
               </View>
                 <Button style={styles.button} appearance='ghost' textStyle = {styles.buttonText}
                 onPress={this.goToObjective.bind(this)}> + </Button>
@@ -85,10 +85,10 @@ export default class Profile extends Component {
 
             <View style={styles.item}>
               <View style={styles.infoContent}>
-                <Text style={styles.info}> Activities / Interests </Text>
+                <Text style={styles.info}> Qualifications </Text>
               </View>
                <Button style={styles.button} appearance='ghost' textStyle = {styles.buttonText}
-               onPress={this.goToActivities.bind(this)}> + </Button>
+               onPress={this.goToQualifications.bind(this)}> + </Button>
             </View>
 
           </View>
