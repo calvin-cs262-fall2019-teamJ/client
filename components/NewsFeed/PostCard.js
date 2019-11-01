@@ -6,11 +6,10 @@ import {
   StyleSheet,
   Image,
   TouchableHighlight,
-  TouchableOpacity
 } from 'react-native';
 import { Card } from 'react-native-paper';
-import { Button, Input } from 'react-native-ui-kitten';
-
+import { Button } from 'react-native-ui-kitten';
+//import PostHeader from './PostHeader';
 /*
  * @author Samuel Zeleke sgz4@students.calvin.edu
  * @version 1.0
@@ -81,6 +80,7 @@ export default class PostCard extends React.Component {
         <View
           style={{
             paddingTop: 10,
+            paddingBottom: 10,
             maxWidth: Dimensions.get('window').width - 25,
             flex: 1,
             flexDirection: 'col',
@@ -91,9 +91,9 @@ export default class PostCard extends React.Component {
               flexDirection: 'row',
               paddingBottom: 10,
             }}>
-            <TouchableOpacity
+            <TouchableHighlight
               onPress={() => {
-                this.props.postNav();
+                this.props.navigation.navigate('Profile');
               }}>
               <Image
                 style={{
@@ -105,7 +105,7 @@ export default class PostCard extends React.Component {
                 }}
                 source={require('../../assets/kvlinden1.png')}
               />
-            </TouchableOpacity>
+            </TouchableHighlight>
             {/*Name sub-component*/}
             <Text
               style={{
@@ -117,7 +117,7 @@ export default class PostCard extends React.Component {
               {this.props.userName} • {this.props.timeStamp}
             </Text>
           </View>
-          <TouchableOpacity
+          <TouchableHighlight
             onPress={() => {
               alert("Hi! I'm the text");
             }}>
@@ -132,12 +132,11 @@ export default class PostCard extends React.Component {
               numberOfLines={5}>
               {this.props.text}
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableHighlight>
+          <TouchableHighlight
             onPress={() => {
               alert("Hi! I'm the image");
-            }}
-            style={{ paddingTop: 9}}>
+            }}>
             <Image
               style={{
                 width: Dimensions.get('window').width - 25,
@@ -145,28 +144,7 @@ export default class PostCard extends React.Component {
               }}
               source={require('./quick-brown-fox-18.jpg')}
             />
-          </TouchableOpacity>
-        </View>
-        <View
-        style={{
-              flex: 2,
-              flexDirection: 'row',
-              marginLeft: 5,
-              maxWidth: Dimensions.get('window').width - 30
-            }}>
-            <Input
-              placeholder = "Comment"
-              size = "small"
-              style = {{width: "78%"}}
-            />
-            <Button
-              status = {this.state.buttonStatus} 
-              appearance = 'ghost'
-              style = {{width: "25%"}}
-              >
-            Like  
-            </Button>
-
+          </TouchableHighlight>
         </View>
       </Card>
     );

@@ -4,7 +4,7 @@ import { Layout, Text, ListItem} from 'react-native-ui-kitten';
 import {StyleSheet, View} from 'react-native'
 
 
-class Experience extends React.Component<Props> {
+class Experiences extends React.Component<Props> {
   static navigationOptions = ({ navigation }) => ({
   });
 
@@ -15,10 +15,20 @@ class Experience extends React.Component<Props> {
           <Text style = {{letterSpacing: 10}} category = 'h5' >EXPERIENCE</Text>
         </View>
           <Text style = {styles.inside} category = 's1'>
-            Professor of Computer Science{"\n"}
-            Calvin University{"\n"}
-            1996 - Present 23 years{"\n"}
-            Greater Grand Rapids, Michigan Area{"\n"}
+              Professor of Computer Science{"\n"}
+              Calvin University{"\n"}
+              1996 - Present 	•  23 years{"\n"}
+              Greater Grand Rapids, Michigan Area{"\n"}
+              {"\n"}
+              Visiting Researcher{"\n"}
+              CSIRO ICT Centre{"\n"}
+              1997 - 2018  •  21 years{"\n"}
+              Sydney, Australia{"\n"}
+              {"\n"}
+              Research Fellow{"\n"}
+              ITRI - University of Brighton{"\n"}
+              1993 - 1996  	•  3 years{"\n"}
+              Brighton, United Kingdom{"\n"}
           </Text>
       </View>
     );
@@ -38,7 +48,7 @@ const styles = StyleSheet.create({
   },
   inside:{
     marginLeft: 10
-  }
+  },
 })
 
-export default Experience;
+export default Experiences;

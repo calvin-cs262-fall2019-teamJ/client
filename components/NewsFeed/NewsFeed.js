@@ -132,5 +132,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const postText = 'The quick brown fox jumped over the lazy dog';
+const postText = "The quick brown fox jumped over the lazy dog. A pangram, or holoalphabetic sentence, is a sentence that contains every letter of the alphabet at least once."
+
 export default NewsFeed;

@@ -1,5 +1,22 @@
 // Import the screens
+
 import { mainNavigator } from './components/Navigation';
+
+import {DrawerNavigator} from './components/DrawerNav/DrawerNav';
+import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
+import Profile from './components/Profile/Profile';
+import Objective from './components/Profile/Objective';
+import Experience from './components/Profile/Experience';
+import Projects from './components/Profile/Projects';
+import Qualifications from './components/Profile/Qualifications';
+import ChatDM from './components/ChatDM/ChatDM';
+import ChatHome from './components/ChatHome/ChatHome';
+import NewsFeed from './components/NewsFeed/NewsFeed';
+import Settings from './components/Settings/Settings';
+import Account from './components/Settings/Account';
+import Search from './components/Search/Search';
+
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import 'react-native-svg';
 
@@ -19,6 +36,37 @@ import {
   dark as darkTheme,
 } from '@eva-design/eva';
 
+ 
+// Create the navigator
+const navigator = createStackNavigator({
+  Search: {screen: Search},
+  //SignUp: { screen: SignUp },
+  //SignIn: { screen: SignIn },
+  Settings: {screen: Settings},
+  Account: {screen: Account},
+  // NewsFeed: {screen: NewsFeed},
+  // Profile: {screen: Profile},
+  // Objective: {screen: Objective},
+  // Experience: {screen: Experience},
+  //Projects: {screen: Projects},       
+  //Qualifications: {screen: Qualifications},
+
+  // DrawerNav:{screen: DrawerNavigator },
+  ChatHome: {
+    screen: ChatHome,
+    navigationOptions:  {
+      header: null,
+      headerLeft: null
+    }
+    },
+  ChatDM: { 
+    screen: ChatDM,
+    navigationOptions:  {
+      header: null,
+      headerLeft: null
+    } 
+},
+});
 
 
 // create a container to hold the navigator
