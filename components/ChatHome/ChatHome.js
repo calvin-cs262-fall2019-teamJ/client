@@ -57,15 +57,9 @@ AddConversation = () => (
 );
 
   openChat = name => {
-    //for testing purposes
-    Fire.shared.Login('test999@gmail.com', 'test123').then(result => {
-      if (result === 'success') {
-        this.props.navigation.navigate('ChatDM', { name: name });
-      } else {
-        alert(result);
-      }
-    });
-  };
+    console.log(this.props.navigation)
+    this.props.navigation.navigate('ChatDM', { name: name })
+  }
   render() {
     return (
       <Layout style={{paddingTop: Constants.statusBarHeight}} >    

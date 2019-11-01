@@ -1,80 +1,115 @@
 import React from 'react';
-import { Button, Icon, List, ListItem, Layout, Text } from 'react-native-ui-kitten';
-import { Image, StyleSheet, ScrollView, SafeAreaView, View, TouchableHighlight } from "react-native";
-import Constants from "expo-constants";
-import { Card } from "react-native-paper";
-
+import {
+  Button,
+  Icon,
+  List,
+  ListItem,
+  Layout,
+  Text,
+  TopNavigation,
+  TopNavigationAction
+} from 'react-native-ui-kitten';
+import {
+  Image,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  View,
+  TouchableHighlight,
+} from 'react-native';
+import Constants from 'expo-constants';
+import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 
 class NewsFeed extends React.Component<Props> {
+  profilePress = () => {
+    alert('Going to profile');
+    this.props.navigation.navigate('SignIn');
+  };
 
- static navigationOptions = ({ navigation }) => ({
-    title: "Calvin Connect",
-    headerLeft: <TouchableHighlight
-      onPress = {() => {alert("Hi! I'm Prof. Vander Linden")}}
-      >
-      <Image
-        style = {{
-          height: 30,
-          width: 30,
-          marginLeft: 10,
-          borderRadius: 15,
-          borderWidth: 2
-        }}
-        source = {require('../../assets/kvlinden1.png')}
-      />
-      </TouchableHighlight>,
 
-      headerRight: 
-      <TouchableHighlight
-      onPress = {() => { alert("You're looking beautiful today!")}}
-      >
-      <Image
-        style = {{
-          height: 30,
-          width: 30,
-          marginRight: 5,
-          borderRadius: 15,
-          borderWidth: 2
-        }}
-        source = {require('../../assets/icons/chatbubble.svg')}
-      />
-      </TouchableHighlight>
-  });
+  OpenMenu = () => (
+    <TopNavigationAction onPress={()=> this.props.navigation.toggleDrawer()} icon={this.MenuIcon}/>
+  );
 
-profilePress = () => {
-  alert("Going to profile")
-  this.props.navigation.navigate('SignIn');
-}
+  MenuIcon = (style) => (
+    <Icon {...style} name='menu-outline' />
+  );
+
+  AddConversation = () => (
+    <TopNavigationAction onPress={()=> alert('Will bring up search')} icon={this.SearchIcon}/>
+  );
+
+  SearchIcon = (style) => (
+    <Icon {...style} name='search-outline' />
+  );
 
   /* Renders the component*/
-  render(){
+  render() {
     return (
-      <SafeAreaView style = {styles.container}>
+      <SafeAreaView style={styles.container}>
+        <TopNavigation
+          title='Home'
+          alignment='center'
+          leftControl={this.OpenMenu()}
+          rightControls={this.AddConversation()}
+        />
         <ScrollView style={styles.scrollView}>
-          <PostCard 
+          <PostCard
             bgcolor = "white"
-            text = {postText}
+            text = {postText +
+            "A pangram, or holoalphabetic sentence, is a sentence that" +
+            " contains every letter of the alphabet at least once. The most" +
+            " famous pangram is probably the thirty-five-letter-long The quick " +
+            " brown fox jumps over the lazy dog,” which has been used to test typing" +
+            " equipment since at least the late 1800s."}
             imageSrc = './quick-brown-fox-18.jpg'
             userImageSrc = '../../assets/kvlinden.png'
+            userName = "Keith VanderLinden"
+            timeStamp = "7d ago"
+            postNav = {this.profilePress}
           />
-          <PostCard 
+         <PostCard
             bgcolor = "white"
-            text = {postText}
+            text = {postText +
+            "A pangram, or holoalphabetic sentence, is a sentence that" +
+            " contains every letter of the alphabet at least once. The most" +
+            " famous pangram is probably the thirty-five-letter-long The quick " +
+            " brown fox jumps over the lazy dog,” which has been used to test typing" +
+            " equipment since at least the late 1800s."}
             imageSrc = './quick-brown-fox-18.jpg'
             userImageSrc = '../../assets/kvlinden.png'
+            userName = "Keith VanderLinden"
+            timeStamp = "7d ago"
+            postNav = {this.profilePress}
           />
-          <PostCard 
+          <PostCard
             bgcolor = "white"
-            text = {postText}
+            text = {postText +
+            "A pangram, or holoalphabetic sentence, is a sentence that" +
+            " contains every letter of the alphabet at least once. The most" +
+            " famous pangram is probably the thirty-five-letter-long The quick " +
+            " brown fox jumps over the lazy dog,” which has been used to test typing" +
+            " equipment since at least the late 1800s."}
             imageSrc = './quick-brown-fox-18.jpg'
             userImageSrc = '../../assets/kvlinden.png'
+            userName = "Keith VanderLinden"
+            timeStamp = "7d ago"
+            postNav = {this.profilePress}
           />
-          <PostCard 
+          <PostCard
             bgcolor = "white"
-            text = {postText}
+            text = {postText +
+            "A pangram, or holoalphabetic sentence, is a sentence that" +
+            " contains every letter of the alphabet at least once. The most" +
+            " famous pangram is probably the thirty-five-letter-long The quick " +
+            " brown fox jumps over the lazy dog,” which has been used to test typing" +
+            " equipment since at least the late 1800s."}
             imageSrc = './quick-brown-fox-18.jpg'
             userImageSrc = '../../assets/kvlinden.png'
+            userName = "Keith VanderLinden"
+            timeStamp = "7d ago"
+            postNav = {this.profilePress}
           />
         </ScrollView>
       </SafeAreaView>
@@ -84,18 +119,18 @@ profilePress = () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 0,
-    backgroundColor: "#EFEFEF"
+    //alignItems: 'center',
+    //justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#EFEFEF',
   },
   scrollView: {
     backgroundColor: '#EFEFEF',
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     paddingTop: 'flex',
     marginHorizontal: 1,
-  }
+  },
 });
 
-const postText = "The quick brown fox jumped over the lazy dog"
+const postText = 'The quick brown fox jumped over the lazy dog';
 export default NewsFeed;

@@ -34,7 +34,7 @@ class SignIn extends React.Component {
     } else {
       Fire.shared.Login(this.state.email, this.state.password).then(result => {
         if (result === 'success') {
-          this.props.navigation.navigate('NewsFeed');
+          this.props.navigation.navigate('Home');
         } else {
           alert(result);
         }

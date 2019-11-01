@@ -19,9 +19,10 @@ import NewsFeed from './NewsFeed/NewsFeed';
 
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
+import Search from './Search/Search'
 
 const ProfileIcon = style => (
-  <Icon {...style} name="person" onPress={() => alert('to profile')} />
+  <Icon {...style} name="person" onPress={() => this.props.navigation.navigate('Profile')} />
 );
 
 export class DrawerNav extends React.Component {
@@ -60,15 +61,18 @@ export class DrawerNav extends React.Component {
   }
 }
 
-export const DrawerNavigator = createDrawerNavigator(
-  {
-    NewsFeed: NewsFeed,
+export const DrawerNavigator = createDrawerNavigator({
+    NewsFeed: {
+      screen: NewsFeed,
+      navigationOptions: {
+        header: false,
+      },
+      },
     Chat: ChatHome,
   },
   {
     contentComponent: DrawerNav,
-  }
-);
+  });
 
 // Create the navigator
 const LoginNavigator = createStackNavigator({
@@ -86,21 +90,25 @@ export const ChatNavigator = createStackNavigator({
   ChatHome: {
     screen: ChatHome,
     navigationOptions: {
-      header: null,
-      headerLeft: null,
+      drawerLabel: () => null 
     },
   },
   ChatDM: {
     screen: ChatDM,
     navigationOptions: {
-      header: null,
-      headerLeft: null,
+      drawerLabel: () => null 
     },
   },
 });
 
 export const mainNavigator = createStackNavigator({
   LoginProcess: { screen: LoginNavigator },
-  Home: { screen: DrawerNavigator },
-  // Profile: { screen: Profile },
+  Home: { 
+    screen: DrawerNavigator,
+    navigationOptions: {
+      header: null,
+      headerLeft: null,
+    },
+    },
+  Profile: { screen: Profile },
 });
