@@ -12,6 +12,7 @@ import ChatHome from './components/ChatHome/ChatHome';
 import NewsFeed from './components/NewsFeed/NewsFeed';
 import Settings from './components/Settings/Settings';
 import Account from './components/Settings/Account';
+import Search from './components/Search/Search';
 
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import 'react-native-svg';
@@ -29,6 +30,7 @@ import {
  
 // Create the navigator
 const navigator = createStackNavigator({
+  Search: {screen: Search},
   //SignUp: { screen: SignUp },
   //SignIn: { screen: SignIn },
   Settings: {screen: Settings},
