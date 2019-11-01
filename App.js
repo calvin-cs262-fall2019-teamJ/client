@@ -37,38 +37,6 @@ import {
 } from '@eva-design/eva';
 
  
-// Create the navigator
-const navigator = createStackNavigator({
-  Search: {screen: Search},
-  //SignUp: { screen: SignUp },
-  //SignIn: { screen: SignIn },
-  Settings: {screen: Settings},
-  Account: {screen: Account},
-  // NewsFeed: {screen: NewsFeed},
-  // Profile: {screen: Profile},
-  // Objective: {screen: Objective},
-  // Experience: {screen: Experience},
-  //Projects: {screen: Projects},       
-  //Qualifications: {screen: Qualifications},
-
-  // DrawerNav:{screen: DrawerNavigator },
-  ChatHome: {
-    screen: ChatHome,
-    navigationOptions:  {
-      header: null,
-      headerLeft: null
-    }
-    },
-  ChatDM: { 
-    screen: ChatDM,
-    navigationOptions:  {
-      header: null,
-      headerLeft: null
-    } 
-},
-});
-
-
 // create a container to hold the navigator
 const ApplicationContent = createAppContainer(mainNavigator);
 

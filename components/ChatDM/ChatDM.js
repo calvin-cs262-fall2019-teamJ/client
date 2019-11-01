@@ -34,7 +34,7 @@ class ChatDM extends React.Component<Props> {
 
 
   BackAction = () => (
-    <TopNavigationAction onPress={()=> this.props.navigation.navigate('ChatHome')} icon={this.BackIcon}/>
+    <TopNavigationAction onPress={()=> this.props.navigation.goBack()} icon={this.BackIcon}/>
   );
 
    BackIcon = (style) => (

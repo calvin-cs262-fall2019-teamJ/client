@@ -1,5 +1,9 @@
 import React from 'react';
-import { SafeAreaView, createAppContainer } from 'react-navigation';
+import {
+  SafeAreaView,
+  createAppContainer,
+  withNavigation,
+} from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -16,16 +20,22 @@ import Profile from './Profile/Profile';
 import ChatDM from './ChatDM/ChatDM';
 import ChatHome from './ChatHome/ChatHome';
 import NewsFeed from './NewsFeed/NewsFeed';
+import Settings from './Settings/Settings';
+import Account from './Settings/Account';
 
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
-import Search from './Search/Search'
+import Search from './Search/Search';
 
 const ProfileIcon = style => (
-  <Icon {...style} name="person" onPress={() => this.props.navigation.navigate('Profile')} />
+  <Icon
+    {...style}
+    name="person"
+    onPress={() => this.props.navigation.navigate('Profile')}
+  />
 );
 
-export class DrawerNav extends React.Component {
+class DrawerNav extends React.Component {
   constructor(props) {
     super(props);
     this.drawerData = props.items.map(this.createDrawerItem);
@@ -61,18 +71,33 @@ export class DrawerNav extends React.Component {
   }
 }
 
-export const DrawerNavigator = createDrawerNavigator({
+export default withNavigation(DrawerNav);
+
+export const DrawerNavigator = createDrawerNavigator(
+  {
     NewsFeed: {
       screen: NewsFeed,
       navigationOptions: {
         header: false,
       },
+    },
+    Chat: {
+      screen: ChatHome,
+      navigationOptions: {
+        header: false,
       },
-    Chat: ChatHome,
+    },
+    Settings: {
+      screen: Settings,
+      navigationOptions: {
+        header: false,
+      },
+    },
   },
   {
     contentComponent: DrawerNav,
-  });
+  }
+);
 
 // Create the navigator
 const LoginNavigator = createStackNavigator({
@@ -86,29 +111,47 @@ const LoginNavigator = createStackNavigator({
   },
 });
 
-export const ChatNavigator = createStackNavigator({
+const ChatNavigator = createStackNavigator({
   ChatHome: {
     screen: ChatHome,
     navigationOptions: {
-      drawerLabel: () => null 
-    },
-  },
-  ChatDM: {
-    screen: ChatDM,
-    navigationOptions: {
-      drawerLabel: () => null 
+      eader: null,
+      headerLeft: null,
     },
   },
 });
 
 export const mainNavigator = createStackNavigator({
   LoginProcess: { screen: LoginNavigator },
-  Home: { 
+  Home: {
     screen: DrawerNavigator,
     navigationOptions: {
       header: null,
       headerLeft: null,
     },
+  },
+  ChatDM: {
+    screen: ChatDM,
+    navigationOptions: {
+      header: null,
     },
-  Profile: { screen: Profile },
+    Search: {
+      screen: Search,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    Account: {
+      screen: Account,
+      navigationOptions: {
+        header: null,
+      },
+    },
+  },
 });

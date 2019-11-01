@@ -7,9 +7,11 @@ import {
   ListItem,
   Input,
   Icon,
-  Layout
+  Layout,
+  TopNavigation,
+  TopNavigationAction
 } from 'react-native-ui-kitten';
-
+import Constants from 'expo-constants';
 
 export default class Search extends React.Component {
 
@@ -37,6 +39,14 @@ export default class Search extends React.Component {
     filteredData: [ 
     ]
   };
+  
+ BackAction = () => (
+    <TopNavigationAction onPress={()=> this.props.navigation.goBack()} icon={this.BackIcon}/>
+  );
+
+   BackIcon = (style) => (
+  <Icon {...style} name='arrow-back' />
+);
 
   updateSearch = (search) => {
     this.setState({ search }); 
@@ -76,6 +86,10 @@ export default class Search extends React.Component {
 
     return (
   <Layout style={styles.container}>
+      <TopNavigation
+        alignment='center'
+        leftControl={this.BackAction()}
+      />
      <SearchBar
      lightTheme
         round //To make the searchbar corner round (default square)
@@ -110,6 +124,7 @@ const styles = StyleSheet.create({
           flexDirection: 'flex',
           paddingVertical: 'flex',
           paddingHorizontal: 'flex',
+          paddingTop: Constants.statusBarHeight,
         },
  list: {
     height: '100%',
