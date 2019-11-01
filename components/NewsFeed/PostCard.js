@@ -150,11 +150,3 @@ export default class PostCard extends React.Component {
     );
   }
 }
-
-var style;
-const styles = StyleSheet.create({
-  logo: {
-    height: 150,
-    width: 350,
-  },
-});
