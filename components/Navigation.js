@@ -52,7 +52,7 @@ class DrawerNav extends React.Component {
 
   renderHeader = () => (
     <DrawerHeaderFooter
-      title="John Doe"
+      title="Keith VanderLinden"
       description="React Native Developer"
       icon={ProfileIcon}
     />
@@ -81,6 +81,12 @@ export const DrawerNavigator = createDrawerNavigator(
         header: false,
       },
     },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        header: false,
+    },
+  },
     Chat: {
       screen: ChatHome,
       navigationOptions: {
@@ -115,7 +121,7 @@ const ChatNavigator = createStackNavigator({
   ChatHome: {
     screen: ChatHome,
     navigationOptions: {
-      eader: null,
+      header: null,
       headerLeft: null,
     },
   },
@@ -134,19 +140,13 @@ export const mainNavigator = createStackNavigator({
     screen: ChatDM,
     navigationOptions: {
       header: null,
+    }
     },
-    Search: {
+   Search: {
       screen: Search,
       navigationOptions: {
         header: null,
       },
-    },
-    Profile: {
-      screen: Profile,
-      navigationOptions: {
-        header: null,
-      },
-    },
     Account: {
       screen: Account,
       navigationOptions: {
