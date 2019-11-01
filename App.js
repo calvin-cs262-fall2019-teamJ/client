@@ -6,10 +6,13 @@ import Profile from './components/Profile/Profile';
 import Objective from './components/Profile/Objective';
 import Experience from './components/Profile/Experience';
 import Projects from './components/Profile/Projects';
-import Activities from './components/Profile/Activities';
+import Qualifications from './components/Profile/Qualifications';
 import ChatDM from './components/ChatDM/ChatDM';
 import ChatHome from './components/ChatHome/ChatHome';
 import NewsFeed from './components/NewsFeed/NewsFeed';
+import Settings from './components/Settings/Settings';
+import Account from './components/Settings/Account';
+
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import 'react-native-svg';
 
@@ -23,17 +26,21 @@ import {
   light as lightTheme,
   dark as darkTheme,
 } from '@eva-design/eva';
-
+ 
 // Create the navigator
 const navigator = createStackNavigator({
   //SignUp: { screen: SignUp },
   //SignIn: { screen: SignIn },
-  Profile: {screen: Profile},
-  Activities: {screen: Activities},
-  Objective: {screen: Objective},
-  Experience: {screen: Experience},
-  Projects: {screen: Projects},
- // DrawerNav:{screen: DrawerNavigator },
+  Settings: {screen: Settings},
+  Account: {screen: Account},
+  // NewsFeed: {screen: NewsFeed},
+  // Profile: {screen: Profile},
+  // Objective: {screen: Objective},
+  // Experience: {screen: Experience},
+  //Projects: {screen: Projects},       
+  //Qualifications: {screen: Qualifications},
+
+  // DrawerNav:{screen: DrawerNavigator },
   ChatHome: {
     screen: ChatHome,
     navigationOptions:  {
@@ -41,7 +48,6 @@ const navigator = createStackNavigator({
       headerLeft: null
     }
     },
-  NewsFeed: {screen: NewsFeed},
   ChatDM: { 
     screen: ChatDM,
     navigationOptions:  {

@@ -1,41 +1,64 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-import { Layout, Toggle } from 'react-native-ui-kitten';
+import { Layout, Toggle, Button } from 'react-native-ui-kitten';
+import {Card} from 'react-native-shadow-cards';
+import Icon from 'react-native-vector-icons/AntDesign';
 
-// You can import from local files
-import AssetExample from './components/AssetExample';
-
-// or any pure javascript modules available in npm
-import { Card } from 'react-native-paper';
 
 export default class Settings extends React.Component {
-  state = {
-    checked: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      notiChecked: false,
+      soundChecked: false,
+    }
+  }
+
+  static navigationOptions = ({ navigation }) => ({
+    title: "Setting",
+  })
+
+  onPressNoti = () => {
+    this.setState({notiChecked: !this.state.notiChecked});
   };
 
-  onChange = (checked) => {
-    this.setState({ checked});
+  onPressSound = (soundChecked) => {
+    this.setState({soundChecked: !this.state.soundChecked});
   };
+
+  goToAccount = () => {
+    this.props.navigation.navigate('Account');
+  }
+  
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.paragraph}>
-          SETTINGS
-        </Text>
+        <Card style={{padding: 10, margin: 10,}}>
+          <View>
+            <View style={styles.item}>
+              <View style={styles.infoContent}>
+                <Text style={styles.info}> Account </Text>
+              </View>
+               <Button style={styles.button} appearance='ghost' textStyle = {styles.buttonText}
+               onPress={this.goToAccount.bind(this)}>→</Button>
+            </View>
+            <View style={styles.separator} />          
+            <Toggle style={styles.toggle}
+              checked={this.state.notiChecked}
+              text='Notifications'
+              onChange={this.onPressNoti}
+            />
+            <View style={styles.separator} />          
+            <Toggle style={styles.toggle}
+              checked={this.state.soundChecked}
+              text='Sound'
+              onChange={this.onPressSound}
+            />
+            <View style={styles.separator} />          
+          </View>
+        </Card>
       </View>
-      <Layout style=(styles.container)>
-      <Toggle
-        checked={this.state.checked}
-        text='Notifications'
-        onChange={this.onChange}
-      />
-      <Toggle
-        checked={this.state.checked}
-        text='DM Notifications'
-        onChange={this.onChange}
-      />
-      </Layout>
     );
   }
 }
@@ -43,15 +66,41 @@ export default class Settings extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
+    padding: 10,
+    backgroundColor: '#f5f5f5',
   },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  toggle: {
+    justifyContent: 'flex-start',
+    marginLeft: 20,
+  },
+  separator: {
+    backgroundColor: '#ececec',
+    margin: 10,
+    height: 2,
+    width: 300,
+  },
+  infoContent:{
+    flex:1,
+    paddingLeft:5
+  },
+  info:{
+    fontSize: 13,
+    marginTop: 10,
+    marginLeft: 15,
+    color: '#333333',
+    fontWeight: 600,
+    justifyContent: 'flex-start',
+  },
+  button: {
+    marginTop: 1,
+    marginLeft: 10,
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#333333'
+  },
+  item:{
+    flexDirection : 'row',
   },
 });
