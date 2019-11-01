@@ -41,7 +41,7 @@ class ChatHome extends React.Component<Props> {
   }
 
     OpenMenu = () => (
-    <TopNavigationAction onPress={()=> alert('Will Open drawer')} icon={this.MenuIcon}/>
+    <TopNavigationAction onPress={()=> this.props.navigation.toggleDrawer()} icon={this.MenuIcon}/>
   );
 
    MenuIcon = (style) => (
@@ -49,7 +49,7 @@ class ChatHome extends React.Component<Props> {
 );
 
 AddConversation = () => (
-  <TopNavigationAction onPress={()=> alert('will add conversation')} icon={this.PlusICon}/>
+  <TopNavigationAction onPress={()=> this.props.navigation.navigate('Search')} icon={this.PlusICon}/>
 );
 
   PlusICon = (style) => (
@@ -57,7 +57,6 @@ AddConversation = () => (
 );
 
   openChat = name => {
-    console.log(this.props.navigation)
     this.props.navigation.navigate('ChatDM', { name: name })
   }
   render() {

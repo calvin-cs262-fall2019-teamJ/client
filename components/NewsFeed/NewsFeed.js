@@ -37,7 +37,7 @@ class NewsFeed extends React.Component<Props> {
   );
 
   AddConversation = () => (
-    <TopNavigationAction onPress={()=> alert('Will bring up search')} icon={this.SearchIcon}/>
+    <TopNavigationAction onPress={()=> this.props.navigation.navigate('Search')} icon={this.SearchIcon}/>
   );
 
   SearchIcon = (style) => (
