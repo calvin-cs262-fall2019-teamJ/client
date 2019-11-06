@@ -43,6 +43,7 @@ export const LoginStack = createStackNavigator({
       header: null,
       headerLeft: null,
     },
+  }
 });
 
 export const SettingsStack = createStackNavigator({
