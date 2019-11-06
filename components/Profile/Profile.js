@@ -3,23 +3,32 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 import Constants from 'expo-constants';
-import {Button} from 'react-native-ui-kitten';
+import {
+  Layout,
+  Toggle,
+  Button,
+  TopNavigation,
+  TopNavigationAction,
+  Icon,
+} from 'react-native-ui-kitten';
+
+import Objective from './Objective';
+import Activities from './Activities';
+import Experience from './Experience';
+import Projects from './Projects';
+import Qualifications from './Qualifications';
+
 
 export default class Profile extends Component {
-
-   static navigationOptions = ({ navigation }) => ({
-    title: "Profile"
-  });
-
-  goToObjective = () => {
-     this.props.navigation.navigate('Objective');
-  }
-
-   goToExperience = () => {
-     this.props.navigation.navigate('Experience');
+  constructor(props){
+    super(props)
+    this.state={
+      openSection: 'Qualifications',
+    }
   }
 
    goToProjects = () => {
@@ -30,9 +39,32 @@ export default class Profile extends Component {
      this.props.navigation.navigate('Qualifications');
   }
 
+    OpenMenu = () => (
+    <TopNavigationAction
+      onPress={() => this.props.navigation.toggleDrawer()}
+      icon={this.MenuIcon}
+    />
+  );
+
+   MenuIcon = style => <Icon {...style} name="menu-outline" />;
+
+   Empty = () =>( <View/> )
+
+   toggleSection = (section) =>{
+     let condition="";
+     (this.state.openSection == section)? condition='none' : condition= section
+     this.setState({openSection: condition})
+   }
+
   render() {
     return (
       <View style={styles.container}>
+        <TopNavigation
+          title='Conversations'
+          alignment='center'
+          leftControl={this.OpenMenu()}
+          />
+        <ScrollView>
           <View style={styles.header}>
             <View style={styles.headerTop}>
               <Image style={styles.avatar}
@@ -64,40 +96,48 @@ export default class Profile extends Component {
                 <Text style={styles.info}> Objective </Text>
               </View>
                 <Button style={styles.button} appearance='ghost' textStyle = {styles.buttonText}
-                onPress={this.goToObjective.bind(this)}> + </Button>
+                onPress={()=>this.toggleSection('Objective')}> + </Button>
             </View>
-
+            {(this.state.openSection== 'Objective')? <View style={styles.separator} /> : this.Empty() }
+            {(this.state.openSection== 'Objective')? <Objective/>: this.Empty() }
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}> Experience </Text>
               </View>
                <Button style={styles.button} appearance='ghost' textStyle = {styles.buttonText}
-               onPress={this.goToExperience.bind(this)}> + </Button>
+               onPress={()=>this.toggleSection('Experience')}> + </Button>
             </View>
-
+              {(this.state.openSection== 'Experience')? <View style={styles.separator} /> : this.Empty() }
+              {(this.state.openSection== 'Experience')? <Experience/>: this.Empty() }
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}>  Projects </Text>
               </View>
                <Button style={styles.button} appearance='ghost' textStyle = {styles.buttonText}
-               onPress={this.goToProjects.bind(this)}> + </Button>
+               onPress={()=>this.toggleSection('Projects')}> + </Button>
             </View>
-
+              {(this.state.openSection== 'Projects')? <View style={styles.separator} /> : this.Empty() }
+              {(this.state.openSection== 'Projects')? <Projects/>: this.Empty() }
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}> Qualifications </Text>
               </View>
                <Button style={styles.button} appearance='ghost' textStyle = {styles.buttonText}
-               onPress={this.goToQualifications.bind(this)}> + </Button>
+               onPress={()=>this.toggleSection('Qualifications')}> + </Button>
             </View>
-
+              {(this.state.openSection== 'Qualifications')? <View style={styles.separator} /> : this.Empty() }
+              {(this.state.openSection== 'Qualifications')? <Qualifications/>: this.Empty() }
           </View>
+        </ScrollView>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container:{
+    paddingTop: Constants.statusBarHeight
+  },
   header:{
     flexDirection: "row",
     display: "flex",
@@ -162,7 +202,7 @@ const styles = StyleSheet.create({
   },
   info:{
     fontSize:20,
-    marginTop:25,
+    marginTop: 20,
     color: "black",
   },
     button: {
@@ -172,5 +212,12 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: 'black'
-  }
+  },
+  separator: {
+    backgroundColor: '#ececec',
+    marginTop: 10,
+    marginLeft: 10,
+    height: 2,
+    width: 300,
+  },
 });

@@ -17,13 +17,10 @@ toTop = () => {
     return(
       <View style = {styles.container}>
         <ScrollView ref={(c) => {this.scroll = c}}>
-          <View style = {styles.header}>
-            <Text style = {{letterSpacing: 10}} category = 'h5' >PROJECTS</Text>
-          </View>
           <Text style = {styles.inside} category = 's1'>
             <Text style = {styles.title}>
             A reusable platform{"\n"}
-            </Text>
+            </Text >
 To work effectively in information-rich environments, knowledge workers must be able to distil the most appropriate information from the deluge of information available to them. This is difficult to do manually. Natural language engineers can support these workers by developing information delivery tools, but because of the wide variety of contexts in which information is acquired and delivered, these tools have tended to be domain-specific, ad hoc solutions that are hard to generalise. This paper discusses Myriad, a platform that generalises the integration of sets of resources to a variety of information delivery contexts. Myriad provides resources from natural language generation for discourse planning as well as a service-based architecture for data access. The nature of Myriad's resources is driven by engineering concerns. It focuses on resources that reason about and generate from coarse-grained units of information, likely to be provided by existing information sources, and it supports the integration of pipe-lined planning and template mechanisms. The platform is illustrated in the context of three information delivery applications and is evaluated with respect to its utility.{"\n"}{"\n"}
             <Text style = {styles.title}>
             Generating UML diagrams from task models{"\n"}
@@ -40,13 +37,6 @@ The importance of task analysis and modelling to software system development is 
 const styles = StyleSheet.create({
   container: {
     marginTop: 20
-  },
-  header:{
-    marginLeft: 10,
-    marginBottom: 20,
-    borderBottomColor: 'black',
-    borderBottomWidth: 2,
-    width: 350,
   },
   inside:{
     marginLeft: 10

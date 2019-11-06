@@ -1,79 +1,26 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  createAppContainer,
-  withNavigation,
-  StackNavigator
-} from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator,} from 'react-navigation-stack';
 import { ChatStack, LoginStack, SettingsStack } from './SubStacks'
-import {
-  Drawer,
-  DrawerHeaderFooter,
-  Layout,
-  Icon,
-  TopNavigation,
-  TopNavigationAction,
-} from 'react-native-ui-kitten';
+import { Navigation } from 'react-navigation';
 
 
 // Import the screens
+import DrawerNav from './DrawerNav/DrawerNav';
 import Profile from './Profile/Profile';
 import NewsFeed from './NewsFeed/NewsFeed';
 
 
 import Search from './Search/Search';
 
-const ProfileIcon = style => (
-  <Icon
-    {...style}
-    name="person"
-    onPress={() => this.props.navigation.navigate('Profile')}
-  />
-);
-
-class DrawerNav extends React.Component {
-  constructor(props) {
-    super(props);
-    this.drawerData = props.items.map(this.createDrawerItem);
-  }
-
-  onRouteSelect = index => {
-    const { [index]: route } = this.drawerData;
-    this.props.navigation.navigate(route.title);
-  };
-
-  createDrawerItem = ({ routeName }) => ({
-    title: routeName,
-  });
-
-  renderHeader = () => (
-    <DrawerHeaderFooter
-      title="Keith VanderLinden"
-      description="React Native Developer"
-      icon={ProfileIcon}
-    />
-  );
-
-  render() {
-    return (
-      <SafeAreaView>
-        <Drawer
-          data={this.drawerData}
-          onSelect={this.onRouteSelect}
-          header={this.renderHeader}
-        />
-      </SafeAreaView>
-    );
-  }SettingsStack
-}
-
-export default withNavigation(DrawerNav);
-
 
 export const DrawerNavigator = createDrawerNavigator(
   {
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        header: false,
+      },
+    },
     NewsFeed: {
       screen: NewsFeed,
       navigationOptions: {
@@ -81,12 +28,6 @@ export const DrawerNavigator = createDrawerNavigator(
         gesturesEnabled: false,
       }
     },
-    Profile: {
-      screen: Profile,
-      navigationOptions: {
-        header: false,
-    },
-  },
     Chat: ChatStack,
     Settings: SettingsStack,
   },
@@ -96,11 +37,8 @@ export const DrawerNavigator = createDrawerNavigator(
 );
 
 
-
-
 export const mainNavigator = createStackNavigator({
-  LoginProcess: { screen: LoginStack },
-  Home: {
+    Home: {
     screen: DrawerNavigator,
     navigationOptions: {
       header: null,
@@ -108,6 +46,7 @@ export const mainNavigator = createStackNavigator({
       gesturesEnabled: false,
     },
   },
+  LoginProcess: { screen: LoginStack },
    Search: {
       screen: Search,
       navigationOptions: {

@@ -11,10 +11,7 @@ class Experiences extends React.Component<Props> {
   render() {
     return(
       <View style = {styles.container}>
-        <View style = {styles.header}>
-          <Text style = {{letterSpacing: 10}} category = 'h5' >EXPERIENCE</Text>
-        </View>
-          <Text style = {styles.inside} category = 's1'>
+          <Text style = {styles.inside} category = 'P1'>
               Professor of Computer Science{"\n"}
               Calvin University{"\n"}
               1996 - Present 	•  23 years{"\n"}
@@ -30,6 +27,7 @@ class Experiences extends React.Component<Props> {
               1993 - 1996  	•  3 years{"\n"}
               Brighton, United Kingdom{"\n"}
           </Text>
+          <View style={styles.separator} />
       </View>
     );
   }
@@ -39,15 +37,14 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 20
   },
-  header:{
-    marginLeft: 10,
-    marginBottom: 20,
-    borderBottomColor: 'black',
-    borderBottomWidth: 2,
-    width: 350,
-  },
   inside:{
-    marginLeft: 10
+    marginLeft: 35
+  },
+  separator: {
+    backgroundColor: '#ececec',
+    marginTop: 10,
+    height: 2,
+    width: 300,
   },
 })
 

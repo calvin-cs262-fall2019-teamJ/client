@@ -11,10 +11,7 @@ class Qualifications extends React.Component<Props> {
   render() {
     return(
       <View style = {styles.container}>
-        <View style = {styles.header}>
-          <Text style = {{letterSpacing: 10}} category = 'h5'>QUALIFICATIONS</Text>
-        </View>
-          <Text style = {styles.inside} category = 's1'>
+          <Text style = {styles.inside} category = 'P1'>
             • Profound knowledge of computer science {"\n"}  concepts including current technology trends {"\n"}
             • Significant experience leading research teams {"\n"}   and conducting independent research {"\n"}
             • Adept at applying creative and productive {"\n"}   teaching methods {"\n"}
@@ -30,13 +27,6 @@ class Qualifications extends React.Component<Props> {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20
-  },
-  header:{
-    marginLeft: 10,
-    marginBottom: 20,
-    borderBottomColor: 'black',
-    borderBottomWidth: 2,
-    width: 350,
   },
   inside:{
     marginLeft: 10
