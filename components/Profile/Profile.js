@@ -64,7 +64,7 @@ export default class Profile extends Component {
           alignment='center'
           leftControl={this.OpenMenu()}
           />
-        <ScrollView>
+        <ScrollView styles={{marginBottom: 10}}>
           <View style={styles.header}>
             <View style={styles.headerTop}>
               <Image style={styles.avatar}
@@ -136,7 +136,8 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
   container:{
-    paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
+    flex: '1',
   },
   header:{
     flexDirection: "row",
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
   },
   body:{
     backgroundColor: "white",
-    height:600,
+    flex: '1',
     alignItems:'center',
   },
   item:{
