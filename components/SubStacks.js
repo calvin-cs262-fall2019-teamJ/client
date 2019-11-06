@@ -1,4 +1,3 @@
-
 import ChatDM from './ChatDM/ChatDM';
 import ChatHome from './ChatHome/ChatHome';
 
@@ -7,8 +6,8 @@ import SignUp from './SignUp/SignUp';
 
 import Settings from './Settings/Settings';
 import Account from './Settings/Account';
-
-import { createStackNavigator,} from 'react-navigation-stack';
+import Profile from './Profile/Profile';
+import { createStackNavigator } from 'react-navigation-stack';
 
 export const ChatStack = createStackNavigator({
   ChatHome: {
@@ -17,17 +16,15 @@ export const ChatStack = createStackNavigator({
       header: null,
       headerLeft: null,
     },
-    },
+  },
   ChatDM: {
     screen: ChatDM,
     navigationOptions: {
       header: null,
       headerLeft: null,
     },
-    }
-  }
-);
-
+  },
+});
 
 export const LoginStack = createStackNavigator({
   SignIn: {
@@ -43,7 +40,7 @@ export const LoginStack = createStackNavigator({
       header: null,
       headerLeft: null,
     },
-  }
+  },
 });
 
 export const SettingsStack = createStackNavigator({

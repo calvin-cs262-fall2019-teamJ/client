@@ -22,56 +22,48 @@ class ChatDM extends React.Component<Props> {
 
   get user() {
     return {
-      name: "Joe Shmoe",
+      name: 'Joe Shmoe',
       _id: Fire.shared.uid,
     };
   }
-  
-  setName=()=>{
-    // alert(this.props.navigation.state.params.name)
-     return 'Test Baby'
-  }
-
 
   BackAction = () => (
-    <TopNavigationAction onPress={()=> this.props.navigation.goBack()} icon={this.BackIcon}/>
+    <TopNavigationAction
+      onPress={() => this.props.navigation.goBack()}
+      icon={this.BackIcon}
+    />
   );
 
-   BackIcon = (style) => (
-  <Icon {...style} name='arrow-back' />
-);
+  BackIcon = style => <Icon {...style} name="arrow-back" />;
 
   componentDidMount() {
-    //console.log(this.props.navigation.state.params.name)
     Fire.shared.on(message =>
       this.setState(previousState => ({
         messages: GiftedChat.append(previousState.messages, message),
-      }))   
-    );  
+      }))
+    );
   }
-  
+
   componentWillUnmount() {
     Fire.shared.off();
   }
 
   render() {
     return (
-      <Layout style={{paddingTop: Constants.statusBarHeight,}}>
-      <TopNavigation
-        title={this.props.navigation.state.params.name}
-        alignment='center'
-        leftControl={this.BackAction()}
-      />
-      <GiftedChat
-        messages={this.state.messages}
-        onSend={Fire.shared.send}
-        user={this.user}
-      />
+      <Layout style={{ paddingTop: Constants.statusBarHeight }}>
+        <TopNavigation
+          title={this.props.navigation.state.params.name}
+          alignment="center"
+          leftControl={this.BackAction()}
+        />
+        <GiftedChat
+          messages={this.state.messages}
+          onSend={Fire.shared.send}
+          user={this.user}
+        />
       </Layout>
     );
   }
 }
-
-
 
 export default ChatDM;
