@@ -1,22 +1,6 @@
 // Import the screens
 
 import { mainNavigator } from './components/Navigation';
-
-import {DrawerNavigator} from './components/DrawerNav/DrawerNav';
-import SignIn from './components/SignIn/SignIn';
-import SignUp from './components/SignUp/SignUp';
-import Profile from './components/Profile/Profile';
-import Objective from './components/Profile/Objective';
-import Experience from './components/Profile/Experience';
-import Projects from './components/Profile/Projects';
-import Qualifications from './components/Profile/Qualifications';
-import ChatDM from './components/ChatDM/ChatDM';
-import ChatHome from './components/ChatHome/ChatHome';
-import NewsFeed from './components/NewsFeed/NewsFeed';
-import Settings from './components/Settings/Settings';
-import Account from './components/Settings/Account';
-import Search from './components/Search/Search';
-
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import 'react-native-svg';
 

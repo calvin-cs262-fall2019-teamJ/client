@@ -1,27 +1,32 @@
 import React from 'react';
-import { SafeAreaView, createAppContainer} from 'react-navigation';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { SafeAreaView, withNavigation, StackNavigator } from 'react-navigation';
 import {
   Drawer,
   DrawerHeaderFooter,
   Layout,
   Icon,
+  TopNavigation,
+  TopNavigationAction,
 } from 'react-native-ui-kitten';
-// Import the screens
-import Profile from '../Profile/Profile';
-import ChatDM from '../ChatDM/ChatDM';
-import ChatHome from '../ChatHome/ChatHome';
-import NewsFeed from '../NewsFeed/NewsFeed';
-
-const ProfileIcon = (style) => (
-  <Icon {...style} name='person'/>
-);
+import { goToProfile } from '../Navigation';
 
 class DrawerNav extends React.Component {
   constructor(props) {
     super(props);
-    this.drawerData = props.items.map(this.createDrawerItem);
+    
+    //renders all but the 'Profile' page in the drawer (we can still navigate to it)
+    this.drawerData = props.items.slice(0,3).map(this.createDrawerItem); 
   }
+
+  ProfileIcon = style => (
+    <Icon
+      {...style}
+      name="person"
+      onPress={() => {
+        this.props.navigation.navigate('Profile');
+      }}
+    />
+  );
 
   onRouteSelect = index => {
     const { [index]: route } = this.drawerData;
@@ -34,10 +39,10 @@ class DrawerNav extends React.Component {
 
   renderHeader = () => (
     <DrawerHeaderFooter
-    title='John Doe'
-    description='React Native Developer'
-    icon={ProfileIcon}
-  />
+      title="Keith VanderLinden"
+      description="React Native Developer"
+      icon={this.ProfileIcon}
+    />
   );
 
   render() {
@@ -51,18 +56,7 @@ class DrawerNav extends React.Component {
       </SafeAreaView>
     );
   }
+  SettingsStack;
 }
 
-export const DrawerNavigator = createDrawerNavigator(
-  {
-    //Profile: { screen: Profile },
-    Chat: ChatHome,
-    NewsFeed: NewsFeed,
-  },
-  {
-    contentComponent: DrawerNav,
-  }
-);
-
-export const CustomDrawerNav = createAppContainer(DrawerNavigator);
-
+export default withNavigation(DrawerNav);
