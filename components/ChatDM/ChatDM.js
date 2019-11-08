@@ -1,6 +1,7 @@
-// @flow
+//@flow
 import React from 'react';
-import { GiftedChat } from 'react-native-gifted-chat'; // 0.3.0
+import {View, StyleSheet} from 'react-native';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import {
   Icon,
   Layout,
@@ -9,61 +10,112 @@ import {
 } from 'react-native-ui-kitten';
 import Constants from 'expo-constants';
 
-import Fire from '../Fire';
 
-type Props = {
-  name?: string,
-};
+import fire from '../Fire';
 
-class ChatDM extends React.Component<Props> {
+export default class ChatDM extends React.Component {
+  
   state = {
-    messages: [],
+    messages: []
   };
 
   get user() {
-    return {
-      name: 'Joe Shmoe',
-      _id: Fire.shared.uid,
+      return {
+        name: this.props.navigation.state.params.name,
+        email: this.props.navigation.state.params.email,
+        avatar: this.props.navigation.state.params.avatar,
+        id: fire.uid,
+        _id: fire.uid
     };
   }
 
-  BackAction = () => (
+    BackAction = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.goBack()}
       icon={this.BackIcon}
     />
   );
 
-  BackIcon = style => <Icon {...style} name="arrow-back" />;
-
-  componentDidMount() {
-    Fire.shared.on(message =>
-      this.setState(previousState => ({
-        messages: GiftedChat.append(previousState.messages, message),
-      }))
-    );
-  }
-
-  componentWillUnmount() {
-    Fire.shared.off();
-  }
+    BackIcon = style => <Icon {...style} name="arrow-back" />;
 
   render() {
     return (
-      <Layout style={{ paddingTop: Constants.statusBarHeight }}>
-        <TopNavigation
+    <View style = {styles.container}>
+    <TopNavigation
           title={this.props.navigation.state.params.name}
           alignment="center"
-          leftControl={this.BackAction()}
-        /> *
-        <GiftedChat
-          messages={this.state.messages}
-          onSend={Fire.shared.send}
-          user={this.user}
+          leftControl = {this.BackAction()}
         />
-      </Layout>
+      <GiftedChat
+        messages={this.state.messages}
+        renderBubble={this.renderBubble}
+        // onSend={fire.send}
+        // user={this.user}
+        onSend={messages => this.onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
+    </View>
     );
   }
-}
 
-export default ChatDM;
+  componentWillMount() {
+    this.setState({
+          messages: [
+            {
+              _id: 1,
+              text: 'Hi there! are you looking for a summer internship?',
+              createdAt: new Date(),
+              user: {
+                _id: 2,
+                name: this.props.navigation.state.params.name,
+                avatar: this.props.navigation.state.params.avatar,
+              }
+            }
+          ]
+      });
+  }
+
+   onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }))
+  }
+
+    // fire.shared.refOn(message =>
+    //   this.setState(previousState => ({
+    //     messages: GiftedChat.append(previousState.messages, message)
+    //   }))
+    // );
+
+  renderBubble (props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: "#AB4E4E",
+          },
+          left: {
+            backgroundColor: "#E8DC99"
+          }
+        }}
+      />
+    )
+  }
+    // componentWillUnmount() {
+  //   fire.shared.off();
+  // }
+  }
+
+
+
+
+
+const styles = StyleSheet.create({
+    container: {
+       paddingTop: Constants.statusBarHeight,
+        flex: '1',
+    }
+})
