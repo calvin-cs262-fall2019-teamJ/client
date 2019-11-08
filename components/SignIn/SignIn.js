@@ -52,7 +52,7 @@ class SignIn extends React.Component {
     return (
       <Layout style={styles.container}>
         <Image
-          style={{ width: 300, height: '50%' }}
+          style={{ width: 265, height: 295 }}
           source={require('../../assets/icons/logo.png')}
         />
         <Text style={styles.text}>Calvin Connect</Text>

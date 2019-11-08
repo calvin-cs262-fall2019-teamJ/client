@@ -55,7 +55,7 @@ class ChatDM extends React.Component<Props> {
           title={this.props.navigation.state.params.name}
           alignment="center"
           leftControl={this.BackAction()}
-        />
+        /> *
         <GiftedChat
           messages={this.state.messages}
           onSend={Fire.shared.send}

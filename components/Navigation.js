@@ -34,6 +34,7 @@ export const DrawerNavigator = createDrawerNavigator(
 );
 
 export const mainNavigator = createStackNavigator({
+  LoginProcess: { screen: LoginStack },
   Home: {
     screen: DrawerNavigator,
     navigationOptions: {
@@ -42,7 +43,6 @@ export const mainNavigator = createStackNavigator({
       gesturesEnabled: false,
     },
   },
-  LoginProcess: { screen: LoginStack },
   Search: {
     screen: Search,
     navigationOptions: {

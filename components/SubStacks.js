@@ -27,15 +27,15 @@ export const ChatStack = createStackNavigator({
 });
 
 export const LoginStack = createStackNavigator({
-  SignIn: {
-    screen: SignIn,
+   SignUp: {
+    screen: SignUp,
     navigationOptions: {
       header: null,
       headerLeft: null,
     },
   },
-  SignUp: {
-    screen: SignUp,
+  SignIn: {
+    screen: SignIn,
     navigationOptions: {
       header: null,
       headerLeft: null,

@@ -31,7 +31,17 @@ export default class Profile extends Component {
     />
   );
 
+// conditionally rendered on weather you're viewing your profile or someone elses
+  EditProfile = () => (
+    <TopNavigationAction
+      //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page 
+      icon={this.EditIcon}
+    />
+  );
+
   MenuIcon = style => <Icon {...style} name="menu-outline" />;
+  
+  EditIcon = style => <Icon {...style} name="edit-outline" />;
 
   Empty = () => <View />;
 
@@ -50,6 +60,7 @@ export default class Profile extends Component {
           title="Conversations"
           alignment="center"
           leftControl={this.OpenMenu()}
+          rightControls={this.EditProfile()}
         />
         <ScrollView styles={{ marginBottom: 10 }}>
           <View style={styles.header}>

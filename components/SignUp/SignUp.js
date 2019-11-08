@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Image,
   Text,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import { Input, Button, Layout } from 'react-native-ui-kitten';
 
@@ -48,7 +48,7 @@ class SignUp extends React.Component {
         <Image
           style={styles.image}
           source={require('../../assets/icons/logo.png')}
-          />
+        />
         <Input
           value={this.state.first}
           onChangeText={first => this.setState({ first })}
@@ -76,18 +76,16 @@ class SignUp extends React.Component {
         />
 
         <Button
-          onPress={this.onSignUp.bind(this)} 
+          onPress={this.onSignUp.bind(this)}
           style={styles.button}
-          textStyle={styles.buttonText}
-        >
+          textStyle={styles.buttonText}>
           Sign Up
         </Button>
 
         <Button
           style={styles.button}
           textStyle={styles.buttonText}
-          onPress={this.gotoPage.bind(this)}
-        >
+          onPress={this.gotoPage.bind(this)}>
           Sign In
         </Button>
       </Layout>
@@ -101,12 +99,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   image: {
-    width: '55%', 
-    height: '35%', 
-    marginBottom: 30
+    width: 265,
+    height: 295,
+    marginBottom: 30,
   },
   input: {
     width: 200,
@@ -115,11 +112,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#edf2f2',
     marginBottom: 10,
   },
-  button: { 
+  button: {
     borderRadius: 8,
     backgroundColor: 'white',
-    borderColor: 'white'
-    },
+    borderColor: 'white',
+  },
   buttonText: { color: '#71b1c8' },
 });
 
