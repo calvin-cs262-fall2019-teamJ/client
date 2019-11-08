@@ -24,21 +24,21 @@ const styles = StyleSheet.create({
   container: {
     marginLeft: 5,
     marginRight: 5,
-    marginBottom: 5,
+    marginBottom: 15,
     height: 50,
     overflow: 'hidden',
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomColor: '#E8DC99',
-    borderBottomWidth: 2,
   },
   avatar: {
     margin: 5,
     width: 45,
-    marginRight: 12,
+    height: 45,
+    borderRadius: 20,
+    marginRight: 5
   },
   name:{
-    color: '#E09F9F',
+    color: '#6B6969',
     fontSize: 20,
   },
   date:{
