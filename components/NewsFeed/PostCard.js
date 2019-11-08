@@ -6,10 +6,11 @@ import {
   StyleSheet,
   Image,
   TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import { Card } from 'react-native-paper';
-import { Button } from 'react-native-ui-kitten';
-//import PostHeader from './PostHeader';
+import { Button, Input } from 'react-native-ui-kitten';
+
 /*
  * @author Samuel Zeleke sgz4@students.calvin.edu
  * @version 1.0
@@ -50,14 +51,12 @@ export default class PostCard extends React.Component {
         buttonTitle: 'Liked',
         buttonStatus: 'success',
       });
-      alert('Liked ' + this.state.likeTally + ' times');
     } else {
       this.setState({
         likeTally: this.state.likeTally - 1,
         buttonTitle: 'Like',
         buttonStatus: 'primary',
       });
-      alert('Liked ' + this.state.likeTally + ' times');
     }
   };
 
@@ -75,12 +74,12 @@ export default class PostCard extends React.Component {
           marginRight: 2,
           width: Dimensions.get('window').width - 15,
           maxHeight: '800px',
+          overflow: 'hidden',
         }}>
         {/*main view*/}
         <View
           style={{
             paddingTop: 10,
-            paddingBottom: 10,
             maxWidth: Dimensions.get('window').width - 25,
             flex: 1,
             flexDirection: 'col',
@@ -91,21 +90,12 @@ export default class PostCard extends React.Component {
               flexDirection: 'row',
               paddingBottom: 10,
             }}>
-            <TouchableHighlight
+            <TouchableOpacity
               onPress={() => {
-                this.props.navigation.navigate('Profile');
+                console.log('should navigate');
               }}>
-              <Image
-                style={{
-                  height: 30,
-                  width: 30,
-                  marginLeft: 10,
-                  borderRadius: 15,
-                  borderWidth: 2,
-                }}
-                source={require('../../assets/kvlinden1.png')}
-              />
-            </TouchableHighlight>
+              {this.props.userImageSrc}
+            </TouchableOpacity>
             {/*Name sub-component*/}
             <Text
               style={{
@@ -117,9 +107,17 @@ export default class PostCard extends React.Component {
               {this.props.userName} • {this.props.timeStamp}
             </Text>
           </View>
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={() => {
-              alert("Hi! I'm the text");
+              this.props.postView({
+                bgcolor: 'white',
+                text: this.props.text,
+                imageSrc: this.props.imageSrc,
+                userImageSrc: this.props.userImageSrc,
+                userName: this.props.userName,
+                timeStamp: this.props.timeStamp,
+                postNav: this.props.postNav,
+              });
             }}>
             <Text
               style={{
@@ -132,19 +130,30 @@ export default class PostCard extends React.Component {
               numberOfLines={5}>
               {this.props.text}
             </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => {
               alert("Hi! I'm the image");
-            }}>
-            <Image
-              style={{
-                width: Dimensions.get('window').width - 25,
-                margin: 5,
-              }}
-              source={require('./quick-brown-fox-18.jpg')}
-            />
-          </TouchableHighlight>
+            }}
+            style={{ paddingTop: 9 }}>
+            {this.props.imageSource}
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 2,
+            flexDirection: 'row',
+            marginLeft: 5,
+            maxWidth: Dimensions.get('window').width - 30,
+          }}>
+          <Input placeholder="Comment" size="small" style={{ width: '75%' }} />
+          <Button
+            status={this.state.buttonStatus}
+            onPress={this.increaseLike}
+            appearance="ghost"
+            style={{ width: '30%' }}>
+            Like
+          </Button>
         </View>
       </Card>
     );

@@ -58,6 +58,15 @@ export default class FindMentor extends React.Component {
       search: '',
     };
   }
+    OpenMenu = () => (
+    <TopNavigationAction
+      onPress={() => this.props.navigation.toggleDrawer()}
+      icon={this.MenuIcon}
+    />
+  );
+
+  MenuIcon = style => <Icon {...style} name="menu-outline" />;
+
 
   defaultNavigation = () => {
     return (
@@ -69,13 +78,9 @@ export default class FindMentor extends React.Component {
         />
         <TopNavigation
           title="Mentors"
-          alignment="Left"
-          textstyle={{
-            fontSize: 25,
-            fontWeight: 'bold',
-            marginLeft: 10
-          }}
+          alignment="center"
           rightControls={this.searchTrigger()}
+          leftControl={this.OpenMenu()}
         />
       </View>
     );

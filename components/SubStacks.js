@@ -7,6 +7,9 @@ import SignUp from './SignUp/SignUp';
 import Settings from './Settings/Settings';
 import Account from './Settings/Account';
 import Profile from './Profile/Profile';
+import PostView from './NewsFeed/PostView';
+import NewsFeed from './NewsFeed/NewsFeed';
+
 import { createStackNavigator } from 'react-navigation-stack';
 
 export const ChatStack = createStackNavigator({
@@ -57,5 +60,22 @@ export const SettingsStack = createStackNavigator({
       header: null,
       headerLeft: null,
     },
+  },
+});
+
+export const NewsFeedStack = createStackNavigator({
+  "News Feed": {
+      screen: NewsFeed,
+      navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
+    },
+  PostView: {
+    screen: PostView,
+    navigationOptions: {
+        header: null,
+        gesturesEnabled: false,
+      },
   },
 });

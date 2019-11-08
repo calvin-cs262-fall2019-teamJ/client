@@ -15,7 +15,7 @@ class DrawerNav extends React.Component {
     super(props);
     
     //renders all but the 'Profile' page in the drawer (we can still navigate to it)
-    this.drawerData = props.items.slice(0,5).map(this.createDrawerItem); 
+    this.drawerData = props.items.slice(0,4).map(this.createDrawerItem); 
   }
 
   ProfileIcon = style => (

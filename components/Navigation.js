@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import { ChatStack, LoginStack, SettingsStack } from './SubStacks';
+import { ChatStack, LoginStack, SettingsStack, NewsFeedStack } from './SubStacks';
 import { Navigation } from 'react-navigation';
 
 // Import the screens
@@ -12,13 +12,7 @@ import Search from './Search/Search';
 
 export const DrawerNavigator = createDrawerNavigator(
   {
-    "News Feed": {
-      screen: NewsFeed,
-      navigationOptions: {
-        header: false,
-        gesturesEnabled: false,
-      },
-    },
+    "News Feed": NewsFeedStack,
     Chat: ChatStack,
     "Find a Mentor": {
       screen: FindMentor,

@@ -44,7 +44,8 @@ const jobPostTexts = [
 
 ]
 
-export default class Search extends React.Component {
+export default class SearchDefaultView extends React.Component {
+
   render() {
     return (
       <ScrollView>
@@ -70,17 +71,28 @@ export default class Search extends React.Component {
             annotations={markers}
             showsUserLocation={true}
           />
-
+        </View>
           <PostCard
             bgcolor="white"
-            text={jobPostTexts[0]}
-            imageSrc="./quick-brown-fox-18.jpg"
-            userImageSrc="../../assets/kvlinden.png"
+            text={
+              "I'm happy to announce that I've been given the honor of being a panelist at next years World Economic Forum. I'll also be presenting a talk about the how the use of AI in agriculture could help address world hunger."
+            }
+            userImageSrc=<Image
+              style={{
+                height: 30,
+                width: 30,
+                marginLeft: 10,
+                borderRadius: 15,
+                borderWidth: 2,
+              }}
+              source={require('../../assets/kvlinden1.png')}
+            />
             userName="Keith VanderLinden"
-            timeStamp="7d ago"
-            postNav={this.profilePress}
+            timeStamp="12 mins ago"
+            postNav={this.toProfile}
+            postView={params => this.textPress(params)}
           />
-        </View>
+        
       </ScrollView>
     );
   }
