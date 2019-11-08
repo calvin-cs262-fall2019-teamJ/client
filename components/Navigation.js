@@ -7,12 +7,12 @@ import { Navigation } from 'react-navigation';
 import DrawerNav from './DrawerNav/DrawerNav';
 import Profile from './Profile/Profile';
 import NewsFeed from './NewsFeed/NewsFeed';
-
+import FindMentor from './FindMentor/FindMentor';
 import Search from './Search/Search';
 
 export const DrawerNavigator = createDrawerNavigator(
   {
-    NewsFeed: {
+    "News Feed": {
       screen: NewsFeed,
       navigationOptions: {
         header: false,
@@ -20,12 +20,18 @@ export const DrawerNavigator = createDrawerNavigator(
       },
     },
     Chat: ChatStack,
+    "Find a Mentor": {
+      screen: FindMentor,
+      navigationOptions: {
+        header: null,
+      },
+    },
     Settings: SettingsStack,
     Profile: {
       screen: Profile,
       navigationOptions: {
         header: false,
-    },
+      },
     },
   },
   {
@@ -34,7 +40,6 @@ export const DrawerNavigator = createDrawerNavigator(
 );
 
 export const mainNavigator = createStackNavigator({
-  LoginProcess: { screen: LoginStack },
   Home: {
     screen: DrawerNavigator,
     navigationOptions: {
@@ -43,6 +48,8 @@ export const mainNavigator = createStackNavigator({
       gesturesEnabled: false,
     },
   },
+  LoginProcess: { screen: LoginStack },
+  
   Search: {
     screen: Search,
     navigationOptions: {
