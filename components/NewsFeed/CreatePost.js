@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   Button,
   Icon,
@@ -17,13 +17,18 @@ import {
   SafeAreaView,
   View,
   TextInput,
-  TouchableHighlight,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
+
 import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as RNFS from 'react-native-filesystem';
 
 class CreatePost extends React.Component<Props> {
   constructor(props) {
@@ -34,20 +39,38 @@ class CreatePost extends React.Component<Props> {
       scope: 'Department',
       tags: {},
       annonymous: true,
+      images: 1,
     };
   }
 
-  profilePress = () => {
-    this.props.navigation.navigate('Profile');
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
   };
 
-  textPress = paramsVal => {
-    this.props.navigation.navigate('PostView', { paramsVal });
+  _pickImage = async () => {
+    this.getPermissionAsync();
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ images: result.uri });
+    }
+    console.log(this.state.images);
   };
 
-  OpenMenu = () => (
+  backButton = () => (
     <TopNavigationAction
-      onPress={() => this.props.navigation.toggleDrawer()}
+      onPress={() => this.props.navigation.navigate('News Feed')}
       icon={this.back}
     />
   );
@@ -57,12 +80,12 @@ class CreatePost extends React.Component<Props> {
   AddConversation = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.navigate('Search')}
-      icon={this.SearchIcon}
+      icon={this.settingsIcon}
     />
   );
 
-  SearchIcon = style => <Icon {...style} name="settings-2-outline" />;
-
+  settingsIcon = style => <Icon {...style} name="settings-2-outline" />;
+  addIcon = style => <Icon {...style} name="plus-outline" />;
   topNavigation = () => {
     return (
       <View>
@@ -75,8 +98,7 @@ class CreatePost extends React.Component<Props> {
         <TopNavigation
           title="New Post"
           alignment="center"
-          leftControl={this.OpenMenu()}
-          rightControls={this.AddConversation()}
+          leftControl={this.backButton()}
           hear
         />
       </View>
@@ -113,9 +135,18 @@ class CreatePost extends React.Component<Props> {
 
   mainHeader = () => {
     return (
-      <View>
-        <Text style={styles.scopeStyle}>Your {this.state.scope}</Text>
-        {this.state.annonymous ? this.annonymousLabel() : this.publicLabel()}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View>
+          <Text style={styles.scopeStyle}>Your {this.state.scope}</Text>
+          {this.state.annonymous ? this.annonymousLabel() : this.publicLabel()}
+        </View>
+        <Button
+          appearance="ghost"
+          style={{ color: 'black', alignSelf: 'right' }}
+          status="basic"
+          size="giant"
+          icon={this.settingsIcon}
+        />
       </View>
     );
   };
@@ -140,25 +171,72 @@ class CreatePost extends React.Component<Props> {
             backgroundColor: '#DEDEDE',
             minWidth: Dimensions.get('window').width * 0.97,
             opacity: 0.8,
-            marginBottom: 30
+            marginBottom: 30,
           }}>
           <TextInput
             textAlignVertical="Top"
-            style={{ 
-              marginTop: 5,
-              marginLeft: 10,
-              marginBottom: 30,
-              backgroundColor: '#DEDEDE',
-              alighnSelf: 'center',
-              minHeight: '30%',
-              opacity: 0.8,
-              width: Dimensions.get('window').width - 30,
-            }}
-            placeholderTextColor = "black"
-            placeholder = "Say something!"
+            style={styles.textInput}
+            placeholderTextColor="black"
+            placeholder="Say something!"
             multiline={true}
+            onScroll={e => {
+              Keyboard.dismis;
+            }}
           />
         </View>
+      </View>
+    );
+  };
+
+  emptyImageUpload = () => {
+    return (
+      <TouchableOpacity
+        style={{
+          height: '100%',
+          width: Dimensions.get('window').width * 0.97,
+          opacity: 0.8,
+          alignContent: 'center',
+          justifyContent: 'center',
+        }}
+        onPress={this._pickImage}>
+        <Text style={{ alignSelf: 'center' }}>Add Images</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  occupiedImageUpload = () => {
+    return (
+      <Layout
+        style={{
+          backgroundColor: '#FFFFFF',
+          width: Dimensions.get('window').width * 0.97,
+          opacity: 1,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          alignSelf: 'center',
+        }}>
+        <Text
+          style={{
+            color: 'black',
+            fontSize: 20,
+            fontWeight: 'bold',
+            marginTop: 10,
+            marginLeft: 15,
+            marginBottom: 10,
+            opacity: 1,
+          }}>
+          Images
+        </Text>
+      </Layout>
+    );
+  };
+
+  imageUploadView = () => {
+    return (
+      <View style={styles.imageUploadStyle}>
+        {this.state.images == null
+          ? this.emptyImageUpload()
+          : this.occupiedImageUpload()}
       </View>
     );
   };
@@ -167,11 +245,38 @@ class CreatePost extends React.Component<Props> {
     return (
       <View style={styles.container}>
         {this.topNavigation()}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <LinearGradient colors={['#FFFFFF', '#FFB7A8']} style={styles.mainView}>
           {this.mainHeader()}
-
-          {this.inputText()}
+          <ScrollView
+            style={{
+              minHeight: Dimensions.get('window').height * 0.8,
+              borderTopColor: 'grey',
+              alignContent: 'center',
+            }}
+            overScrollMode = "never"
+            >
+            {this.inputText()}
+            {this.imageUploadView()}
+            
+          </ScrollView>
+          <Button
+              appearance="fill"
+              style={{
+                position: 'absolute',
+                marginTop: Dimensions.get('window').height * 0.8,
+                marginLeft: Dimensions.get('window').width * 0.67,
+                width: 110,
+                borderRadius: 20,
+                backgroundColor: 'white',
+                borderColor: 'white',
+              }}
+              textStyle={{ color: '#FF4821' }}>
+              {' '}
+              Post{' '}
+            </Button>
         </LinearGradient>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
@@ -198,14 +303,33 @@ const styles = {
   mainView: {
     height: Dimensions.get('window').height,
     borderTopColor: 'grey',
+    alignContent: 'center',
   },
   textCard: {
-    marginTop: 10,
     width: Dimensions.get('window').width * 0.97,
     alignSelf: 'center',
     borderRadius: 20,
-    backgroundColor: '#EEEEEE',
+    backgroundColor: '#FFFFFF',
     opacity: 0.8,
+  },
+  textInput: {
+    marginTop: 5,
+    marginLeft: 10,
+    marginBottom: 30,
+    backgroundColor: '#DEDEDE',
+    alighnSelf: 'center',
+    minHeight: Dimensions.get('window').height * 0.25,
+    opacity: 0.8,
+    width: Dimensions.get('window').width - 30,
+  },
+  imageUploadStyle: {
+    backgroundColor: '#EEEEEE',
+    alignSelf: 'center',
+    minHeight: Dimensions.get('window').height * 0.2,
+    width: Dimensions.get('window').width * 0.97,
+    marginTop: 15,
+    opacity: 0.9,
+    borderRadius: 20,
   },
 };
 export default CreatePost;
