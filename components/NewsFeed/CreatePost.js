@@ -1,25 +1,28 @@
 import * as React from 'react';
 import {
   Button,
+  CheckBox,
   Icon,
   List,
   ListItem,
   Layout,
+  Modal,
   Text,
+  Toggle,
   TopNavigation,
   TopNavigationAction,
 } from 'react-native-ui-kitten';
 import {
-  Image,
   Dimensions,
+  Image,
+  Keyboard,
   StyleSheet,
   ScrollView,
   SafeAreaView,
-  View,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Keyboard,
+  View,
 } from 'react-native';
 
 import Constants from 'expo-constants';
@@ -36,10 +39,12 @@ class CreatePost extends React.Component<Props> {
     this.state = {
       userID: 'userIDPlaceHolder',
       textInput: '',
-      scope: 'Department',
+      scope: 'Your Department',
       tags: {},
       annonymous: true,
-      images: 1,
+      images: null,
+      settingsVisible: false,
+      buttonLabel: ['basic', 'basic', 'success'],
     };
   }
 
@@ -137,7 +142,7 @@ class CreatePost extends React.Component<Props> {
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <View>
-          <Text style={styles.scopeStyle}>Your {this.state.scope}</Text>
+          <Text style={styles.scopeStyle}>{this.state.scope}</Text>
           {this.state.annonymous ? this.annonymousLabel() : this.publicLabel()}
         </View>
         <Button
@@ -146,9 +151,22 @@ class CreatePost extends React.Component<Props> {
           status="basic"
           size="giant"
           icon={this.settingsIcon}
+          onPress={this.settingVisibilityChange}
         />
       </View>
     );
+  };
+
+  settingVisibilityChange = () => {
+    if (this.state.settingsVisible) {
+      this.setState({
+        settingsVisible: false,
+      });
+    } else {
+      this.setState({
+        settingsVisible: true,
+      });
+    }
   };
 
   inputText = () => {
@@ -179,9 +197,6 @@ class CreatePost extends React.Component<Props> {
             placeholderTextColor="black"
             placeholder="Say something!"
             multiline={true}
-            onScroll={e => {
-              Keyboard.dismis;
-            }}
           />
         </View>
       </View>
@@ -192,7 +207,7 @@ class CreatePost extends React.Component<Props> {
     return (
       <TouchableOpacity
         style={{
-          height: '100%',
+          height: Dimensions.get('window').width * 0.2,
           width: Dimensions.get('window').width * 0.97,
           opacity: 0.8,
           alignContent: 'center',
@@ -240,27 +255,136 @@ class CreatePost extends React.Component<Props> {
       </View>
     );
   };
+
+  settingsView() {
+    return (
+      <Modal
+        allowBackdrop={true}
+        backdropStyle={{ backgroundColor: 'black', opacity: 0.5 }}
+        onBackdropPress={this.settingVisibilityChange}
+        visible={this.state.settingsVisible}>
+        <View
+          style={{
+            backgroundColor: '#EEEEEE',
+            alignSelf: 'center',
+            alignContent: 'center',
+            borderRadius: 20,
+            minHeight: Dimensions.get('window').height * 0.2,
+            minWidth: Dimensions.get('window').width * 0.95,
+          }}>
+          <Text
+            style={{
+              fontSize: 14,
+              fontWeight: 'bold',
+              alignSelf: 'center',
+              marginVertical: 10,
+            }}>
+            {' '}
+            Scope{' '}
+          </Text>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              paddingLeft: '5%',
+              alignContent: 'space-between',
+              backgroundColor: '#EEEEEE',
+              maxWidth: '80%',
+              maxHeight: '30%',
+              marginBottom: 5
+            }}>
+            <Button onPress={this.setPublic} status={this.state.buttonLabel[0]}>
+              Public
+            </Button>
+            <Button
+              onPress={this.setInstitute}
+              status={this.state.buttonLabel[1]}>
+              Institution
+            </Button>
+            <Button
+              onPress={this.setDepartment}
+              status={this.state.buttonLabel[2]}>
+              Department
+            </Button>
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignContent: "space-between",
+              width: Dimensions.get('window').width * 0.95,
+            }}>
+            <Text
+              style={{
+                alignSelf: 'left',
+                fontSize: 14,
+                fontWeight: 'bold',
+                marginVertical: 10,
+                marginLeft: "5%"
+              }}>
+              {' '}
+              Annonymous{' '}
+            </Text>
+            <Toggle
+              style={{ paddingBottom: 10 }}
+              checked={this.state.annonymous}
+              size="tiny"
+              onChange={this.annonymityChange}
+            />
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+  setPublic = () => {
+    this.setState({
+      scope: 'Public',
+      buttonLabel: ['danger', 'basic', 'basic'],
+    });
+  };
+  setInstitute = () => {
+    this.setState({
+      scope: 'Your Institution',
+      buttonLabel: ['basic', 'primary', 'basic'],
+    });
+  };
+  setDepartment = () => {
+    this.setState({
+      scope: 'Your Department',
+      buttonLabel: ['basic', 'basic', 'success'],
+    });
+  };
+
+  annonymityChange = () => {
+    if (this.state.annonymous) {
+      this.setState({ annonymous: false });
+    } else {
+      this.setState({ annonymous: true });
+    }
+  };
   /* Renders the component*/
   render() {
     return (
       <View style={styles.container}>
         {this.topNavigation()}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <LinearGradient colors={['#FFFFFF', '#FFB7A8']} style={styles.mainView}>
-          {this.mainHeader()}
-          <ScrollView
-            style={{
-              minHeight: Dimensions.get('window').height * 0.8,
-              borderTopColor: 'grey',
-              alignContent: 'center',
-            }}
-            overScrollMode = "never"
-            >
-            {this.inputText()}
-            {this.imageUploadView()}
-            
-          </ScrollView>
-          <Button
+          <LinearGradient
+            colors={['#FFFFFF', '#FFDCD5']}
+            style={styles.mainView}>
+            {this.mainHeader()}
+            {this.settingsView()}
+
+            <ScrollView
+              style={{
+                minHeight: Dimensions.get('window').height * 0.8,
+                borderTopColor: 'grey',
+                alignContent: 'center',
+              }}
+              overScrollMode="never">
+              {this.inputText()}
+              {this.imageUploadView()}
+            </ScrollView>
+            <Button
               appearance="fill"
               style={{
                 position: 'absolute',
@@ -275,7 +399,7 @@ class CreatePost extends React.Component<Props> {
               {' '}
               Post{' '}
             </Button>
-        </LinearGradient>
+          </LinearGradient>
         </TouchableWithoutFeedback>
       </View>
     );
@@ -330,6 +454,10 @@ const styles = {
     marginTop: 15,
     opacity: 0.9,
     borderRadius: 20,
+  },
+  settingsViewContainer: {
+    width: Dimensions.get('window').width * 0.7,
+    alignSelf: 'center',
   },
 };
 export default CreatePost;

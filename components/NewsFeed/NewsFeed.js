@@ -38,7 +38,12 @@ class NewsFeed extends React.Component<Props> {
     />
   );
 
+  createPost = () => {
+    this.props.navigation.navigate("CreatePost")
+  }
+
   MenuIcon = style => <Icon {...style} name="menu-outline" />;
+  AddIcon = style => <Icon {...style} name="plus-outline" />;
 
   AddConversation = () => (
     <TopNavigationAction
@@ -197,6 +202,23 @@ class NewsFeed extends React.Component<Props> {
             postView={params => this.textPress(params)}
           />
         </ScrollView>
+        <Button
+          appearance="fill"
+          style={{
+            position: 'absolute',
+            marginTop: Dimensions.get('window').height * 0.89,
+            marginLeft: Dimensions.get('window').width * 0.82,
+            width: 60,
+            height: 60,
+            borderRadius: 60,
+            backgroundColor: '#FF522D',
+            borderColor: '#FF522D',
+          }}
+          textStyle={{ color: '#FF4821' }}
+          onPress={this.createPost}
+          icon = {this.AddIcon}
+          color = "black"
+          />
       </SafeAreaView>
     );
   }

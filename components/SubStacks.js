@@ -65,15 +65,15 @@ export const SettingsStack = createStackNavigator({
 });
 
 export const NewsFeedStack = createStackNavigator({
-  CreatePost: {
-    screen: CreatePost,
+  'News Feed': {
+    screen: NewsFeed,
     navigationOptions: {
       header: null,
       gesturesEnabled: false,
     },
   },
-  'News Feed': {
-    screen: NewsFeed,
+  CreatePost: {
+    screen: CreatePost,
     navigationOptions: {
       header: null,
       gesturesEnabled: false,
