@@ -1,5 +1,4 @@
 # Calvin Connect
-Calvin Connect is a networking app that allows CS alumni and students to grow their professional networks and organize events. The app will be created with the aim of seeing a thriving community of professionals that helps its members grow through collaborative projects and mentoring opportunities.
 Calvin Connect is a networking app that creats a virtual community for the Calvin students and Calvin alumni. The ultimate aim of the app is to see a thriving community of professionals that helps its members grow through collaborative projects and mentoring opportunities in the Calvin World amongst the student and alumni.
 
 
