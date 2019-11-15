@@ -35,6 +35,10 @@ export default class Settings extends React.Component {
   goToAccount = () => {
     this.props.navigation.navigate('Account');
   };
+  
+  goToSignOut = () => {
+    this.props.navigation.navigate('SignIn');
+  }
 
   OpenMenu = () => (
     <TopNavigationAction
@@ -82,6 +86,9 @@ export default class Settings extends React.Component {
               onChange={this.onPressSound}
             />
             <View style={styles.separator} />
+            <Button style={styles.button} 
+            appearance='ghost'
+            onPress = {this.goToSignOut.bind(this)}>Log Out</Button>
           </View>
         </Card>
       </View>
