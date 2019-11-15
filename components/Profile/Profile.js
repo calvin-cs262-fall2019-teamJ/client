@@ -21,6 +21,15 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       openSection: 'none',
+      avatar: '',
+      name: { first: 'Keith', last: 'VanderLinden' },
+      location: 'Grand Rapids, MI',
+      graduatingClass: 'May 2020 ',
+      major: [
+        'BA in Mathematics',
+        'MS in Computer Science',
+        'PhD in Cognitive Science',
+      ],
     };
   }
 
@@ -31,16 +40,16 @@ export default class Profile extends Component {
     />
   );
 
-// conditionally rendered on weather you're viewing your profile or someone elses
+  // conditionally rendered on weather you're viewing your profile or someone elses
   EditProfile = () => (
     <TopNavigationAction
-      //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page 
+      //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page
       icon={this.EditIcon}
     />
   );
 
   MenuIcon = style => <Icon {...style} name="menu-outline" />;
-  
+
   EditIcon = style => <Icon {...style} name="edit-outline" />;
 
   Empty = () => <View />;
@@ -71,19 +80,27 @@ export default class Profile extends Component {
               />
             </View>
             <View>
-              <Text style={styles.name}>{'\n'}Keith</Text>
-              <Text style={styles.name}>Vander Linden</Text>
-              <Text style={styles.userInfo}>{'\n'}Grand Rapids, MI </Text>
-              <Text style={styles.userInfo}>Year: May 2020 </Text>
+              <Text style={styles.name}>
+                {'\n'}
+                {this.state.name.first}
+              </Text>
+              <Text style={styles.name}>{this.state.name.last}</Text>
+              <Text style={styles.userInfo}>
+                {'\n'}
+                {this.state.location}{' '}
+              </Text>
+              <Text style={styles.userInfo}>
+                Year: {this.state.graduatingClass}{' '}
+              </Text>
             </View>
           </View>
 
           <View style={styles.education}>
             <Text style={styles.major}>Major:</Text>
             <Text style={styles.userEdu}>
-              BA in Mathematics{'\n'}
-              MS in Computer Science{'\n'}
-              PhD in Cognitive Science{'\n'}
+              {this.state.major.map(program => {
+                return( program + '\n' );
+              })}
             </Text>
           </View>
 
