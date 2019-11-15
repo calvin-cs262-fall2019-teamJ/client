@@ -1,6 +1,15 @@
 /* This file defines the methods and visuals for the "Sign In"  Component*/
 import React from 'react';
-import { Alert, TextInput, View, StyleSheet, Image } from 'react-native';
+import {
+  Alert,
+  TextInput,
+  View,
+  StyleSheet,
+  Image,
+  Animated,
+  Keyboard,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {
   Layout,
   Text,
@@ -50,7 +59,7 @@ class SignIn extends React.Component {
   //displays the page
   render() {
     return (
-      <Layout style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Image
           style={{ width: 265, height: 295 }}
           source={require('../../assets/icons/logo.png')}
@@ -81,7 +90,8 @@ class SignIn extends React.Component {
           onPress={this.gotoSignUp.bind(this)}>
           Sign Up
         </Button>
-      </Layout>
+        <View style={{ height: 60 }} />
+      </KeyboardAvoidingView>
     );
   }
 }
