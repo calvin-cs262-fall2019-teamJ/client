@@ -8,6 +8,7 @@ import {
   Image,
   Text,
   ImageBackground,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Input, Button, Layout } from 'react-native-ui-kitten';
 
@@ -44,7 +45,7 @@ class SignUp extends React.Component {
   //displays the page
   render() {
     return (
-      <Layout style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Image
           style={styles.image}
           source={require('../../assets/icons/logo.png')}
@@ -88,7 +89,7 @@ class SignUp extends React.Component {
           onPress={this.gotoPage.bind(this)}>
           Sign In
         </Button>
-      </Layout>
+      </KeyboardAvoidingView>
     );
   }
 }
