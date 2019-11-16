@@ -3,6 +3,7 @@ import { Header } from 'react-native-elements';
 import { Layout, Text } from 'react-native-ui-kitten';
 import { StyleSheet, View, ScrollView, Button } from 'react-native';
 
+// defines the fromat of a given project
 class ProjectSub extends React.Component<Props> {
   render() {
     return (

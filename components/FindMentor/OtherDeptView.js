@@ -6,200 +6,52 @@ import {
   Text,
   TopNavigation,
   TopNavigationAction,
-  ApplicationProvider,
   ViewPager as Viewer1,
 } from 'react-native-ui-kitten';
 import MentorCard from './mentorCard';
-import {
-  Button,
-  Dimensions,
-  StyleSheet,
-  View,
-  ListView,
-  ScrollView,
-} from 'react-native';
+import { Dimensions, StyleSheet, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import {
-  PagerTabIndicator,
-  IndicatorViewPager,
-  PagerTitleIndicator,
-  PagerDotIndicator,
-} from 'rn-viewpager';
+import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import { Card } from 'react-native-paper';
+import { departmentMembers } from '../Utils/SampleData'; // until this comes from the data base, we can keep the memebers here
 
+// defines the component for the "other deparments" section of the "find mentor" page
 export default class OtherDepartments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [
-        {
-          avatar:
-            'https://tbcdn.talentbrew.com/company/1758/v2_0/images/dale-dockter.jpg',
-          name: 'Pearson vanReeken',
-          date: '9:00 AM',
-          position: 'Sales Manager',
-          company: 'Oringa Inc.',
-          grad: 2005,
-        },
-        {
-          name: 'Janice vanBillings',
-          avatar:
-            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-          date: 'Yesterday',
-          position: 'Software Engineer',
-          company: 'Google LLC',
-          grad: 2015,
-        },
-        {
-          name: 'John Doe',
-          avatar:
-            'https://alejandrocremades.com/wp-content/uploads/2016/01/rsz_1speaker_-_alejandro_cremades_360.jpg',
-          date: 'Yesterday',
-          position: 'CEO',
-          company: 'Bazinga Tech',
-          grad: 2017,
-        },
-        {
-          name: 'John Doe',
-          avatar:
-            'https://alejandrocremades.com/wp-content/uploads/2016/01/rsz_1speaker_-_alejandro_cremades_360.jpg',
-          date: 'Yesterday',
-          position: 'CEO',
-          company: 'Bazinga Tech',
-          grad: 2017,
-        },
-        {
-          name: 'John Doe',
-          avatar:
-            'https://alejandrocremades.com/wp-content/uploads/2016/01/rsz_1speaker_-_alejandro_cremades_360.jpg',
-          date: 'Yesterday',
-          position: 'CEO',
-          company: 'Bazinga Tech',
-          grad: 2017,
-        },
+      departmentList: [
+        { name: 'Physics', members: departmentMembers },
+        { name: 'Math', members: departmentMembers },
+        { name: 'Business', members: departmentMembers },
       ],
       viewMode: 'default',
       search: '',
     };
   }
 
-  defaultNavigation = () => {
-    return (
-      <View>
-        <View
-          style={{
-            height: Constants.statusBarHeight,
-          }}
-        />
-        <TopNavigation
-          title="Mentors"
-          alignment="Left"
-          textstyle={{
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}
-          rightControls={this.searchTrigger()}
-        />
-      </View>
-    );
-  };
-
-  searchTrigger = () => (
-    <TopNavigationAction
-      onPress={() => {
-        this.setState({
-          viewMode: 'search',
-        });
-      }}
-      icon={this.SearchIcon}
-    />
-  );
-  
-  topNaviMode = () => {
-    if (this.state.viewMode == 'default') {
-      return this.defaultNavigation();
-    } else {
-      return this.searchNavigation();
-    }
-  };
-
-  openChat = name => {
-    this.props.navigation.navigate('ChatDM', { name: name });
-  };
-
-  _renderTitleIndicator() {
-    return <PagerTitleIndicator titles={['One', 'Two', 'Three']} />;
-  }
-
-  _renderDotIndicator() {
+  // shows what "page" we're on
+  paginationStatus() {
     return <PagerDotIndicator pageCount={3} />;
   }
 
-  _renderTabIndicator() {
-    let tabs = [
-      {
-        text: 'One',
-      },
-      {
-        text: 'Two',
-      },
-      {
-        text: 'Three',
-      },
-    ];
-    return <PagerTabIndicator tabs={tabs} />;
-  }
-
-  eachDepartment (departmentName, peopleList) {
-    return(
-      <ScrollView>
-      <Card 
-        style = {styles.eachDepartment}
-        >
-        <Text
-          style={{
-            fontSize: 20,
-            marginLeft: 10,
-            marginBottom: 10,
-            marginTop: 15,
-            fontWeight: 'bold',
-          }}>
-          {departmentName}
-        </Text>
-      {this.state.messages.map(convo => {
-            return (
-              <MentorCard
-                date={convo.date}
-                name={convo.name}
-                avatar={convo.avatar}
-                position = {convo.position}
-                company = {convo.company}
-                openChat={this.openChat}
-                grad={convo.grad}
-                backgroundColor = {styles.eachDepartment}
-              />
-            );
-          })}
-      </Card>
-      </ScrollView>
-    )
-  }
   mainView() {
     return (
       <IndicatorViewPager
-        style={{ height: 300, width: Dimensions.get('window').width * 0.95, borderRadius: 20 }}
-        indicator={this._renderDotIndicator()}>
-        <View style={[styles.indicatorView]}>
-          {this.eachDepartment("Business")}
-        </View>
-
-        <View style={[styles.indicatorView]}>
-          {this.eachDepartment("Math")}
-        </View>
-
-        <View style={[styles.indicatorView]}>
-          {this.eachDepartment("Physics")}
-        </View>
+        style={{
+          height: 300,
+          width: Dimensions.get('window').width * 0.95,
+          borderRadius: 20,
+          bottom: 0,
+        }}
+        indicator={this.paginationStatus()}>
+        {this.state.departmentList.map(department => {
+          return (
+            <View style={[styles.indicatorView]}>
+              {Department(department.name, department.members)}
+            </View>
+          );
+        })}
       </IndicatorViewPager>
     );
   }
@@ -220,6 +72,40 @@ export default class OtherDepartments extends React.Component {
     );
   }
 }
+// defines the styling for each format for each individual department
+export const Department = (departmentName, peopleList) => {
+  return (
+    <ScrollView style={{ bottom: 0 }}>
+      <Card style={styles.eachDepartment}>
+        <Text
+          style={{
+            fontSize: 20,
+            marginLeft: 10,
+            marginBottom: 10,
+            marginTop: 15,
+            fontWeight: 'bold',
+          }}>
+          {departmentName}
+        </Text>
+        {peopleList.map(convo => {
+          return (
+            <MentorCard
+              date={convo.date}
+              name={convo.name}
+              avatar={convo.avatar}
+              position={convo.position}
+              company={convo.company}
+              openChat={this.openChat}
+              grad={convo.grad}
+              backgroundColor={styles.eachDepartment}
+            />
+          );
+        })}
+      </Card>
+    </ScrollView>
+  );
+};
+
 const styles = StyleSheet.create({
   tab: {
     alignItems: 'center',
@@ -231,7 +117,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: 'white',
-    borderRadius: 20
+    borderRadius: 20,
   },
 
   text: {
@@ -241,7 +127,7 @@ const styles = StyleSheet.create({
   eachDepartment: {
     marginLeft: 10,
     marignTop: 10,
-    backgroundColor: "#FFE8E3",
-    borderRadius: 20
-  }
+    backgroundColor: '#FFE8E3',
+    borderRadius: 20,
+  },
 });

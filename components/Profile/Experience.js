@@ -3,6 +3,7 @@ import { Header } from 'react-native-elements';
 import { Layout, Text, ListItem } from 'react-native-ui-kitten';
 import { StyleSheet, View } from 'react-native';
 
+// defines the format of the "Expirience" section of the profile
 class Experiences extends React.Component<Props> {
   constructor(props) {
     super(props);

@@ -1,9 +1,6 @@
 import React from 'react';
-import { Header } from 'react-native-elements';
 import {
-  Layout,
   Text,
-  ListItem,
   TopNavigation,
   TopNavigationAction,
   Icon,
@@ -11,34 +8,43 @@ import {
 import { StyleSheet, View } from 'react-native';
 import Constants from 'expo-constants';
 import { Card } from 'react-native-shadow-cards';
+import { BackIcon } from '../Utils/customIcons';
 
+// screen for the "Account Info" page
 class Account extends React.Component<Props> {
-   BackAction = () => (
-    <TopNavigationAction onPress={()=> this.props.navigation.goBack()} icon={this.BackIcon}/>
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: 'kvlinden@calvin.edu',
+      phoneNumber: '(616) 526-7111',
+    };
+  }
+  // enables back button to function
+  BackAction = () => (
+    <TopNavigationAction
+      onPress={() => this.props.navigation.goBack()}
+      icon={BackIcon}
+    />
   );
-
-   BackIcon = (style) => (
-  <Icon {...style} name='arrow-back' />
-);
 
   render() {
     return (
       <View style={styles.container}>
-      <TopNavigation
-        title="Account Settings"
-        alignment='center'
-        leftControl={this.BackAction()}
-      />
+        <TopNavigation
+          title="Account Settings"
+          alignment="center"
+          leftControl={this.BackAction()}
+        />
         <Card style={{ padding: 10, margin: 10 }}>
           <View>
             <Text style={styles.title}> Email </Text>
-            <Text> kvlinden@calvin.edu </Text>
+            <Text style={styles.text}> {this.state.email}</Text>
             <View style={styles.separator} />
             <Text style={styles.title}> Phone </Text>
-            <Text> (616) 526-7111 </Text>
+            <Text style={styles.text}> {this.state.phoneNumber}</Text>
             <View style={styles.separator} />
             <Text style={styles.title}> Password </Text>
-            <Text style={{ fontSize: 9 }}> ●●●●●●●● </Text>
+            <Text style={{ fontSize: 9, marginLeft: 12 }}> ●●●●●●●● </Text>
           </View>
         </Card>
       </View>
@@ -56,6 +62,10 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     marginBottom: 3,
+    marginLeft: 10,
+  },
+  text: {
+    marginLeft: 10,
   },
   separator: {
     backgroundColor: '#ececec',

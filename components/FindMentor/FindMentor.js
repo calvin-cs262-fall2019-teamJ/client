@@ -19,55 +19,58 @@ import {
   ScrollView,
 } from 'react-native';
 import Constants from 'expo-constants';
+import {SearchIcon, BackIcon, MenuIcon} from '../Utils/customIcons'
 
+// screen for the "Find Mentor" page
 export default class FindMentor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [
+      yourDepartmentList: [
         {
           avatar:
             'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
           name: 'Johana James',
           date: '9:00 AM',
-          position: "Project Manager",
-          company: "OST",
-          grad: 2010
+          position: 'Project Manager',
+          company: 'OST',
+          grad: 2010,
         },
         {
           name: 'Janice Billings',
           avatar:
             'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
           date: 'Yesterday',
-          position: "Software Engineer",
-          company: "Google LLC",
-          grad: 2015
-
+          position: 'Software Engineer',
+          company: 'Google LLC',
+          grad: 2015,
         },
         {
           name: 'John Doe',
           avatar:
             'https://alejandrocremades.com/wp-content/uploads/2016/01/rsz_1speaker_-_alejandro_cremades_360.jpg',
           date: 'Yesterday',
-          position: "CEO",
-          company: "Bazinga Tech",
-          grad: 2017
+          position: 'CEO',
+          company: 'Bazinga Tech',
+          grad: 2017,
         },
       ],
       viewMode: 'default',
       search: '',
     };
   }
-    OpenMenu = () => (
+
+  // will open the draer
+  OpenMenu = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.toggleDrawer()}
-      icon={this.MenuIcon}
+      icon={MenuIcon}
     />
   );
 
-  MenuIcon = style => <Icon {...style} name="menu-outline" />;
+ // MenuIcon = style => <Icon {...style} name="menu-outline" />;
 
-
+  // what the navigation bar looks like before the search bar is pressed
   defaultNavigation = () => {
     return (
       <View>
@@ -79,42 +82,44 @@ export default class FindMentor extends React.Component {
         <TopNavigation
           title="Mentors"
           alignment="center"
-          rightControls={this.searchTrigger()}
+          rightControls={this.expandSearchBar()}
           leftControl={this.OpenMenu()}
         />
       </View>
     );
   };
 
-  searchTrigger = () => (
+  // when pressed, it will change the top navigation to a search bar
+  expandSearchBar = () => (
     <TopNavigationAction
       onPress={() => {
         this.setState({
           viewMode: 'search',
         });
       }}
-      icon={this.SearchIcon}
+      icon={SearchIcon}
     />
   );
 
-  SearchIcon = style => <Icon {...style} name="search-outline" />;
-  BackIcon = style => <Icon {...style} name="chevron-left-outline"/>
-
+  // lets the back button navigate to the 
   backNavigation = () => {
     <TopNavigationAction
-      onPress={this.props.navigation.navigate("News Feed")}
-      icon={this.BackIcon}
-    />
-  }
-  
-  updateSearch = (searchVal) => {
-    this.setState({ search: searchVal })
+      onPress={this.props.navigation.navigate('News Feed')}
+      icon={BackIcon}
+    />;
   };
-  searchNavigation = () => {
+  // searches for mentors, soon to be replaced by database query
+  updateSearch = searchVal => {
+    this.setState({ search: searchVal });
+  };
+
+
+  // defines how the top naviagation looks when the search bar is pressed
+  searchBarExpanded = () => {
     return (
       <SearchBar
-        ref = {search => this.search = search} 
-        platform = "ios"
+        ref={search => (this.search = search)}
+        platform="ios"
         lightTheme="true"
         round //To make the searchbar corner round (default square)
         searchIcon={{ size: 24 }} //Size of the search icon
@@ -132,31 +137,36 @@ export default class FindMentor extends React.Component {
           minWidth: '78%',
           paddingBottom: 5,
           opacity: 100,
-          height: 40
+          height: 40,
         }}
         onChangeText={text => this.updateSearch(text)}
-        value = {this.state.search}
+        value={this.state.search}
         placeholderTextColor={'#g5g5g5'}
-        showCancel = "true"
+        showCancel="true"
       />
     );
   };
 
-  topNaviMode = () => {
+  // will conditionally render what the top navigation looks like
+  topNaviagationMode = () => {
     if (this.state.viewMode == 'default') {
       return this.defaultNavigation();
     } else {
-      return this.searchNavigation();
+      return this.searchBarExpanded();
     }
   };
 
+  /* will navigate to the chat page  (soon to be replaced with navigating 
+  to the user's profile )*/
   openChat = name => {
     this.props.navigation.navigate('ChatDM', { name: name });
   };
+
+
   render() {
     return (
       <Layout style={{}}>
-        {this.topNaviMode()}
+        {this.topNaviagationMode()}
         <Text
           style={{
             fontSize: 20,
@@ -167,22 +177,22 @@ export default class FindMentor extends React.Component {
           Your Department
         </Text>
         <ScrollView>
-          {this.state.messages.map(convo => {
+          {this.state.yourDepartmentList.map(convo => {
             return (
               <MentorCard
                 date={convo.date}
                 name={convo.name}
                 avatar={convo.avatar}
-                position = {convo.position}
-                company = {convo.company}
+                position={convo.position}
+                company={convo.company}
                 openChat={this.openChat}
                 grad={convo.grad}
-                backgroundColor = "white"
+                backgroundColor="white"
               />
             );
           })}
         </ScrollView>
-        <OtherDepartments/>
+        <OtherDepartments />
       </Layout>
     );
   }

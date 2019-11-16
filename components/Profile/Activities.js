@@ -1,24 +1,20 @@
 import React from 'react';
-import { Header} from 'react-native-elements';
+import { Header } from 'react-native-elements';
 import { Layout, Text } from 'react-native-ui-kitten';
 
+// may not be done
 class Activities extends React.Component<Props> {
-
- static navigationOptions = ({ navigation }) => ({
-    title: "Activities / Interests"
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Activities / Interests',
   });
 
- 
-  render(){
+  render() {
     return (
       <Layout>
-        <Text> 
-          Soon to be changed
-        </Text>
+        <Text>Soon to be changed</Text>
       </Layout>
     );
   }
-
 }
 
 export default Activities;

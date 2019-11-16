@@ -15,11 +15,13 @@ import Activities from './Activities';
 import Experience from './Experience';
 import Projects from './Projects/ProjectSuper';
 import Qualifications from './Qualifications';
-
+import { MenuIcon, EditIcon, Empty, MessageIcon} from '../Utils/customIcons';
+// Profile screen
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isSelf: true,
       openSection: 'none',
       avatar: '',
       name: { first: 'Keith', last: 'VanderLinden' },
@@ -33,10 +35,11 @@ export default class Profile extends Component {
     };
   }
 
+  // will open the drawer on press
   OpenMenu = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.toggleDrawer()}
-      icon={this.MenuIcon}
+      icon={MenuIcon}
     />
   );
 
@@ -44,15 +47,10 @@ export default class Profile extends Component {
   EditProfile = () => (
     <TopNavigationAction
       //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page
-      icon={this.EditIcon}
+      icon={(this.state.isSelf == true)? EditIcon : MessageIcon}
     />
   );
 
-  MenuIcon = style => <Icon {...style} name="menu-outline" />;
-
-  EditIcon = style => <Icon {...style} name="edit-outline" />;
-
-  Empty = () => <View />;
 
   toggleSection = section => {
     let condition = '';
@@ -99,7 +97,7 @@ export default class Profile extends Component {
             <Text style={styles.major}>Major:</Text>
             <Text style={styles.userEdu}>
               {this.state.major.map(program => {
-                return( program + '\n' );
+                return program + '\n';
               })}
             </Text>
           </View>
@@ -121,12 +119,12 @@ export default class Profile extends Component {
             {this.state.openSection == 'Objective' ? (
               <View style={styles.separator} />
             ) : (
-              this.Empty()
+              Empty()
             )}
             {this.state.openSection == 'Objective' ? (
               <Objective />
             ) : (
-              this.Empty()
+              Empty()
             )}
             <View style={styles.item}>
               <View style={styles.infoContent}>
@@ -144,12 +142,12 @@ export default class Profile extends Component {
             {this.state.openSection == 'Experience' ? (
               <View style={styles.separator} />
             ) : (
-              this.Empty()
+              Empty()
             )}
             {this.state.openSection == 'Experience' ? (
               <Experience />
             ) : (
-              this.Empty()
+              Empty()
             )}
             <View style={styles.item}>
               <View style={styles.infoContent}>
@@ -167,9 +165,9 @@ export default class Profile extends Component {
             {this.state.openSection == 'Projects' ? (
               <View style={styles.separator} />
             ) : (
-              this.Empty()
+              Empty()
             )}
-            {this.state.openSection == 'Projects' ? <Projects /> : this.Empty()}
+            {this.state.openSection == 'Projects' ? <Projects /> : Empty()}
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}> Qualifications </Text>
@@ -186,12 +184,12 @@ export default class Profile extends Component {
             {this.state.openSection == 'Qualifications' ? (
               <View style={styles.separator} />
             ) : (
-              this.Empty()
+              Empty()
             )}
             {this.state.openSection == 'Qualifications' ? (
               <Qualifications />
             ) : (
-              this.Empty()
+              Empty()
             )}
           </View>
         </ScrollView>

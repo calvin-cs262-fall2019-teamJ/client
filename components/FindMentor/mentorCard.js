@@ -15,33 +15,35 @@ import {
   ViewPager as Viewer1,
 } from 'react-native-ui-kitten';
 
+// defines what an individual mentor looks like on the "find mentor page"
 export default class MentorCard extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      addIcon: "person-add-outline"
-    }
+      addIcon: 'person-add-outline',
+    };
   }
 
-  addPersonIcon = (style) => <Icon {...style} name= {this.state.addIcon} />;
-  addPerson = () =>{
-    if (this.state.addIcon == "person-add-outline"){
-    alert("Mentorship request sent")
-    this.setState({
-      addIcon: "checkmark-outline"
-    })}
-    else {
-      alert("Mentorship request cancelled")
+  // will rchange from a '+' to '-' based on mentor to user statuts
+  PersonIcon = style => <Icon {...style} name={this.state.addIcon} />;
+
+  // toggles the state of the personIcon
+  togglePersonIcon = () => {
+    if (this.state.addIcon == 'person-add-outline') {
+      alert('Mentorship request sent');
       this.setState({
-      addIcon: "person-add-outline"
-    })
+        addIcon: 'checkmark-outline',
+      });
+    } else {
+      alert('Mentorship request cancelled');
+      this.setState({
+        addIcon: 'person-add-outline',
+      });
     }
-  }
+  };
   renderModalElement = () => {
     return (
-      <Layout
-        level='3'
-        style={styles.modalContainer}>
+      <Layout level="3" style={styles.modalContainer}>
         <Text>This is modal</Text>
         <Button onPress={this.setModalVisible}>Hide Modal</Button>
       </Layout>
@@ -61,7 +63,7 @@ export default class MentorCard extends React.Component<Props> {
           alignItems: 'center',
           borderBottomColor: '#E4E4E4',
           borderBottomWidth: 1,
-          backgroundColor: this.props.backgroundColor
+          backgroundColor: this.props.backgroundColor,
         }}>
         <Avatar
           style={styles.avatar}
@@ -94,12 +96,11 @@ export default class MentorCard extends React.Component<Props> {
         </Layout>
         <Button
           appearance="ghost"
-          icon={this.addPersonIcon}
+          icon={this.PersonIcon}
           style={styles.button}
-          onPress={() => this.addPerson()}
+          onPress={() => this.togglePersonIcon()}
         />
       </Layout>
-      
     );
   }
 }
@@ -135,6 +136,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     status: 'basic',
     paddingBottom: 10,
-    borderRadius: 20
+    borderRadius: 20,
   },
 });

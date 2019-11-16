@@ -10,7 +10,9 @@ import {
   Icon,
 } from 'react-native-ui-kitten';
 import { Card } from 'react-native-shadow-cards';
+import { MenuIcon } from '../Utils/customIcons';
 
+// screen for the "Settings" page
 export default class Settings extends React.Component {
   constructor(props) {
     super(props);
@@ -20,34 +22,23 @@ export default class Settings extends React.Component {
     };
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Setting',
-  });
-
-  onPressNoti = () => {
-    this.setState({ notiChecked: !this.state.notiChecked });
-  };
-
-  onPressSound = soundChecked => {
-    this.setState({ soundChecked: !this.state.soundChecked });
-  };
-
+  // naviagates to the account info page
   goToAccount = () => {
     this.props.navigation.navigate('Account');
   };
-  
+
+  // signs out
   goToSignOut = () => {
     this.props.navigation.navigate('SignIn');
-  }
+  };
 
+  // will open the drawer
   OpenMenu = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.toggleDrawer()}
-      icon={this.MenuIcon}
+      icon={MenuIcon}
     />
   );
-
-  MenuIcon = style => <Icon {...style} name="menu-outline" />;
 
   render() {
     return (
@@ -76,19 +67,26 @@ export default class Settings extends React.Component {
               style={styles.toggle}
               checked={this.state.notiChecked}
               text="Notifications"
-              onChange={this.onPressNoti}
+              onChange={() =>
+                this.setState({ notiChecked: !this.state.notiChecked })
+              }
             />
             <View style={styles.separator} />
             <Toggle
               style={styles.toggle}
               checked={this.state.soundChecked}
               text="Sound"
-              onChange={this.onPressSound}
+              onChange={() =>
+                this.setState({ soundChecked: !this.state.soundChecked })
+              }
             />
             <View style={styles.separator} />
-            <Button style={styles.button} 
-            appearance='ghost'
-            onPress = {this.goToSignOut.bind(this)}>Log Out</Button>
+            <Button
+              style={styles.button}
+              appearance="ghost"
+              onPress={this.goToSignOut.bind(this)}>
+              Log Out
+            </Button>
           </View>
         </Card>
       </View>
