@@ -15,7 +15,7 @@ import Activities from './Activities';
 import Experience from './Experience';
 import Projects from './Projects/ProjectSuper';
 import Qualifications from './Qualifications';
-import { MenuIcon, EditIcon, Empty, MessageIcon} from '../Utils/customIcons';
+import { MenuIcon, EditIcon, Empty, MessageIcon } from '../Utils/customIcons';
 // Profile screen
 export default class Profile extends Component {
   constructor(props) {
@@ -47,10 +47,9 @@ export default class Profile extends Component {
   EditProfile = () => (
     <TopNavigationAction
       //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page
-      icon={(this.state.isSelf == true)? EditIcon : MessageIcon}
+      icon={this.state.isSelf == true ? EditIcon : MessageIcon}
     />
   );
-
 
   toggleSection = section => {
     let condition = '';
@@ -64,7 +63,7 @@ export default class Profile extends Component {
     return (
       <View style={styles.container}>
         <TopNavigation
-          title="Conversations"
+          title="Profile"
           alignment="center"
           leftControl={this.OpenMenu()}
           rightControls={this.EditProfile()}
@@ -112,8 +111,7 @@ export default class Profile extends Component {
                 appearance="ghost"
                 textStyle={styles.buttonText}
                 onPress={() => this.toggleSection('Objective')}>
-                {' '}
-                +{' '}
+                {' '} {(this.state.openSection == 'Objective')? "-" : "+"} {' '}
               </Button>
             </View>
             {this.state.openSection == 'Objective' ? (
@@ -121,11 +119,7 @@ export default class Profile extends Component {
             ) : (
               Empty()
             )}
-            {this.state.openSection == 'Objective' ? (
-              <Objective />
-            ) : (
-              Empty()
-            )}
+            {this.state.openSection == 'Objective' ? <Objective /> : Empty()}
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}> Experience </Text>
@@ -135,8 +129,7 @@ export default class Profile extends Component {
                 appearance="ghost"
                 textStyle={styles.buttonText}
                 onPress={() => this.toggleSection('Experience')}>
-                {' '}
-                +{' '}
+                {' '} {(this.state.openSection == 'Experience')? "-" : "+"} {' '}
               </Button>
             </View>
             {this.state.openSection == 'Experience' ? (
@@ -144,11 +137,7 @@ export default class Profile extends Component {
             ) : (
               Empty()
             )}
-            {this.state.openSection == 'Experience' ? (
-              <Experience />
-            ) : (
-              Empty()
-            )}
+            {this.state.openSection == 'Experience' ? <Experience /> : Empty()}
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}> Projects </Text>
@@ -158,8 +147,7 @@ export default class Profile extends Component {
                 appearance="ghost"
                 textStyle={styles.buttonText}
                 onPress={() => this.toggleSection('Projects')}>
-                {' '}
-                +{' '}
+                {' '} {(this.state.openSection == 'Projects')? "-" : "+"} {' '}
               </Button>
             </View>
             {this.state.openSection == 'Projects' ? (
@@ -177,8 +165,7 @@ export default class Profile extends Component {
                 appearance="ghost"
                 textStyle={styles.buttonText}
                 onPress={() => this.toggleSection('Qualifications')}>
-                {' '}
-                +{' '}
+                {' '} {(this.state.openSection == 'Qualifications')? "-" : "+"} {' '}
               </Button>
             </View>
             {this.state.openSection == 'Qualifications' ? (
