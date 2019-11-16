@@ -23,33 +23,14 @@ import { Card } from 'react-native-paper';
 import MapView from 'react-native-maps';
 import Constants from 'expo-constants';
 import PostCard from '../NewsFeed/PostCard';
+import {departmentMembers} from '../Utils/SampleData';
 
+// defines the format of the "recents" area on the search page
 export default class Recents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [
-        {
-          name: 'User1',
-          source:
-            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        },
-        {
-          name: 'User1',
-          source:
-            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        },
-        {
-          name: 'User1',
-          source:
-            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        },
-        {
-          name: 'User1',
-          source:
-            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        },
-      ],
+      users: departmentMembers
     };
   }
   render() {
@@ -79,52 +60,22 @@ export default class Recents extends React.Component {
             alignItems: 'center',
             alignContent: 'center',
           }}>
-          {/*this.state.users.map((user) => {
-            <Button onPress={this.props.toProfile}>
+          {this.state.users.map(item => {
+            return (
               <Avatar
                 rounded
                 size="medium"
                 source={{
-                  uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+                uri:
+                  'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
                 }}
-                title='User 1'
+                title="User 1"
                 containerStyle={{ marginRight: 10 }}
+                onPress={this.props.toProfile}
               />
-            </Button>;
-          })*/}
-          <Avatar
-              rounded
-              size="medium"
-              source={{
-                uri:
-                  'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-              }}
-              title="User 1"
-              containerStyle={{ marginRight: 10 }}
-		onPress={this.props.toProfile}
-            />
-            <Avatar
-              rounded
-              size="medium"
-              source={{
-                uri:
-                  'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-              }}
-              title="User 1"
-              containerStyle={{ marginRight: 10 }}
-		onPress={this.props.toProfile}
-            />
-            <Avatar
-              rounded
-              size="medium"
-              source={{
-                uri:
-                  'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-              }}
-              title="User 1"
-              containerStyle={{ marginRight: 10 }}
-		onPress={this.props.toProfile}
-            />
+            );
+          })}
+  
         </View>
       </Card>
     );

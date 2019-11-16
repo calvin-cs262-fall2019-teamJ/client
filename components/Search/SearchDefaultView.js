@@ -26,6 +26,7 @@ import PostCard from '../NewsFeed/PostCard';
 import PopulatedMap from './mapView';
 import Recents from './Recents';
 
+
 const markers = [
   {
     latitude: 42.92947,
@@ -34,17 +35,14 @@ const markers = [
   },
 ];
 
-const jobPostTexts = [ 
-  'The quick brown fox jumped over the lazy dog. A pangram, or holoalphabetic sentence, is a sentence that contains every letter of the alphabet at least once.' +
-                'A pangram, or holoalphabetic sentence, is a sentence that' +
-                ' contains every letter of the alphabet at least once. The most' +
-                ' famous pangram is probably the thirty-five-letter-long The quick ' +
-                ' brown fox jumps over the lazy dog,” which has been used to test typing' +
-                ' equipment since at least the late 1800s.',
-
-]
-
+// holds all the activity elements for the search page
 export default class SearchDefaultView extends React.Component {
+  constructor(props){
+    super(props)
+    this.state={
+      
+    }
+  }
 
   render() {
     return (
