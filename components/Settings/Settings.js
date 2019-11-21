@@ -11,6 +11,7 @@ import {
 } from 'react-native-ui-kitten';
 import { Card } from 'react-native-shadow-cards';
 import { MenuIcon } from '../Utils/customIcons';
+import Fire from '../Fire'
 
 // screen for the "Settings" page
 export default class Settings extends React.Component {
@@ -39,6 +40,20 @@ export default class Settings extends React.Component {
       icon={MenuIcon}
     />
   );
+
+  // keyword "async" tells javascript that we are implementing a synchronous elements
+  async componentDidMount(){
+    this.readData();
+  }
+
+  async readData(){
+    // "await" says do not continue until this command has been fully executed
+    let data = await Fire.shared.PullUserInfo("fW480g7VSdBp6Ragz08A")
+    this.setState({
+      notiChecked: data.settings.notifications,
+      soundChecked: data.settings.sounds,
+    }) 
+  }
 
   render() {
     return (
