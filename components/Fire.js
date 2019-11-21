@@ -67,19 +67,16 @@ class Fire {
     return (firebase.auth().currentUser || {}).uid;
   }
 
-  //takes a name and returns the profile, will need to take more parametrs in the future
-  PullProfileInfo = name => {
+  //takes in unique id of the user
+  PullUserInfo = id => {
      let datalist = [] // where to store the data
     return this.dbh
-      .collection('profile')
-      .where('name', '==', name)
+      .collection('user')
+      .doc(id)
       .get()
       .then(function(querySnapshot) {
-        //necessary if there are multiple results
-        querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
-          datalist.push(doc.data()); // add the data to the array
-        });
+          datalist.push(querySnapshot.data()); // add the data to the array
       })
       .then(function(data) {
         return datalist[0] //return the top element
