@@ -19,7 +19,8 @@ import {
   ScrollView,
 } from 'react-native';
 import Constants from 'expo-constants';
-import {SearchIcon, BackIcon, MenuIcon} from '../Utils/customIcons'
+import { SearchIcon, BackIcon, MenuIcon } from '../Utils/customIcons';
+import Fire from '../Fire';
 
 // screen for the "Find Mentor" page
 export default class FindMentor extends React.Component {
@@ -55,9 +56,79 @@ export default class FindMentor extends React.Component {
           grad: 2017,
         },
       ],
+      otherDepartmentsList: [
+        {
+          avatar:
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
+          name: 'Johana James',
+          date: '9:00 AM',
+          position: 'Project Manager',
+          company: 'OST',
+          grad: 2010,
+        },
+        {
+          name: 'Janice Billings',
+          avatar:
+            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+          date: 'Yesterday',
+          position: 'Software Engineer',
+          company: 'Google LLC',
+          grad: 2015,
+        },
+        {
+          name: 'John Doe',
+          avatar:
+            'https://alejandrocremades.com/wp-content/uploads/2016/01/rsz_1speaker_-_alejandro_cremades_360.jpg',
+          date: 'Yesterday',
+          position: 'CEO',
+          company: 'Bazinga Tech',
+          grad: 2017,
+        },
+      ],
       viewMode: 'default',
       search: '',
     };
+  }
+
+//splits the data up by whether or not their in your major
+  parseMentor = dataList => {
+    let data = {};
+    let yourdept = [];
+    let otherdepts = [];
+    dataList.forEach(mentor => {
+      //if the department hasn't been found, add it to the object
+      if (!(mentor.deparment in data)) {
+        data[mentor.deparment] = [];
+      }
+
+      // adds the mentor to the appropriate department's array
+      data[mentor.deparment].push({
+        name: mentor.profile.nameFirst + ' ' + mentor.profile.nameLast,
+        position: mentor.profile.experience[0].title,
+        company: mentor.profile.experience[0].company,
+        grad: mentor.profile.gradClass,
+        avatar: mentor.profile.avatar,
+      });
+    });
+    
+    //converts the data to a format that is consistent with the components
+    Object.keys(data).forEach(key => {
+      if (['math', 'Physics'].includes(key)) {
+        yourdept = data.key;
+      } else {
+        otherdepts.push({ name: key, memebers: data.key });
+      }
+    });
+
+    this.set({
+      yourDepartmentList: yourdept,
+      otherDepartmentsList: otherdepts,
+    });
+  };
+
+  async componentDidMount() {
+    let data = await Fire.shared.pullMentorList();
+    this.parseMentor(data);
   }
 
   // will open the draer
@@ -68,7 +139,7 @@ export default class FindMentor extends React.Component {
     />
   );
 
- // MenuIcon = style => <Icon {...style} name="menu-outline" />;
+  // MenuIcon = style => <Icon {...style} name="menu-outline" />;
 
   // what the navigation bar looks like before the search bar is pressed
   defaultNavigation = () => {
@@ -101,7 +172,7 @@ export default class FindMentor extends React.Component {
     />
   );
 
-  // lets the back button navigate to the 
+  // lets the back button navigate to the
   backNavigation = () => {
     <TopNavigationAction
       onPress={this.props.navigation.navigate('News Feed')}
@@ -112,7 +183,6 @@ export default class FindMentor extends React.Component {
   updateSearch = searchVal => {
     this.setState({ search: searchVal });
   };
-
 
   // defines how the top naviagation looks when the search bar is pressed
   searchBarExpanded = () => {
@@ -162,7 +232,6 @@ export default class FindMentor extends React.Component {
     this.props.navigation.navigate('ChatDM', { name: name });
   };
 
-
   render() {
     return (
       <Layout style={{}}>
@@ -192,7 +261,7 @@ export default class FindMentor extends React.Component {
             );
           })}
         </ScrollView>
-        <OtherDepartments />
+        <OtherDepartments data={this.state.otherDepartmentsList}/>
       </Layout>
     );
   }

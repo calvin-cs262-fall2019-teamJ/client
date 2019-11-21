@@ -45,7 +45,7 @@ export default class OtherDepartments extends React.Component {
           bottom: 0,
         }}
         indicator={this.paginationStatus()}>
-        {this.state.departmentList.map(department => {
+        {this.state.props.map(department => {
           return (
             <View style={[styles.indicatorView]}>
               {Department(department.name, department.members)}
@@ -55,6 +55,7 @@ export default class OtherDepartments extends React.Component {
       </IndicatorViewPager>
     );
   }
+  
   render() {
     return (
       <Layout style={{ marginTop: 20 }}>
