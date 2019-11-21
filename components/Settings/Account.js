@@ -9,6 +9,7 @@ import { StyleSheet, View } from 'react-native';
 import Constants from 'expo-constants';
 import { Card } from 'react-native-shadow-cards';
 import { BackIcon } from '../Utils/customIcons';
+import Fire from '../Fire'
 
 // screen for the "Account Info" page
 class Account extends React.Component<Props> {
@@ -19,6 +20,7 @@ class Account extends React.Component<Props> {
       phoneNumber: '(616) 526-7111',
     };
   }
+
   // enables back button to function
   BackAction = () => (
     <TopNavigationAction
@@ -26,6 +28,21 @@ class Account extends React.Component<Props> {
       icon={BackIcon}
     />
   );
+
+  // keyword "async" tells javascript that we are implementing a synchronous elements
+  async componentDidMount(){
+    this.readData();
+  }
+
+  async readData(){
+    // "await" says do not continue until this command has been fully executed
+    let data = await Fire.shared.PullUserInfo("fW480g7VSdBp6Ragz08A")
+      console.log(data.settings.email)
+    this.setState({
+      email: data.settings.email,
+      phoneNumber: data.settings.phoneNumber,
+    }) 
+  }
 
   render() {
     return (
