@@ -1,31 +1,31 @@
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import { ChatStack, LoginStack, SettingsStack } from './SubStacks';
+import { ChatStack, LoginStack, SettingsStack, NewsFeedStack } from './SubStacks';
 import { Navigation } from 'react-navigation';
 
 // Import the screens
 import DrawerNav from './DrawerNav/DrawerNav';
 import Profile from './Profile/Profile';
 import NewsFeed from './NewsFeed/NewsFeed';
-
+import FindMentor from './FindMentor/FindMentor';
 import Search from './Search/Search';
 
 export const DrawerNavigator = createDrawerNavigator(
   {
-    NewsFeed: {
-      screen: NewsFeed,
+    "News Feed": NewsFeedStack,
+   // Chat: ChatStack,
+    "Find a Mentor": {
+      screen: FindMentor,
       navigationOptions: {
-        header: false,
-        gesturesEnabled: false,
+        header: null,
       },
     },
-    Chat: ChatStack,
     Settings: SettingsStack,
     Profile: {
       screen: Profile,
       navigationOptions: {
         header: false,
-    },
+      },
     },
   },
   {
@@ -34,7 +34,6 @@ export const DrawerNavigator = createDrawerNavigator(
 );
 
 export const mainNavigator = createStackNavigator({
-  LoginProcess: { screen: LoginStack },
   Home: {
     screen: DrawerNavigator,
     navigationOptions: {
@@ -43,6 +42,8 @@ export const mainNavigator = createStackNavigator({
       gesturesEnabled: false,
     },
   },
+  LoginProcess: { screen: LoginStack },
+  
   Search: {
     screen: Search,
     navigationOptions: {
