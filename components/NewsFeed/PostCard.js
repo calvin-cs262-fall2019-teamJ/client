@@ -7,6 +7,7 @@ import {
   Image,
   TouchableHighlight,
   TouchableOpacity,
+  TouchableWithoutFeedback
 } from 'react-native';
 import { Card } from 'react-native-paper';
 import { Button, Input } from 'react-native-ui-kitten';
@@ -28,11 +29,9 @@ export default class PostCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: this.props.userName,
+      annonymity: this.props.annonymity,
       backgroundC: this.props.bgcolor,
-      text: this.props.text,
-      imageSrc: this.props.imageSrc,
-      imageUserPhotoSrc: this.props.userImageSrc,
+      avatar: this.getAvatar(),
       likeTally: 0,
       buttonTitle: 'Like',
       buttonStatus: 'primary',
@@ -60,6 +59,63 @@ export default class PostCard extends React.Component {
     }
   };
 
+  convertTime = (timeInSec) => {
+    
+    if (timeInSec == null){
+      return "nan"
+    }
+
+    let secPerMin = 60
+    let secPerHour = 60 * secPerMin
+    let secPerDay = 24 * secPerHour
+    let secPerWeek = 7 * secPerDay
+    let secPerMon = 4 * secPerWeek
+    let secPerYear = 12 * secPerMon
+
+    let timeDiff = Date.now() - timeInSec;
+
+    if (timeDiff/secPerMin < 1){
+      return "A moment ago"
+    }
+    else if (timeDiff/secPerHour < 1) {
+      timeDiff = parseInt(timeDiff/secPerMin)
+      return toString(timeDiff) + " mins ago"
+    }
+    else if (timeDiff/secPerDay < 1) {
+      return toString(parseInt(timeDiff/secPerHour)) + " hours ago"
+    }
+    else if (timeDiff/secPerWeek < 1) {
+      return toString(parseInt(timeDiff/secPerDay)) + " days ago"
+    }
+    else if (timeDiff/secPerMon < 1) {
+      return toString(parseInt(timeDiff/secPerWeek)) + " weeks ago"
+    }
+    else if (timeDiff/secPerYear < 1){
+      return toString(parseInt(timeDiff/secPerMon)) + " months ago"
+    }
+    else {
+      return toString(parseInt(timeDiff/secPerYear)) + " years ago"
+    }
+  }
+
+  getAvatar() {
+    if (this.props.annonymity == true) {
+      return (
+        <Image
+          style={{
+            height: 30,
+            width: 30,
+            marginLeft: 10,
+            borderRadius: 15,
+            borderWidth: 2,
+          }}
+          source={require('./18942381.jpg')}
+        />
+      );
+    } else {
+      return this.props.userImageSrc;
+    }
+  }
   /* Renders the component*/
   render() {
     return (
@@ -94,7 +150,7 @@ export default class PostCard extends React.Component {
               onPress={() => {
                 console.log('should navigate');
               }}>
-              {this.props.userImageSrc}
+              {this.state.avatar}
             </TouchableOpacity>
             {/*Name sub-component*/}
             <Text
@@ -104,10 +160,10 @@ export default class PostCard extends React.Component {
                 fontSize: 13,
                 textAlign: 'left',
               }}>
-              {this.props.userName} • {this.props.timeStamp}
+              {this.props.userName} • {this.convertTime(this.props.timeStamp)}
             </Text>
           </View>
-          <TouchableOpacity
+          <TouchableWithoutFeedback
             onPress={() => {
               this.props.postView({
                 bgcolor: 'white',
@@ -130,7 +186,7 @@ export default class PostCard extends React.Component {
               numberOfLines={5}>
               {this.props.text}
             </Text>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
           <TouchableOpacity
             onPress={() => {
               alert("Hi! I'm the image");

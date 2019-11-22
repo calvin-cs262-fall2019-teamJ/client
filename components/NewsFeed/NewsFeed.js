@@ -21,8 +21,43 @@ import {
 import Constants from 'expo-constants';
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
+import Fire from '../Fire';
 
 class NewsFeed extends React.Component<Props> {
+    constructor(props) {
+    super(props);
+    this.state = {
+      postInfo: [
+        {
+          annonymous: true,
+          text: 'Loading',
+          userName: 'user',
+          timeStamp: Date.now(),
+        },
+      ],
+    };
+  }
+
+  async componentDidMount() {
+    //alert("poopity")
+    let temp = await Fire.shared.PullPosts();
+
+    let temp2 = [];
+
+    temp.map(postData => {
+      temp2.push({
+        annonymous: postData.anonymous,
+        text: postData.text,
+        nameLabel: postData.displayName,
+        owner: postData.owner,
+        timeStamp: postData.timeOfPost,
+      });
+    });
+    this.setState({
+      postInfo: temp2,
+    });
+  }
+
   profilePress = () => {
     this.props.navigation.navigate('Profile');
   };
@@ -64,143 +99,30 @@ class NewsFeed extends React.Component<Props> {
           leftControl={this.OpenMenu()}
           rightControls={this.AddConversation()}
         />
-        <ScrollView style={styles.scrollView}>
-          <PostCard
-            bgcolor="white"
-            text={
-              "Calvin's Business department is looking for Alumni in Computer Science who could give a seminar talk about how technical staff interact with business adminstrators. Please contact us using the department email listed on Calvin's website if intrested."
-            }
-            userImageSrc=<Image
-              style={{
-                height: 30,
-                width: 30,
-                marginLeft: 10,
-                borderRadius: 15,
-                borderWidth: 2,
-              }}
-              source={require('./18942381.jpg')}
-            />
-            userName="Annonymous"
-            timeStamp="A moment ago"
-            postNav={this.profilePress}
-            postView={params => this.textPress(params)}
-          />
-          <PostCard
-            bgcolor="white"
-            text={'Looking for help in project inolving React Native!'}
-            userImageSrc=<Image
-              style={{
-                height: 30,
-                width: 30,
-                marginLeft: 10,
-                borderRadius: 15,
-                borderWidth: 2,
-              }}
-              source={require('./18942381.jpg')}
-            />
-            userName="Annonymous"
-            timeStamp="5 mins ago"
-            postNav={this.profilePress}
-            postView={params => this.textPress(params)}
-          />
-          <PostCard
-            bgcolor="white"
-            text={
-              "I'm happy to announce that I've been given the honor of being a panelist at next years World Economic Forum. I'll also be presenting a talk about the how the use of AI in agriculture could help address world hunger."
-            }
-            imageSource={
-              <Image
-                style={{
-                  width: Dimensions.get('window').width - 10,
-                  margin: 5,
-                }}
-                source={require('./50304057_303.jpg')}
+                <ScrollView style={styles.scrollView}>
+          {this.state.postInfo.map(post => {
+            return (
+              <PostCard
+                annonymous={post.annonymous}
+                bgcolor="white"
+                text={post.text}
+                userImageSrc=<Image
+                  style={{
+                    height: 30,
+                    width: 30,
+                    marginLeft: 10,
+                    borderRadius: 15,
+                    borderWidth: 2,
+                  }}
+                  source={require('./18942381.jpg')}
+                />
+                userName={post.nameLabel}
+                timeStamp={post.timeStamp}
+                postNav={this.profilePress}
+                postView={params => this.textPress(params)}
               />
-            }
-            userImageSrc=<Image
-              style={{
-                height: 30,
-                width: 30,
-                marginLeft: 10,
-                borderRadius: 15,
-                borderWidth: 2,
-              }}
-              source={require('../../assets/kvlinden1.png')}
-            />
-            userName="Keith VanderLinden"
-            timeStamp="12 mins ago"
-            postNav={this.profilePress}
-            postView={params => this.textPress(params)}
-          />
-          <PostCard
-            bgcolor="white"
-            text={
-              "I'm looking for a Software Engineering Internship in the Bay Area. I have good experience in Web Dev, application development, and AI reasearch, and I'm intrested in projects web projects that employe AI to enhance user's exprerience. Please leave a comment below if you are aware of good projects."
-            }
-            userImageSrc=<Image
-              style={{
-                height: 30,
-                width: 30,
-                marginLeft: 10,
-                borderRadius: 15,
-                borderWidth: 2,
-              }}
-              source={require('../../assets/kvlinden1.png')}
-            />
-            userName="Keith VanderLinden"
-            timeStamp="7d ago"
-            postNav={this.profilePress}
-            postView={params => this.textPress(params)}
-          />
-
-          <PostCard
-            bgcolor="white"
-            text={'TECHNOLOGY IS VALUE LADEN!'}
-            userImageSrc=<Image
-              style={{
-                height: 30,
-                width: 30,
-                marginLeft: 10,
-                borderRadius: 15,
-                borderWidth: 2,
-              }}
-              source={require('./18942381.jpg')}
-            />
-            userName="Annonymous"
-            timeStamp="3w ago"
-            postNav={this.profilePress}
-            postView={params => this.textPress(params)}
-          />
-
-          <PostCard
-            bgcolor="white"
-            text={
-              "The rise of social media companies, and their awesome power should remind us that of my Fourth Idea in on the Age of Technology: Technological change is not additive. Companies like facebook didn't only give us an additional way of connecting with people, they also created new industries and raised more ethical questions"
-            }
-            imageSource={
-              <Image
-                style={{
-                  width: Dimensions.get('window').width - 10,
-                  margin: 5,
-                }}
-                source={require('./facebook banner.jpg')}
-              />
-            }
-            userImageSrc=<Image
-              style={{
-                height: 30,
-                width: 30,
-                marginLeft: 10,
-                borderRadius: 15,
-                borderWidth: 2,
-              }}
-              source={require('./download.jfif')}
-            />
-            userName="Neil Postman"
-            timeStamp="Several Years Ago"
-            postNav={this.profilePress}
-            postView={params => this.textPress(params)}
-          />
+            );
+          })}
         </ScrollView>
         <Button
           appearance="fill"

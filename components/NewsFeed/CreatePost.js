@@ -32,19 +32,22 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
+import Fire from '../Fire';
 
 class CreatePost extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
       userID: 'userIDPlaceHolder',
+      userName: 'Joe Budden',
       textInput: '',
-      scope: 'Your Department',
+      scope: 'To your department',
       tags: {},
       annonymous: true,
       images: null,
       settingsVisible: false,
       buttonLabel: ['basic', 'basic', 'success'],
+      change: false,
     };
   }
 
@@ -197,6 +200,13 @@ class CreatePost extends React.Component<Props> {
             placeholderTextColor="black"
             placeholder="Say something!"
             multiline={true}
+            onChangeText={text => {
+              this.setState({
+                textInput: text,
+                change: true,
+              });
+              console.log(this.state.textInput)
+            }}
           />
         </View>
       </View>
@@ -291,27 +301,27 @@ class CreatePost extends React.Component<Props> {
               backgroundColor: '#EEEEEE',
               maxWidth: '80%',
               maxHeight: '30%',
-              marginBottom: 5
+              marginBottom: 5,
             }}>
             <Button onPress={this.setPublic} status={this.state.buttonLabel[0]}>
-              Public
+              Institution
             </Button>
             <Button
               onPress={this.setInstitute}
               status={this.state.buttonLabel[1]}>
-              Institution
+              Department
             </Button>
             <Button
               onPress={this.setDepartment}
               status={this.state.buttonLabel[2]}>
-              Department
+              Connections
             </Button>
           </View>
           <View
             style={{
               flex: 1,
               flexDirection: 'row',
-              alignContent: "space-between",
+              alignContent: 'space-between',
               width: Dimensions.get('window').width * 0.95,
             }}>
             <Text
@@ -320,7 +330,7 @@ class CreatePost extends React.Component<Props> {
                 fontSize: 14,
                 fontWeight: 'bold',
                 marginVertical: 10,
-                marginLeft: "5%"
+                marginLeft: '5%',
               }}>
               {' '}
               Annonymous{' '}
@@ -336,21 +346,21 @@ class CreatePost extends React.Component<Props> {
       </Modal>
     );
   }
-  setPublic = () => {
+  setFriends = () => {
     this.setState({
-      scope: 'Public',
+      scope: 'To your institution',
       buttonLabel: ['danger', 'basic', 'basic'],
     });
   };
   setInstitute = () => {
     this.setState({
-      scope: 'Your Institution',
+      scope: 'To your department',
       buttonLabel: ['basic', 'primary', 'basic'],
     });
   };
   setDepartment = () => {
     this.setState({
-      scope: 'Your Department',
+      scope: 'To connections',
       buttonLabel: ['basic', 'basic', 'success'],
     });
   };
@@ -394,6 +404,30 @@ class CreatePost extends React.Component<Props> {
                 borderRadius: 20,
                 backgroundColor: 'white',
                 borderColor: 'white',
+              }}
+              onPress={async () => {
+                if (this.state.textInput) {
+                  let postStatus = Fire.shared
+                    .CreatePost(
+                      this.state.userID,
+                      this.state.userName,
+                      this.state.textInput,
+                      this.state.scope,
+                      this.state.tags,
+                      this.state.annonymous
+                    )
+                    .then(() => {
+                      console.log(this.state.textInput);
+                      alert('Post Successfully Uploaded');
+                      this.props.navigation.navigate('News Feed');
+                    })
+                    .catch(error => {
+                      alert('Post upload failed. Please try again later.');
+                      console.log(error);
+                    });
+                } else {
+                  alert('Please add some text to your post');
+                }
               }}
               textStyle={{ color: '#FF4821' }}>
               {' '}

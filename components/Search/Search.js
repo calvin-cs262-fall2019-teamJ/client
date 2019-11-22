@@ -30,7 +30,7 @@ import PopulatedMap from './mapView';
 import Recents from './Recents';
 import SearchDefaultView from './SearchDefaultView';
 import SearchList from './SearchList';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
+//import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { UIManager } from 'react-native';
 
 export default class Search extends React.Component {
