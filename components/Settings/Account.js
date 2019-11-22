@@ -1,3 +1,8 @@
+/**
+ * Account.js contains user account information including 
+ * email, phone number, and password and will add an option 
+ * to change password in the future
+ */
 import React from 'react';
 import {
   Text,
@@ -34,10 +39,12 @@ class Account extends React.Component<Props> {
     this.readData();
   }
 
+  /**queries the database to get user email and phone number
+   * and sets them as the state of the account
+   */
   async readData(){
     // "await" says do not continue until this command has been fully executed
     let data = await Fire.shared.PullUserInfo("T41MxCh0VTy8qRc7vcPK")
-      console.log(data.settings.email)
     this.setState({
       email: data.settings.email,
       phoneNumber: data.settings.phoneNumber,
