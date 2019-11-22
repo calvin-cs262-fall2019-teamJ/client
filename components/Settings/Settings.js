@@ -1,3 +1,7 @@
+/**
+ * Settings.js allows the users to set notification
+ * and sound according to their perference
+ */
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
@@ -46,6 +50,9 @@ export default class Settings extends React.Component {
     this.readData();
   }
 
+  /**queries the database to get booleans of notification and sound
+   * and set's them as the state of the settings
+   */
   async readData(){
     // "await" says do not continue until this command has been fully executed
     let data = await Fire.shared.PullUserInfo("fW480g7VSdBp6Ragz08A")
