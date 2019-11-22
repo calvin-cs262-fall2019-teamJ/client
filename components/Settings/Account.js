@@ -16,8 +16,8 @@ class Account extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'kvlinden@calvin.edu',
-      phoneNumber: '(616) 526-7111',
+      email: '',
+      phoneNumber: '',
     };
   }
 
@@ -36,7 +36,7 @@ class Account extends React.Component<Props> {
 
   async readData(){
     // "await" says do not continue until this command has been fully executed
-    let data = await Fire.shared.PullUserInfo("fW480g7VSdBp6Ragz08A")
+    let data = await Fire.shared.PullUserInfo("T41MxCh0VTy8qRc7vcPK")
       console.log(data.settings.email)
     this.setState({
       email: data.settings.email,
