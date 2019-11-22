@@ -13,18 +13,15 @@ import { Dimensions, StyleSheet, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import { Card } from 'react-native-paper';
-import { departmentMembers } from '../Utils/SampleData'; // until this comes from the data base, we can keep the memebers here
+import { departmentMembers } from '../Utils/SampleData'; // until this comes from the data base, we can keep the members here
+import expect, { createSpy, spyOn, isSpy } from 'expect';
+
 
 // defines the component for the "other deparments" section of the "find mentor" page
 export default class OtherDepartments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      departmentList: [
-        { name: 'Physics', members: departmentMembers },
-        { name: 'Math', members: departmentMembers },
-        { name: 'Business', members: departmentMembers },
-      ],
       viewMode: 'default',
       search: '',
     };
@@ -32,7 +29,7 @@ export default class OtherDepartments extends React.Component {
 
   // shows what "page" we're on
   paginationStatus() {
-    return <PagerDotIndicator pageCount={3} />;
+    return <PagerDotIndicator selectedDotStyle ={{backgroundColor: '#c6c6c6'}} dotStyle={{backgroundColor: '#ededed'}} pageCount={this.props.data.length} />;
   }
 
   mainView() {
@@ -48,7 +45,7 @@ export default class OtherDepartments extends React.Component {
         {this.props.data.map(department => {
           return (
             <View style={[styles.indicatorView]}>
-              {Department(department.name, department.members)}
+             {DepartmentPage(department.name, department.members)} 
             </View>
           );
         })}
@@ -74,7 +71,7 @@ export default class OtherDepartments extends React.Component {
   }
 }
 // defines the styling for each format for each individual department
-export const Department = (departmentName, peopleList) => {
+export const DepartmentPage = (departmentName, mentorList) => {
   return (
     <ScrollView style={{ bottom: 0 }}>
       <Card style={styles.eachDepartment}>
@@ -88,16 +85,15 @@ export const Department = (departmentName, peopleList) => {
           }}>
           {departmentName}
         </Text>
-        {peopleList.map(convo => {
+        {mentorList.map(mentor => {
+                console.log(mentor.name)
           return (
             <MentorCard
-              date={convo.date}
-              name={convo.name}
-              avatar={convo.avatar}
-              position={convo.position}
-              company={convo.company}
-              openChat={this.openChat}
-              grad={convo.grad}
+              name={mentor.name}
+              avatar={mentor.avatar}
+              position={mentor.position}
+              company={mentor.company}
+              grad={mentor.grad}
               backgroundColor={styles.eachDepartment}
             />
           );
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
   },
   indicatorView: {
     flex: 1,
-    maxWidth: Dimensions.get('window').width * 0.95,
+    maxWidth: Dimensions.get('window').width * 0.99,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: 'white',

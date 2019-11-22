@@ -27,82 +27,27 @@ export default class FindMentor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      yourDepartmentList: [
-        {
-          avatar:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
-          name: 'Johana James',
-          date: '9:00 AM',
-          position: 'Project Manager',
-          company: 'OST',
-          grad: 2010,
-        },
-        {
-          name: 'Janice Billings',
-          avatar:
-            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-          date: 'Yesterday',
-          position: 'Software Engineer',
-          company: 'Google LLC',
-          grad: 2015,
-        },
-        {
-          name: 'John Doe',
-          avatar:
-            'https://alejandrocremades.com/wp-content/uploads/2016/01/rsz_1speaker_-_alejandro_cremades_360.jpg',
-          date: 'Yesterday',
-          position: 'CEO',
-          company: 'Bazinga Tech',
-          grad: 2017,
-        },
-      ],
-      otherDepartmentsList: [
-        {
-          avatar:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
-          name: 'Johana James',
-          date: '9:00 AM',
-          position: 'Project Manager',
-          company: 'OST',
-          grad: 2010,
-        },
-        {
-          name: 'Janice Billings',
-          avatar:
-            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-          date: 'Yesterday',
-          position: 'Software Engineer',
-          company: 'Google LLC',
-          grad: 2015,
-        },
-        {
-          name: 'John Doe',
-          avatar:
-            'https://alejandrocremades.com/wp-content/uploads/2016/01/rsz_1speaker_-_alejandro_cremades_360.jpg',
-          date: 'Yesterday',
-          position: 'CEO',
-          company: 'Bazinga Tech',
-          grad: 2017,
-        },
-      ],
+      yourDepartmentList: [],
+      otherDepartmentsList: [],
       viewMode: 'default',
       search: '',
+      dataisLoaded: false,
     };
   }
 
-//splits the data up by whether or not their in your major
+  //splits the data up by whether or not their in your major
   parseMentor = dataList => {
     let data = {};
     let yourdept = [];
     let otherdepts = [];
     dataList.forEach(mentor => {
       //if the department hasn't been found, add it to the object
-      if (!(mentor.deparment in data)) {
-        data[mentor.deparment] = [];
+      if (!(mentor.department in data)) {
+        data[mentor.department] = [];
       }
 
       // adds the mentor to the appropriate department's array
-      data[mentor.deparment].push({
+      data[mentor.department].push({
         name: mentor.profile.nameFirst + ' ' + mentor.profile.nameLast,
         position: mentor.profile.experience[0].title,
         company: mentor.profile.experience[0].company,
@@ -110,24 +55,24 @@ export default class FindMentor extends React.Component {
         avatar: mentor.profile.avatar,
       });
     });
-    
     //converts the data to a format that is consistent with the components
     Object.keys(data).forEach(key => {
-      if (['math', 'Physics'].includes(key)) {
-        yourdept = data.key;
+      if (['Computer Science'].includes(key)) {
+        yourdept = data[key];
       } else {
-        otherdepts.push({ name: key, memebers: data.key });
+        otherdepts.push({ name: key, members: data[key] });
       }
     });
 
-    this.set({
+    this.setState({
       yourDepartmentList: yourdept,
       otherDepartmentsList: otherdepts,
+      dataisLoaded: true,
     });
   };
 
   async componentDidMount() {
-    let data = await Fire.shared.pullMentorList();
+    let data = await Fire.shared.pullMentorList(); //querries the database 
     this.parseMentor(data);
   }
 
@@ -138,8 +83,6 @@ export default class FindMentor extends React.Component {
       icon={MenuIcon}
     />
   );
-
-  // MenuIcon = style => <Icon {...style} name="menu-outline" />;
 
   // what the navigation bar looks like before the search bar is pressed
   defaultNavigation = () => {
@@ -234,7 +177,7 @@ export default class FindMentor extends React.Component {
 
   render() {
     return (
-      <Layout style={{}}>
+      <Layout style={{ bottom: 0 }}>
         {this.topNaviagationMode()}
         <Text
           style={{
@@ -246,22 +189,26 @@ export default class FindMentor extends React.Component {
           Your Department
         </Text>
         <ScrollView>
-          {this.state.yourDepartmentList.map(convo => {
+          {this.state.yourDepartmentList.map(mentor => {
             return (
               <MentorCard
-                date={convo.date}
-                name={convo.name}
-                avatar={convo.avatar}
-                position={convo.position}
-                company={convo.company}
+                date={mentor.date}
+                name={mentor.name}
+                avatar={mentor.avatar}
+                position={mentor.position}
+                company={mentor.company}
                 openChat={this.openChat}
-                grad={convo.grad}
+                grad={mentor.grad}
                 backgroundColor="white"
               />
             );
           })}
         </ScrollView>
-        <OtherDepartments data={this.state.otherDepartmentsList}/>
+        {this.state.dataisLoaded ? (
+          <OtherDepartments data={this.state.otherDepartmentsList} />
+        ) : (
+          <View />
+        )}
       </Layout>
     );
   }
