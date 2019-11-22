@@ -23,7 +23,7 @@ class Experiences extends React.Component<Props> {
               '\n' +
               job.company +
               '\n' +
-              job.startYear +
+              job.startDate +
               ' - ' +
               job.endDate +
               '\n' +
