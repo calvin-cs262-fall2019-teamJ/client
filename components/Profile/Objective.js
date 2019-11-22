@@ -2,14 +2,14 @@ import React from 'react';
 import { Header } from 'react-native-elements';
 import { Layout, Text, ListItem } from 'react-native-ui-kitten';
 import { StyleSheet, View } from 'react-native';
+import Fire from '../Fire';
 
 // defines the rendering of the "Objective" section of the profile
 class Objective extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      content:
-        'I am a Professor and Chair of the Department of Computer Science at Calvin University. My background is in mathematics and computer science. My research interests are in Natural Language Engineering, Human-Computer Interaction, Software Engineering and Cognitive Science.',
+      content: '',
     };
   }
 
@@ -17,7 +17,7 @@ class Objective extends React.Component<Props> {
     return (
       <View style={styles.container}>
         <Layout style={{ marginLeft: 10 }}>
-          <Text category="P1">{this.state.content}</Text>
+          <Text category="P1">{this.props.content}</Text>
           <View style={styles.separator} />
         </Layout>
       </View>
