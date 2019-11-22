@@ -11,11 +11,8 @@ class ProjectSub extends React.Component<Props> {
         <Text category="s1" style={styles.title}>
           {this.props.title}
         </Text>
-
         <View style={styles.separator} />
-
-        <Text category="p1">{this.props.description}</Text>
-
+        <Text category="p1">{this.props.content}</Text>
         <View style={styles.separator} />
       </Layout>
     );
