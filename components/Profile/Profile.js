@@ -86,7 +86,7 @@ export default class Profile extends Component {
       expList.push({
         title: job.title,
         company: job.company,
-        startYear: job.startYear,
+        startDate: job.startDate,
         endDate: job.endDate,
         location: job.location,
       });
