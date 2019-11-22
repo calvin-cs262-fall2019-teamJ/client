@@ -66,6 +66,26 @@ class Fire {
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
   }
+  
+    pullMentorList = () => {
+     let datalist = [] // where to store the data
+    return this.dbh
+      .collection('user')
+      .where('mentor', '==', true)
+      .get()
+      .then(function(result) {
+        result.forEach(function(doc) {
+          datalist.push(doc.data()); // add the data to the array
+        });
+      })
+      .then(()=> {
+        return datalist
+      })
+      .catch(function(error) {
+        console.log('Error getting documents: ', error);
+        return error;
+      });
+  };
 
   //takes in unique id of the user
   PullUserInfo = id => {
