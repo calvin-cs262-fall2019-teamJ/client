@@ -1,3 +1,9 @@
+/**
+ * Newfeed.js defines how the frnt page of the app that
+ * shows a user posts created by departmetns, and other user
+ * and create their own post. The user can also interact with the posts
+ * 
+ */
 import React from 'react';
 import {
   Button,
@@ -23,8 +29,10 @@ import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
 
+/**defines front screen */
 class NewsFeed extends React.Component<Props> {
-      constructor(props) {
+  /**creates newfeed component. Initializes posts */
+  constructor(props) {
     super(props);
     this.state = {
       postInfo: [
@@ -37,7 +45,9 @@ class NewsFeed extends React.Component<Props> {
       ],
     };
   }
-
+  /**queries the database to get posts and set's them as the state of
+   * the newsfeed
+   */
   async componentDidMount() {
     //alert("poopity")
     let temp = await Fire.shared.PullPosts();
@@ -57,14 +67,18 @@ class NewsFeed extends React.Component<Props> {
       postInfo: temp2,
     });
   }
+
+  //defines how posts behave when post avatars are pressed
   profilePress = () => {
     this.props.navigation.navigate('Profile');
   };
 
+  //defines how posts behave when their text is pressed
   textPress = paramsVal => {
     this.props.navigation.navigate('PostView', { paramsVal });
   };
 
+  //defines top left navigation button
   OpenMenu = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.toggleDrawer()}
@@ -72,13 +86,7 @@ class NewsFeed extends React.Component<Props> {
     />
   );
 
-  createPost = () => {
-    this.props.navigation.navigate("CreatePost")
-  }
-
-  MenuIcon = style => <Icon {...style} name="menu-outline" />;
-  AddIcon = style => <Icon {...style} name="plus-outline" />;
-
+  //defines top right navigation button
   OpenSettings = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.navigate('Search')}
@@ -86,7 +94,11 @@ class NewsFeed extends React.Component<Props> {
     />
   );
 
+  //registers icons for navigation buttons
+  MenuIcon = style => <Icon {...style} name="menu-outline" />;
+  AddIcon = style => <Icon {...style} name="plus-outline" />;
   SearchIcon = style => <Icon {...style} name="search-outline" />;
+
 
   /* Renders the component*/
   render() {
@@ -96,7 +108,7 @@ class NewsFeed extends React.Component<Props> {
           title="Home"
           alignment="center"
           leftControl={this.OpenMenu()}
-          rightControls={this.AddConversation()}
+          rightControls={this.OpenSettings()}
         />
         <ScrollView style={styles.scrollView}>
           {this.state.postInfo.map(post => {
@@ -136,7 +148,7 @@ class NewsFeed extends React.Component<Props> {
             borderColor: '#FF522D',
           }}
           textStyle={{ color: '#FF4821' }}
-          onPress={this.createPost}
+          onPress={() => {this.props.navigation.navigate('CreatePost')}}
           icon={this.AddIcon}
           color="black"
         />
@@ -159,4 +171,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 1,
   },
 });
+
 export default NewsFeed;
