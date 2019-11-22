@@ -106,6 +106,79 @@ class Fire {
         return error;
       });
   };
+  //Async function that pulls posts; returns nested object iff query is succesful
+  PullPosts() {
+    let postList = []; // where to store the data
+    let userRef = [];
+    return this.dbh
+      .collection('posts')
+      .orderBy('timeOfPost')
+      .get()
+      .then(function(querySnapshot) {
+        //necessary if there are multiple results
+        querySnapshot.forEach(async doc => {
+          let temp = doc.data();
+          postList.push(temp); // add the data to the array
+        });
+      })
+      .then(function(data) {
+        //console.log("tester: ", postList[0].timeOfPost, "now", Date.now())
+
+        return postList; //return the top element
+      })
+      .catch(function(error) {
+        console.log('Error getting documents: ', error);
+        return error;
+      });
+  }
+  //Async function that push post user creates; returns promise indicating upload status
+  CreatePost = (userID, userName, textInput, scope, tags, anonymous) => {
+    let getScope = scopeArg => {
+      let temp = {
+        institution: false,
+        department: false,
+        friends: true,
+      };
+
+      if (scopeArg == 'To your institution') {
+        temp = {
+          institution: true,
+          department: false,
+          friends: false,
+        };
+      } else if (scopeArg == 'To your department') {
+        temp = {
+          institution: false,
+          department: true,
+          friends: false,
+        };
+      }
+
+      return temp;
+    };
+
+    let uploadBucket = {
+      anonymous: anonymous,
+      departments: ['CS'],
+      displayName: userName,
+      editted: false,
+      likeCount: 0,
+      likedBy: {},
+      owner: userID,
+      scope: getScope(scope),
+      tags: tags,
+      text: textInput,
+      timeOfPost: Date.now(),
+    };
+
+    console.log('upload call');
+    console.log('content: ', uploadBucket);
+
+    return this.dbh
+      .collection('posts')
+      .doc()
+      .set(uploadBucket);
+  };
 }
 
 Fire.shared = new Fire();
