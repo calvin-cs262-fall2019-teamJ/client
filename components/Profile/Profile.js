@@ -11,27 +11,27 @@ import {
 } from 'react-native-ui-kitten';
 
 import Objective from './Objective';
-import Activities from './Activities';
 import Experience from './Experience';
 import Projects from './Projects/ProjectSuper';
 import Qualifications from './Qualifications';
 import { MenuIcon, EditIcon, Empty, MessageIcon } from '../Utils/customIcons';
+
+import Fire from '../Fire';
+
 // Profile screen
 export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isSelf: true,
-      openSection: 'none',
+      openSection: '',
       avatar: '',
-      name: { first: 'Keith', last: 'VanderLinden' },
-      location: 'Grand Rapids, MI',
-      graduatingClass: 'May 2020 ',
-      major: [
-        'BA in Mathematics',
-        'MS in Computer Science',
-        'PhD in Cognitive Science',
-      ],
+      name: { first: '', last: '' },
+      locationCurrent: '',
+      graduatingClass: '',
+      major: [],
+      projectsData: [],
+      experienceData: [],
     };
   }
 
@@ -59,6 +59,41 @@ export default class Profile extends Component {
     this.setState({ openSection: condition });
   };
 
+  // keyword "async" tells javascript that we are implementing a synchronous elements
+  async componentDidMount() {
+    this.readData();
+  }
+
+  async readData() {
+    // "await" says do not continue until this command has been fully executed
+    let data = await Fire.shared.PullUserInfo('T41MxCh0VTy8qRc7vcPK');
+    this.setState({
+      name: { first: data.profile.nameFirst, last: data.profile.nameLast },
+      locationCurrent: data.profile.locationCurrent,
+      graduatingClass: data.profile.gradClass,
+      major: data.profile.major,
+      content: data.profile.objective,
+      list: data.profile.qualifications,
+      projectsData: data.profile.projects,
+      experienceData: data.profile.experience,
+      avatar: data.profile.avatar,
+    });
+  }
+
+  parseExperience = data => {
+    let expList = [];
+    data.experience.forEach(job => {
+      expList.push({
+        title: job.title,
+        company: job.company,
+        startYear: job.startYear,
+        endDate: job.endDate,
+        location: job.location,
+      });
+      return expList;
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -73,7 +108,7 @@ export default class Profile extends Component {
             <View style={styles.headerTop}>
               <Image
                 style={styles.avatar}
-                source={require('../../assets/kvlinden1.png')}
+                source={{ uri: this.state.avatar }}
               />
             </View>
             <View>
@@ -84,7 +119,7 @@ export default class Profile extends Component {
               <Text style={styles.name}>{this.state.name.last}</Text>
               <Text style={styles.userInfo}>
                 {'\n'}
-                {this.state.location}{' '}
+                {this.state.locationCurrent}{' '}
               </Text>
               <Text style={styles.userInfo}>
                 Year: {this.state.graduatingClass}{' '}
@@ -111,7 +146,8 @@ export default class Profile extends Component {
                 appearance="ghost"
                 textStyle={styles.buttonText}
                 onPress={() => this.toggleSection('Objective')}>
-                {' '} {(this.state.openSection == 'Objective')? "-" : "+"} {' '}
+                {' '}
+                {this.state.openSection == 'Objective' ? '-' : '+'}{' '}
               </Button>
             </View>
             {this.state.openSection == 'Objective' ? (
@@ -119,7 +155,11 @@ export default class Profile extends Component {
             ) : (
               Empty()
             )}
-            {this.state.openSection == 'Objective' ? <Objective /> : Empty()}
+            {this.state.openSection == 'Objective' ? (
+              <Objective content={this.state.content} />
+            ) : (
+              Empty()
+            )}
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}> Experience </Text>
@@ -129,7 +169,8 @@ export default class Profile extends Component {
                 appearance="ghost"
                 textStyle={styles.buttonText}
                 onPress={() => this.toggleSection('Experience')}>
-                {' '} {(this.state.openSection == 'Experience')? "-" : "+"} {' '}
+                {' '}
+                {this.state.openSection == 'Experience' ? '-' : '+'}{' '}
               </Button>
             </View>
             {this.state.openSection == 'Experience' ? (
@@ -137,7 +178,11 @@ export default class Profile extends Component {
             ) : (
               Empty()
             )}
-            {this.state.openSection == 'Experience' ? <Experience /> : Empty()}
+            {this.state.openSection == 'Experience' ? (
+              <Experience jobs={this.state.experienceData} />
+            ) : (
+              Empty()
+            )}
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}> Projects </Text>
@@ -147,7 +192,8 @@ export default class Profile extends Component {
                 appearance="ghost"
                 textStyle={styles.buttonText}
                 onPress={() => this.toggleSection('Projects')}>
-                {' '} {(this.state.openSection == 'Projects')? "-" : "+"} {' '}
+                {' '}
+                {this.state.openSection == 'Projects' ? '-' : '+'}{' '}
               </Button>
             </View>
             {this.state.openSection == 'Projects' ? (
@@ -155,7 +201,11 @@ export default class Profile extends Component {
             ) : (
               Empty()
             )}
-            {this.state.openSection == 'Projects' ? <Projects /> : Empty()}
+            {this.state.openSection == 'Projects' ? (
+              <Projects data={this.state.projectsData} />
+            ) : (
+              Empty()
+            )}
             <View style={styles.item}>
               <View style={styles.infoContent}>
                 <Text style={styles.info}> Qualifications </Text>
@@ -165,7 +215,8 @@ export default class Profile extends Component {
                 appearance="ghost"
                 textStyle={styles.buttonText}
                 onPress={() => this.toggleSection('Qualifications')}>
-                {' '} {(this.state.openSection == 'Qualifications')? "-" : "+"} {' '}
+                {' '}
+                {this.state.openSection == 'Qualifications' ? '-' : '+'}{' '}
               </Button>
             </View>
             {this.state.openSection == 'Qualifications' ? (
@@ -174,7 +225,7 @@ export default class Profile extends Component {
               Empty()
             )}
             {this.state.openSection == 'Qualifications' ? (
-              <Qualifications />
+              <Qualifications list={this.state.list} />
             ) : (
               Empty()
             )}
