@@ -45,7 +45,7 @@ export default class OtherDepartments extends React.Component {
           bottom: 0,
         }}
         indicator={this.paginationStatus()}>
-        {this.state.props.map(department => {
+        {this.props.data.map(department => {
           return (
             <View style={[styles.indicatorView]}>
               {Department(department.name, department.members)}
