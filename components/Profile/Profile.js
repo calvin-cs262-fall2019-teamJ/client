@@ -1,3 +1,8 @@
+/**
+ * Profile.js shows all the user informations including their career,
+ * objectives, skills and more. All users have a profile page that 
+ * other users can view. 
+ */
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
@@ -9,13 +14,11 @@ import {
   TopNavigationAction,
   Icon,
 } from 'react-native-ui-kitten';
-
 import Objective from './Objective';
 import Experience from './Experience';
 import Projects from './Projects/ProjectSuper';
 import Qualifications from './Qualifications';
 import { MenuIcon, EditIcon, Empty, MessageIcon } from '../Utils/customIcons';
-
 import Fire from '../Fire';
 
 // Profile screen
@@ -64,6 +67,9 @@ export default class Profile extends Component {
     this.readData();
   }
 
+  /**queries the database to get all user info and set them
+   * as state of profile
+   */
   async readData() {
     // "await" says do not continue until this command has been fully executed
     let data = await Fire.shared.PullUserInfo('T41MxCh0VTy8qRc7vcPK');
@@ -80,6 +86,7 @@ export default class Profile extends Component {
     });
   }
 
+  // parsing data for experience and pushing them into a list
   parseExperience = data => {
     let expList = [];
     data.experience.forEach(job => {
