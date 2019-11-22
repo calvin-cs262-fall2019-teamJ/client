@@ -9,6 +9,7 @@ import Account from './Settings/Account';
 import Profile from './Profile/Profile';
 import PostView from './NewsFeed/PostView';
 import NewsFeed from './NewsFeed/NewsFeed';
+import CreatePost from './NewsFeed/CreatePost';
 
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -71,6 +72,13 @@ export const NewsFeedStack = createStackNavigator({
         gesturesEnabled: false,
       },
     },
+  CreatePost: {
+    screen: CreatePost,
+    navigationOptions: {
+      header: null,
+      gesturesEnabled: false,
+    },
+  },
   PostView: {
     screen: PostView,
     navigationOptions: {
