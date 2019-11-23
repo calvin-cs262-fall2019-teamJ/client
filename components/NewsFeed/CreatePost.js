@@ -1,8 +1,3 @@
-/**
- * @fileoverview CreatPost.js defines a CreatePost screen that lets the user add
- * a post to the database.
- * 
-*/
 import * as React from 'react';
 import {
   Button,
@@ -21,7 +16,6 @@ import {
   Dimensions,
   Image,
   Keyboard,
-  KeyboardAvoidingView,
   StyleSheet,
   ScrollView,
   SafeAreaView,
@@ -30,7 +24,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Permissions from 'expo-permissions';
@@ -40,21 +34,9 @@ import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
 
-/**
- * A screen that lets the user add a post
- * 
- */
 class CreatePost extends React.Component<Props> {
-  
-  /**
-   * Initializes CreatPost and its states
-   * @param props properties passed from parent component
-   */
   constructor(props) {
     super(props);
-    /**
-     * states for screen
-     */
     this.state = {
       userID: 'userIDPlaceHolder',
       userName: 'Joe Budden',
@@ -69,9 +51,6 @@ class CreatePost extends React.Component<Props> {
     };
   }
 
-  /**
-   * get permission form user to access gallary
-   */
   getPermissionAsync = async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -81,9 +60,6 @@ class CreatePost extends React.Component<Props> {
     }
   };
 
-  /**
-   * get image from Camera roll using expo imagepicker API
-   */
   _pickImage = async () => {
     this.getPermissionAsync();
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -91,18 +67,15 @@ class CreatePost extends React.Component<Props> {
       allowsEditing: true,
       aspect: [4, 3],
     });
-    
+
     console.log(result);
-    
+
     if (!result.cancelled) {
       this.setState({ images: result.uri });
     }
     console.log(this.state.images);
   };
 
-  /**
-   * defines the back button for top navigation action
-   */
   backButton = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.navigate('News Feed')}
@@ -110,12 +83,17 @@ class CreatePost extends React.Component<Props> {
     />
   );
 
-  //registers Icon for back button 
   back = style => <Icon {...style} name="arrow-ios-back-outline" />;
-  //registers settings button icon
-  settingsIcon = style => <Icon {...style} name="settings-2-outline" />;
 
-  //defines the top navigation bar
+  AddConversation = () => (
+    <TopNavigationAction
+      onPress={() => this.props.navigation.navigate('Search')}
+      icon={this.settingsIcon}
+    />
+  );
+
+  settingsIcon = style => <Icon {...style} name="settings-2-outline" />;
+  addIcon = style => <Icon {...style} name="plus-outline" />;
   topNavigation = () => {
     return (
       <View>
@@ -135,7 +113,6 @@ class CreatePost extends React.Component<Props> {
     );
   };
 
-  //defines label for "anonymous" posts
   annonymousLabel = () => {
     return (
       <Text
@@ -150,7 +127,6 @@ class CreatePost extends React.Component<Props> {
     );
   };
 
-  //defines label for "public" posts
   publicLabel = () => {
     return (
       <Text
@@ -160,12 +136,11 @@ class CreatePost extends React.Component<Props> {
           fontWeight: 'bold',
           color: '#EB350D',
         }}>
-        Not Anonymous
+        Public
       </Text>
     );
   };
 
-  //defines layout of scope, and annonymity labels and their settings
   mainHeader = () => {
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -185,7 +160,6 @@ class CreatePost extends React.Component<Props> {
     );
   };
 
-  //defines the function of the settings page 
   settingVisibilityChange = () => {
     if (this.state.settingsVisible) {
       this.setState({
@@ -198,14 +172,9 @@ class CreatePost extends React.Component<Props> {
     }
   };
 
-  /**
-   * defines text input area. It uses a card and 
-   * a textInput component nested in a view with a similar background color 
-   * to pad text
-   */
   inputText = () => {
     return (
-      <View style={styles.textCard} enabled>
+      <View style={styles.textCard}>
         <Text
           style={{
             opacity: 1,
@@ -244,9 +213,6 @@ class CreatePost extends React.Component<Props> {
     );
   };
 
-  /**
-   * Defines layout for image uploading area when empty
-   */
   emptyImageUpload = () => {
     return (
       <TouchableOpacity
@@ -263,7 +229,6 @@ class CreatePost extends React.Component<Props> {
     );
   };
 
-  //defines layout for image uploading area once a user has added at least one image
   occupiedImageUpload = () => {
     return (
       <Layout
@@ -291,7 +256,6 @@ class CreatePost extends React.Component<Props> {
     );
   };
 
-  //defines image uploading component
   imageUploadView = () => {
     return (
       <View style={styles.imageUploadStyle}>
@@ -302,7 +266,6 @@ class CreatePost extends React.Component<Props> {
     );
   };
 
-  //defines modal for post settings
   settingsView() {
     return (
       <Modal
@@ -333,27 +296,24 @@ class CreatePost extends React.Component<Props> {
             style={{
               flex: 1,
               flexDirection: 'row',
-              paddingLeft: '0%',
+              paddingLeft: '5%',
               alignContent: 'space-between',
               backgroundColor: '#EEEEEE',
               maxWidth: '80%',
               maxHeight: '30%',
               marginBottom: 5,
-              alignSelf: "left"
             }}>
-            <Button onPress={this.setInstitute} status={this.state.buttonLabel[0]} appearance = "ghost">
-              institution
+            <Button onPress={this.setPublic} status={this.state.buttonLabel[0]}>
+              Institution
             </Button>
             <Button
-              onPress={this.setDepartment}
-              status={this.state.buttonLabel[1]}
-               appearance = "ghost">
+              onPress={this.setInstitute}
+              status={this.state.buttonLabel[1]}>
               Department
             </Button>
             <Button
-              onPress={this.setFriends}
-              status={this.state.buttonLabel[2]}
-               appearance = "ghost">
+              onPress={this.setDepartment}
+              status={this.state.buttonLabel[2]}>
               Connections
             </Button>
           </View>
@@ -386,29 +346,25 @@ class CreatePost extends React.Component<Props> {
       </Modal>
     );
   }
-  //sets post's scope to connections; used in settingsView
   setFriends = () => {
-    this.setState({
-      scope: 'To connections',
-      buttonLabel: ['basic', 'basic', 'success'],
-    });
-  };
-  //sets post's scope to institution; used in settingsView
-  setInstitute = () => {
     this.setState({
       scope: 'To your institution',
       buttonLabel: ['danger', 'basic', 'basic'],
     });
   };
-  //sets post's scope to department; used in settingsView
-  setDepartment = () => {
+  setInstitute = () => {
     this.setState({
       scope: 'To your department',
       buttonLabel: ['basic', 'primary', 'basic'],
     });
   };
+  setDepartment = () => {
+    this.setState({
+      scope: 'To connections',
+      buttonLabel: ['basic', 'basic', 'success'],
+    });
+  };
 
-  //changes poster's anonymity for the post; used in settingsView
   annonymityChange = () => {
     if (this.state.annonymous) {
       this.setState({ annonymous: false });
@@ -416,7 +372,6 @@ class CreatePost extends React.Component<Props> {
       this.setState({ annonymous: true });
     }
   };
-
   /* Renders the component*/
   render() {
     return (
@@ -439,7 +394,6 @@ class CreatePost extends React.Component<Props> {
               {this.inputText()}
               {this.imageUploadView()}
             </ScrollView>
-            <Text>{/*Renders the post button*/}</Text>
             <Button
               appearance="fill"
               style={{
@@ -486,7 +440,6 @@ class CreatePost extends React.Component<Props> {
   }
 }
 
-//defines the style of components
 const styles = {
   container: {
     backgroundColor: 'black',

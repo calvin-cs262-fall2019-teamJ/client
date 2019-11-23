@@ -1,9 +1,3 @@
-/**
- * Newfeed.js defines how the frnt page of the app that
- * shows a user posts created by departmetns, and other user
- * and create their own post. The user can also interact with the posts
- * 
- */
 import React from 'react';
 import {
   Button,
@@ -29,10 +23,8 @@ import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
 
-/**defines front screen */
 class NewsFeed extends React.Component<Props> {
-  /**creates newfeed component. Initializes posts */
-  constructor(props) {
+    constructor(props) {
     super(props);
     this.state = {
       postInfo: [
@@ -45,9 +37,7 @@ class NewsFeed extends React.Component<Props> {
       ],
     };
   }
-  /**queries the database to get posts and set's them as the state of
-   * the newsfeed
-   */
+
   async componentDidMount() {
     //alert("poopity")
     let temp = await Fire.shared.PullPosts();
@@ -68,17 +58,14 @@ class NewsFeed extends React.Component<Props> {
     });
   }
 
-  //defines how posts behave when post avatars are pressed
   profilePress = () => {
     this.props.navigation.navigate('Profile');
   };
 
-  //defines how posts behave when their text is pressed
   textPress = paramsVal => {
     this.props.navigation.navigate('PostView', { paramsVal });
   };
 
-  //defines top left navigation button
   OpenMenu = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.toggleDrawer()}
@@ -86,19 +73,21 @@ class NewsFeed extends React.Component<Props> {
     />
   );
 
-  //defines top right navigation button
-  OpenSettings = () => (
+  createPost = () => {
+    this.props.navigation.navigate("CreatePost")
+  }
+
+  MenuIcon = style => <Icon {...style} name="menu-outline" />;
+  AddIcon = style => <Icon {...style} name="plus-outline" />;
+
+  AddConversation = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.navigate('Search')}
       icon={this.SearchIcon}
     />
   );
 
-  //registers icons for navigation buttons
-  MenuIcon = style => <Icon {...style} name="menu-outline" />;
-  AddIcon = style => <Icon {...style} name="plus-outline" />;
   SearchIcon = style => <Icon {...style} name="search-outline" />;
-
 
   /* Renders the component*/
   render() {
@@ -108,9 +97,9 @@ class NewsFeed extends React.Component<Props> {
           title="Home"
           alignment="center"
           leftControl={this.OpenMenu()}
-          rightControls={this.OpenSettings()}
+          rightControls={this.AddConversation()}
         />
-        <ScrollView style={styles.scrollView}>
+                <ScrollView style={styles.scrollView}>
           {this.state.postInfo.map(post => {
             return (
               <PostCard
@@ -148,10 +137,10 @@ class NewsFeed extends React.Component<Props> {
             borderColor: '#FF522D',
           }}
           textStyle={{ color: '#FF4821' }}
-          onPress={() => {this.props.navigation.navigate('CreatePost')}}
-          icon={this.AddIcon}
-          color="black"
-        />
+          onPress={this.createPost}
+          icon = {this.AddIcon}
+          color = "black"
+          />
       </SafeAreaView>
     );
   }
@@ -171,5 +160,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 1,
   },
 });
+
+const postText =
+  'The quick brown fox jumped over the lazy dog. A pangram, or holoalphabetic sentence, is a sentence that contains every letter of the alphabet at least once.';
 
 export default NewsFeed;
