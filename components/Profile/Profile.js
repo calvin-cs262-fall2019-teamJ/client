@@ -11,7 +11,6 @@ import {
 } from 'react-native-ui-kitten';
 
 import Objective from './Objective';
-import Activities from './Activities';
 import Experience from './Experience';
 import Projects from './Projects/ProjectSuper';
 import Qualifications from './Qualifications';
