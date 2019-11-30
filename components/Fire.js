@@ -2,6 +2,7 @@ import { firebase } from '@firebase/app';
 import '@firebase/firestore';
 import '@firebase/auth';
 
+
 class Fire {
   constructor() {
     if (!firebase.apps.length) {

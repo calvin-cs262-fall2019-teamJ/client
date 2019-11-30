@@ -7,7 +7,7 @@ import {
   Image,
   TouchableHighlight,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Card } from 'react-native-paper';
 import { Button, Input } from 'react-native-ui-kitten';
@@ -35,6 +35,8 @@ export default class PostCard extends React.Component {
       likeTally: 0,
       buttonTitle: 'Like',
       buttonStatus: 'primary',
+      tagStatus: 'no-show',
+      tags: ['Job search', 'Life Update', 'Event'],
     };
   }
 
@@ -59,44 +61,37 @@ export default class PostCard extends React.Component {
     }
   };
 
-  convertTime = (timeInSec) => {
-    
-    if (timeInSec == null){
-      return "nan"
+  convertTime = timeInSec => {
+    if (timeInSec == null) {
+      return 'nan';
     }
 
-    let secPerMin = 60
-    let secPerHour = 60 * secPerMin
-    let secPerDay = 24 * secPerHour
-    let secPerWeek = 7 * secPerDay
-    let secPerMon = 4 * secPerWeek
-    let secPerYear = 12 * secPerMon
+    let secPerMin = 60;
+    let secPerHour = 60 * secPerMin;
+    let secPerDay = 24 * secPerHour;
+    let secPerWeek = 7 * secPerDay;
+    let secPerMon = 4 * secPerWeek;
+    let secPerYear = 12 * secPerMon;
 
-    let timeDiff = Date.now() - timeInSec;
+    let timeDiff = parseInt(Date.now() - timeInSec);
 
-    if (timeDiff/secPerMin < 1){
-      return "A moment ago"
+    if (timeDiff / secPerMin < 1) {
+      return 'A moment ago';
+    } else if (timeDiff / secPerHour < 1) {
+      timeDiff = parseInt(timeDiff / secPerMin);
+      return toString(timeDiff) + ' mins ago';
+    } else if (timeDiff / secPerDay < 1) {
+      return toString(parseInt(timeDiff / secPerHour)) + ' hours ago';
+    } else if (timeDiff / secPerWeek < 1) {
+      return toString(parseInt(timeDiff / secPerDay)) + ' days ago';
+    } else if (timeDiff / secPerMon < 1) {
+      return toString(parseInt(timeDiff / secPerWeek)) + ' weeks ago';
+    } else if (timeDiff / secPerYear < 1) {
+      return toString(parseInt(timeDiff / secPerMon)) + ' months ago';
+    } else {
+      return toString(parseInt(timeDiff / secPerYear)) + ' years ago';
     }
-    else if (timeDiff/secPerHour < 1) {
-      timeDiff = parseInt(timeDiff/secPerMin)
-      return toString(timeDiff) + " mins ago"
-    }
-    else if (timeDiff/secPerDay < 1) {
-      return toString(parseInt(timeDiff/secPerHour)) + " hours ago"
-    }
-    else if (timeDiff/secPerWeek < 1) {
-      return toString(parseInt(timeDiff/secPerDay)) + " days ago"
-    }
-    else if (timeDiff/secPerMon < 1) {
-      return toString(parseInt(timeDiff/secPerWeek)) + " weeks ago"
-    }
-    else if (timeDiff/secPerYear < 1){
-      return toString(parseInt(timeDiff/secPerMon)) + " months ago"
-    }
-    else {
-      return toString(parseInt(timeDiff/secPerYear)) + " years ago"
-    }
-  }
+  };
 
   getAvatar() {
     if (this.props.annonymity == true) {
@@ -116,6 +111,38 @@ export default class PostCard extends React.Component {
       return this.props.userImageSrc;
     }
   }
+
+  renderTags = () => {
+    if (this.state.tagStatus == 'no-show') {
+      return (
+        <Button
+          appearance="outline"
+          size="tiny"
+          status="basic"
+          style={{ width: '25%', marginLeft: 10 }}
+          onPress={() => {
+            this.setState({ tagStatus: 'show' });
+          }}>
+          {' '}
+          Show tags{' '}
+        </Button>
+      );
+    } else {
+      return (
+        <View style={{ paddingLeft: 10, flex: 1, flexDirection: 'row' }}>
+          {this.state.tags.forEach((tag) => {
+              <Button
+                appearance="outline"
+                size="tiny"
+                status="basic"
+                style={{ marginRight: 3}}>
+                tag
+              </Button>
+          })}
+        </View>
+      );
+    }
+  };
   /* Renders the component*/
   render() {
     return (
@@ -163,6 +190,7 @@ export default class PostCard extends React.Component {
               {this.props.userName} • {this.convertTime(this.props.timeStamp)}
             </Text>
           </View>
+          {this.renderTags()}
           <TouchableWithoutFeedback
             onPress={() => {
               this.props.postView({
