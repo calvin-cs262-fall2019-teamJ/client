@@ -39,7 +39,7 @@ class CreatePost extends React.Component<Props> {
     super(props);
     this.state = {
       userID: 'userIDPlaceHolder',
-      userName: 'Joe Budden',
+      userName: 'Keith VanderLinden',
       textInput: '',
       scope: 'To your department',
       tags: {},

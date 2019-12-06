@@ -16,7 +16,6 @@ import { Card } from 'react-native-paper';
 import { departmentMembers } from '../Utils/SampleData'; // until this comes from the data base, we can keep the members here
 import expect, { createSpy, spyOn, isSpy } from 'expect';
 
-
 // defines the component for the "other deparments" section of the "find mentor" page
 export default class OtherDepartments extends React.Component {
   constructor(props) {
@@ -29,7 +28,13 @@ export default class OtherDepartments extends React.Component {
 
   // shows what "page" we're on
   paginationStatus() {
-    return <PagerDotIndicator selectedDotStyle ={{backgroundColor: '#c6c6c6'}} dotStyle={{backgroundColor: '#ededed'}} pageCount={this.props.data.length} />;
+    return (
+      <PagerDotIndicator
+        selectedDotStyle={{ backgroundColor: '#c6c6c6' }}
+        dotStyle={{ backgroundColor: '#ededed' }}
+        pageCount={this.props.data.length}
+      />
+    );
   }
 
   mainView() {
@@ -45,26 +50,18 @@ export default class OtherDepartments extends React.Component {
         {this.props.data.map(department => {
           return (
             <View style={[styles.indicatorView]}>
-             {DepartmentPage(department.name, department.members)} 
+              {DepartmentPage(department.name, department.members)}
             </View>
           );
         })}
       </IndicatorViewPager>
     );
   }
-  
+
   render() {
     return (
       <Layout style={{ marginTop: 20 }}>
-        <Text
-          style={{
-            fontSize: 20,
-            marginLeft: 10,
-            marginBottom: 10,
-            fontWeight: 'bold',
-          }}>
-          Other Departments
-        </Text>
+        <Text style={styles.text}>Other Departments</Text>
         {this.mainView()}
       </Layout>
     );
@@ -75,18 +72,9 @@ export const DepartmentPage = (departmentName, mentorList) => {
   return (
     <ScrollView style={{ bottom: 0 }}>
       <Card style={styles.eachDepartment}>
-        <Text
-          style={{
-            fontSize: 20,
-            marginLeft: 10,
-            marginBottom: 10,
-            marginTop: 15,
-            fontWeight: 'bold',
-          }}>
-          {departmentName}
-        </Text>
+        <Text style={{}}>{departmentName}</Text>
         {mentorList.map(mentor => {
-                console.log(mentor.name)
+          console.log(mentor.name);
           return (
             <MentorCard
               name={mentor.name}
@@ -116,10 +104,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
   },
-
   text: {
-    color: '#fff',
-    fontSize: 30,
+    fontSize: 20,
+    marginLeft: 10,
+    marginBottom: 10,
+    marginTop: 15,
+    fontWeight: 'bold',
   },
   eachDepartment: {
     marginLeft: 10,

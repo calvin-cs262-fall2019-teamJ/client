@@ -8,6 +8,7 @@ import {
   Image,
   Text,
   ImageBackground,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Input, Button, Layout } from 'react-native-ui-kitten';
 
@@ -44,7 +45,7 @@ class SignUp extends React.Component {
   //displays the page
   render() {
     return (
-      <Layout style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Image
           style={styles.image}
           source={require('../../assets/icons/logo.png')}
@@ -74,21 +75,19 @@ class SignUp extends React.Component {
           secureTextEntry={true}
           style={styles.input}
         />
-
         <Button
-          onPress={this.onSignUp.bind(this)}
           style={styles.button}
-          textStyle={styles.buttonText}>
+          textStyle={styles.buttonText}
+          onPress={this.onSignUp.bind(this)}>
           Sign Up
         </Button>
-
         <Button
           style={styles.button}
           textStyle={styles.buttonText}
           onPress={this.gotoPage.bind(this)}>
           Sign In
         </Button>
-      </Layout>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -101,8 +100,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: 265,
-    height: 295,
+    width: 212,
+    height: 236,
     marginBottom: 30,
   },
   input: {
