@@ -33,6 +33,10 @@ export default class Settings extends React.Component {
   goToSignOut = () => {
     this.props.navigation.navigate('SignIn');
   };
+  
+  goToSignOut = () => {
+    this.props.navigation.navigate('SignIn');
+  }
 
   // will open the drawer
   OpenMenu = () => (
