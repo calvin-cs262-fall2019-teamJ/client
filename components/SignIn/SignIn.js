@@ -29,8 +29,8 @@ class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'test999@gmail.com',
-      password: 'test123',
+      email: '',
+      password: '',
     };
   }
 
@@ -68,7 +68,7 @@ class SignIn extends React.Component {
         <Input
           value={this.state.email}
           onChangeText={email => this.setState({ email })}
-          placeholder={'email'}
+          placeholder={'Email'}
           style={styles.input}
         />
         <Input

@@ -5,7 +5,6 @@ import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 
 import Settings from './Settings/Settings';
-import Account from './Settings/Account';
 import Profile from './Profile/Profile';
 import PostView from './NewsFeed/PostView';
 import NewsFeed from './NewsFeed/NewsFeed';
@@ -50,13 +49,6 @@ export const LoginStack = createStackNavigator({
 export const SettingsStack = createStackNavigator({
   Settings: {
     screen: Settings,
-    navigationOptions: {
-      header: null,
-      headerLeft: null,
-    },
-  },
-  Account: {
-    screen: Account,
     navigationOptions: {
       header: null,
       headerLeft: null,

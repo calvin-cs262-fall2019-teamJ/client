@@ -1,7 +1,7 @@
 /**
  * Profile.js shows all the user informations including their career,
- * objectives, skills and more. All users have a profile page that 
- * other users can view. 
+ * objectives, skills and more. All users have a profile page that
+ * other users can view.
  */
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
@@ -50,6 +50,9 @@ export default class Profile extends Component {
   EditProfile = () => (
     <TopNavigationAction
       //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page
+      onPress={() => {
+        alert('Edit Profile page is under construction!');
+      }}
       icon={this.state.isSelf == true ? EditIcon : MessageIcon}
     />
   );
@@ -258,13 +261,16 @@ const styles = StyleSheet.create({
     width: '50%',
   },
   avatar: {
+    flex: 1,
     width: 130,
     height: 130,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: 'black',
     marginTop: 20,
     marginBottom: 20,
     marginLeft: 25,
+    borderRadius: 130 / 2,
+    overflow: 'hidden',
   },
   userInfo: {
     fontSize: 16,
