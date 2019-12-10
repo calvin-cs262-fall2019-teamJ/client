@@ -130,7 +130,7 @@ export default class PostCard extends React.Component {
           width: Dimensions.get('window').width - 25,
           maxHeight: '800px',
           overflow: 'hidden',
-          borderRadius: 20,
+          borderRadius: 15,
         }}>
         {/*main view*/}
         <View
