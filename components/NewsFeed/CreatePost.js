@@ -475,7 +475,7 @@ const styles = {
     opacity: 0.8,
   },
   textInput: {
-    textAlignVertical="top",
+    textAlignVertical: "top",
     marginTop: 5,
     marginLeft: 10,
     marginBottom: 30,
