@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 15,
     color: '#333333',
-    fontWeight: 600,
+    fontWeight: '600',
     justifyContent: 'flex-start',
   },
   button: {

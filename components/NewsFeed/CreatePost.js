@@ -33,6 +33,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
+import * as ThemeStyle from '../ThemeConstants';
 
 class CreatePost extends React.Component<Props> {
   constructor(props) {
@@ -96,20 +97,13 @@ class CreatePost extends React.Component<Props> {
   addIcon = style => <Icon {...style} name="plus-outline" />;
   topNavigation = () => {
     return (
-      <View>
-        <View
-          style={{
-            height: Constants.statusBarHeight,
-            backgroundColor: 'white',
-          }}
-        />
-        <TopNavigation
-          title="New Post"
-          alignment="center"
-          leftControl={this.backButton()}
-          hear
-        />
-      </View>
+      <TopNavigation
+        title="New Post"
+        alignment="left"
+        style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
+        titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
+        leftControls={this.backButton()}
+      />
     );
   };
 
@@ -150,7 +144,7 @@ class CreatePost extends React.Component<Props> {
         </View>
         <Button
           appearance="ghost"
-          style={{ color: 'black', alignSelf: 'right' }}
+          style={{ color: 'black', alignSelf: 'flex-start' }}
           status="basic"
           size="giant"
           icon={this.settingsIcon}
@@ -205,7 +199,7 @@ class CreatePost extends React.Component<Props> {
                 textInput: text,
                 change: true,
               });
-              console.log(this.state.textInput)
+              console.log(this.state.textInput);
             }}
           />
         </View>
@@ -326,7 +320,7 @@ class CreatePost extends React.Component<Props> {
             }}>
             <Text
               style={{
-                alignSelf: 'left',
+                alignSelf: 'flex-start',
                 fontSize: 14,
                 fontWeight: 'bold',
                 marginVertical: 10,
@@ -376,14 +370,24 @@ class CreatePost extends React.Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        {this.topNavigation()}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <LinearGradient
-            colors={['#FFFFFF', '#FFDCD5']}
+            colors={[
+              ThemeStyle.OffWhiteBackground,
+              ThemeStyle.OffWhiteBackground,
+              ThemeStyle.CalvinBlue,
+            ]}
             style={styles.mainView}>
+            <TopNavigation
+              title="New Post"
+              alignment="left"
+              style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
+              titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
+              leftControls={this.backButton()}
+            />
             {this.mainHeader()}
             {this.settingsView()}
-
+            
             <ScrollView
               style={{
                 minHeight: Dimensions.get('window').height * 0.8,

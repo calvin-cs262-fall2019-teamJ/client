@@ -23,7 +23,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
-import { StyleConsts } from '../ThemeConstants';
+import * as ThemeStyle from '../ThemeConstants';
 
 class NewsFeed extends React.Component<Props> {
   constructor(props) {
@@ -98,12 +98,16 @@ class NewsFeed extends React.Component<Props> {
   /* Renders the component*/
   render() {
     return (
-      <LinearGradient colors={['#EFEFEF', '#EFEFEF', '#EFEFEF', '#71B1C8']} style={styles.container}>
+      <LinearGradient colors={[
+              ThemeStyle.OffWhiteBackground,
+              ThemeStyle.OffWhiteBackground,
+              ThemeStyle.CalvinBlue,
+            ]} style={styles.container}>
         <TopNavigation
           title="Home"
           alignment="left"
-          style={StyleConsts.TopHeaderViewStyle}
-          titleStyle={StyleConsts.TopHeaderTitleStyle}
+          style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
+          titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
           rightControls={this.RightConvo()}
         />
         <ScrollView style={styles.scrollView}>

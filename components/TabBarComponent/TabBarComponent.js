@@ -19,7 +19,7 @@ const TabBarComponent = ({ navigation }) => {
     background: ThemeStyles.CalvinBlue
   }
 
-  var changeColor = (colorName) =>{
+  const changeColor = (colorName) =>{
     let stringColor = ThemeStyles.CalvinBlue
 
     if (colorName == "marron" || colorName == 0){
@@ -40,20 +40,20 @@ const TabBarComponent = ({ navigation }) => {
     else if (colorName == "white") {
       stringColor = ThemeStyles.CalvinWhite
     }
-    setState({
+    this.setState({
       background: stringColor
     })
   }
   const onSelect = (index) => {
     const selectedTabRoute = navigation.state.routes[index];
     navigation.navigate(selectedTabRoute.routeName);
-    this.changeColor(index)
+
   };
 
   return (
-    <SafeAreaView>
-      <BottomNavigation selectedIndex={navigation.state.index} onSelect={onSelect} 
-      style={{ backgroundColor: this.state.background}} 
+    <Layout>
+      <BottomNavigation selectedIndex={navigation.state.index} onSelect={onSelect}
+      style={{ backgroundColor: ThemeStyles.CalvinBlue}} 
       indicatorStyle={{ backgroundColor: 'white'}}>
         <BottomNavigationTab icon={PersonIcon}/>
         <BottomNavigationTab icon={MentorIcon}/>
@@ -61,7 +61,7 @@ const TabBarComponent = ({ navigation }) => {
         <BottomNavigationTab icon={MessageIcon}/>
         <BottomNavigationTab icon={SettingsIcon}/>
       </BottomNavigation>
-    </SafeAreaView>
+    </Layout>
   );
 };
 
