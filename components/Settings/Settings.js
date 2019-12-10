@@ -15,7 +15,7 @@ import {
 } from 'react-native-ui-kitten';
 import { Card } from 'react-native-shadow-cards';
 import { MenuIcon } from '../Utils/customIcons';
-import Fire from '../Fire'
+import Fire from '../Fire';
 
 // screen for the "Settings" page
 export default class Settings extends React.Component {
@@ -24,18 +24,19 @@ export default class Settings extends React.Component {
     this.state = {
       notiChecked: false,
       soundChecked: false,
+      email: '',
+      phoneNumber: '',
     };
   }
-
-  // naviagates to the account info page
-  goToAccount = () => {
-    this.props.navigation.navigate('Account');
-  };
 
   // signs out
   goToSignOut = () => {
     this.props.navigation.navigate('SignIn');
   };
+  
+  goToSignOut = () => {
+    this.props.navigation.navigate('SignIn');
+  }
 
   // will open the drawer
   OpenMenu = () => (
@@ -46,20 +47,22 @@ export default class Settings extends React.Component {
   );
 
   // keyword "async" tells javascript that we are implementing a synchronous elements
-  async componentDidMount(){
+  async componentDidMount() {
     this.readData();
   }
 
   /**queries the database to get booleans of notification and sound
    * and set's them as the state of the settings
    */
-  async readData(){
+  async readData() {
     // "await" says do not continue until this command has been fully executed
-    let data = await Fire.shared.PullUserInfo("fW480g7VSdBp6Ragz08A")
+    let data = await Fire.shared.PullUserInfo('T41MxCh0VTy8qRc7vcPK');
     this.setState({
       notiChecked: data.settings.notifications,
       soundChecked: data.settings.sounds,
-    }) 
+      email: data.settings.email,
+      phoneNumber: data.settings.phoneNumber,
+    });
   }
 
   render() {
@@ -70,21 +73,30 @@ export default class Settings extends React.Component {
           alignment="center"
           leftControl={this.OpenMenu()}
         />
+        <View style={styles.item}>
+          <View style={styles.infoContent}>
+            <Text style={styles.info}>Account Settings </Text>
+          </View>
+        </View>
         <Card style={{ padding: 10, margin: 10 }}>
           <View>
-            <View style={styles.item}>
-              <View style={styles.infoContent}>
-                <Text style={styles.info}> Account </Text>
-              </View>
-              <Button
-                style={styles.button}
-                appearance="ghost"
-                textStyle={styles.buttonText}
-                onPress={this.goToAccount.bind(this)}>
-                →
-              </Button>
-            </View>
+            <Text style={styles.title}> Email </Text>
+            <Text style={styles.text}> {this.state.email}</Text>
             <View style={styles.separator} />
+            <Text style={styles.title}> Phone </Text>
+            <Text style={styles.text}> {this.state.phoneNumber}</Text>
+            <View style={styles.separator} />
+            <Text style={styles.title}> Password </Text>
+            <Text style={styles.password}> ●●●●●●●● </Text>
+          </View>
+        </Card>
+        <View style={styles.item}>
+          <View style={styles.infoContent}>
+            <Text style={styles.info}>App Settings </Text>
+          </View>
+        </View>
+        <Card style={{ padding: 10, margin: 10 }}>
+          <View>
             <Toggle
               style={styles.toggle}
               checked={this.state.notiChecked}
@@ -149,11 +161,18 @@ const styles = StyleSheet.create({
     marginTop: 1,
     marginLeft: 10,
   },
-  buttonText: {
-    fontSize: 20,
-    color: '#333333',
-  },
   item: {
     flexDirection: 'row',
   },
+  text: {
+    marginBottom: 3,
+    color: '#989898',
+    marginTop: 10,
+  },
+  password: {
+    fontSize: 9, 
+    marginTop: 10,
+    color: '#989898',
+  }
+
 });
