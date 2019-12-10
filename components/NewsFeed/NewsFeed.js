@@ -103,6 +103,7 @@ class NewsFeed extends React.Component<Props> {
               ThemeStyle.OffWhiteBackground,
               ThemeStyle.CalvinBlue,
             ]} style={styles.container}>
+        
         <TopNavigation
           title="Home"
           alignment="left"

@@ -1,14 +1,15 @@
-import {StyleSheet} from 'react-native'
+import {Platform, StyleSheet} from 'react-native'
 import Constants from 'expo-constants'
 
 export const StyleConsts = StyleSheet.create({
   TopHeaderViewStyle: {
     backgroundColor: "transparent",
-    paddingTop: Constants.statusBarHeight
+    marginTop: Constants.statusBarHeight
   },
   TopHeaderTitleStyle:{
-    fontSize: 24,
-    fontWeight: "bold"
+    fontSize: Platform.OS === 'ios' ? 24: 30,
+    fontWeight: "bold",
+    marginVertical: 5
   }
 });
 

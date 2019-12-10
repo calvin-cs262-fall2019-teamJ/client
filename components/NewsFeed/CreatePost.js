@@ -102,7 +102,12 @@ class CreatePost extends React.Component<Props> {
         alignment="left"
         style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
         titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
-        leftControls={this.backButton()}
+        leftControls={
+          <TopNavigationAction
+            onPress={() => this.props.navigation.navigate('News Feed')}
+            icon={this.back}
+          />
+        }
       />
     );
   };
@@ -293,8 +298,8 @@ class CreatePost extends React.Component<Props> {
               paddingLeft: '5%',
               alignContent: 'space-between',
               backgroundColor: '#EEEEEE',
-              maxWidth: Dimensions.get('window').width*0.8,
-              maxHeight: Dimensions.get('window').height*0.3,
+              maxWidth: Dimensions.get('window').width * 0.8,
+              maxHeight: Dimensions.get('window').height * 0.3,
               marginBottom: 5,
             }}>
             <Button onPress={this.setPublic} status={this.state.buttonLabel[0]}>
@@ -387,7 +392,7 @@ class CreatePost extends React.Component<Props> {
             />
             {this.mainHeader()}
             {this.settingsView()}
-            
+
             <ScrollView
               style={{
                 minHeight: Dimensions.get('window').height * 0.8,
@@ -475,7 +480,7 @@ const styles = {
     opacity: 0.8,
   },
   textInput: {
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
     marginTop: 5,
     marginLeft: 10,
     marginBottom: 30,
