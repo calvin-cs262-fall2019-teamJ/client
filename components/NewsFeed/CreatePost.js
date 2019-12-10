@@ -77,14 +77,14 @@ class CreatePost extends React.Component<Props> {
     console.log(this.state.images);
   };
 
+  back = style => <Icon {...style} name="arrow-ios-back-outline" />;
+
   backButton = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.navigate('News Feed')}
       icon={this.back}
     />
   );
-
-  back = style => <Icon {...style} name="arrow-ios-back-outline" />;
 
   AddConversation = () => (
     <TopNavigationAction
@@ -96,20 +96,13 @@ class CreatePost extends React.Component<Props> {
   settingsIcon = style => <Icon {...style} name="settings-2-outline" />;
   addIcon = style => <Icon {...style} name="plus-outline" />;
   topNavigation = () => {
-    return (
       <TopNavigation
-        title="New Post"
+        title="NewPost"
         alignment="left"
         style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
         titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
-        leftControls={
-          <TopNavigationAction
-            onPress={() => this.props.navigation.navigate('News Feed')}
-            icon={this.back}
-          />
-        }
+        leftControl={this.backButton}
       />
-    );
   };
 
   annonymousLabel = () => {
@@ -388,7 +381,7 @@ class CreatePost extends React.Component<Props> {
               alignment="left"
               style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
               titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
-              leftControls={this.backButton()}
+              leftControls={this.backButton}
             />
             {this.mainHeader()}
             {this.settingsView()}

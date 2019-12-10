@@ -9,7 +9,7 @@ export const StyleConsts = StyleSheet.create({
   TopHeaderTitleStyle:{
     fontSize: Platform.OS === 'ios' ? 24: 30,
     fontWeight: "bold",
-    marginVertical: 5
+    paddingVertical: 10
   }
 });
 

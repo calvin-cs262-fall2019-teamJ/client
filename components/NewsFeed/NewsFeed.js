@@ -60,8 +60,8 @@ class NewsFeed extends React.Component<Props> {
     });
   }
 
-  profilePress = () => {
-    this.props.navigation.navigate('Profile');
+  profilePress = userID => {
+    this.props.navigation.navigate('Profile', { userID });
   };
 
   textPress = paramsVal => {
@@ -98,12 +98,13 @@ class NewsFeed extends React.Component<Props> {
   /* Renders the component*/
   render() {
     return (
-      <LinearGradient colors={[
-              ThemeStyle.OffWhiteBackground,
-              ThemeStyle.OffWhiteBackground,
-              ThemeStyle.CalvinBlue,
-            ]} style={styles.container}>
-        
+      <LinearGradient
+        colors={[
+          ThemeStyle.OffWhiteBackground,
+          ThemeStyle.OffWhiteBackground,
+          ThemeStyle.CalvinBlue,
+        ]}
+        style={styles.container}>
         <TopNavigation
           title="Home"
           alignment="left"
@@ -128,9 +129,10 @@ class NewsFeed extends React.Component<Props> {
                   }}
                   source={require('./18942381.jpg')}
                 />
+                owner={post.owner}
                 userName={post.nameLabel}
                 timeStamp={post.timeStamp}
-                postNav={this.profilePress}
+                profileNav={() => {this.profilePress(post.owner)}}
                 postView={params => this.textPress(params)}
               />
             );
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     //justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
+    //paddingTop: Constants.statusBarHeight,
     backgroundColor: '#EFEFEF',
   },
   scrollView: {

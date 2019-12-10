@@ -7,7 +7,7 @@ import {
   Image,
   TouchableHighlight,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Card } from 'react-native-paper';
 import { Button, Input } from 'react-native-ui-kitten';
@@ -71,7 +71,7 @@ export default class PostCard extends React.Component {
     let secPerMon = 4 * secPerWeek;
     let secPerYear = 12 * secPerMon;
 
-    let timeDiff = new Date() 
+    let timeDiff = new Date();
     timeDiff = timeDiff.getSeconds() - timeInSec;
 
     console.log('log');
@@ -115,6 +115,17 @@ export default class PostCard extends React.Component {
       return this.props.userImageSrc;
     }
   }
+
+  navigate_to_profile = () => {
+    if (!this.props.annonymity) {
+      this.props.profileNav();
+    } else {
+      alert(
+        'The post was sent annonymously; cannot look at the senders profile.'
+      );
+    }
+  };
+
   /* Renders the component*/
   render() {
     return (
@@ -145,10 +156,7 @@ export default class PostCard extends React.Component {
               flexDirection: 'row',
               paddingBottom: 10,
             }}>
-            <TouchableOpacity
-              onPress={() => {
-                console.log('should navigate');
-              }}>
+            <TouchableOpacity onPress={this.navigate_to_profile()}>
               {this.state.avatar}
             </TouchableOpacity>
             {/*Name sub-component*/}
@@ -159,7 +167,8 @@ export default class PostCard extends React.Component {
                 fontSize: 13,
                 textAlign: 'left',
               }}>
-              {this.props.userName} • {this.convertTime(this.props.timeStamp)}
+              {this.props.annonymity ? 'Annonymous' : this.props.userName} •{' '}
+              {this.convertTime(this.props.timeStamp)}
             </Text>
           </View>
           <TouchableWithoutFeedback
