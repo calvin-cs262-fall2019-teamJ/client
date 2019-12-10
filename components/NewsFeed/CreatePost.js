@@ -293,7 +293,7 @@ class CreatePost extends React.Component<Props> {
               paddingLeft: '5%',
               alignContent: 'space-between',
               backgroundColor: '#EEEEEE',
-              maxWidth: '80%',
+              maxWidth: Dimensions.get('window').width*0.8,
               maxHeight: Dimensions.get('window').height*0.3,
               marginBottom: 5,
             }}>
