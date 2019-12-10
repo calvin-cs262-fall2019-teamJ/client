@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
   userEdu: {
     fontSize: 15,
     fontWeight: '600',
-    alignSelf: 'left',
+    alignSelf: 'flex-start',
     color: 'white',
     marginLeft: 30,
   },
