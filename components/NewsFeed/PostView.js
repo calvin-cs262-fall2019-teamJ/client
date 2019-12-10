@@ -75,7 +75,7 @@ class PostView extends React.Component<Props> {
               paddingTop: 10,
               maxWidth: Dimensions.get('window').width - 25,
               flex: 1,
-              flexDirection: 'col',
+              flexDirection: 'column',
             }}>
             <TouchableOpacity
               onPress={() => {
