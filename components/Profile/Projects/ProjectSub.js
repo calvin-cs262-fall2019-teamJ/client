@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 20,
     marginBottom: 80,
-    flex: '1',
+    flex: 1,
   },
   title: {
     textTransform: 'uppercase',
