@@ -14,11 +14,14 @@ import {
   TopNavigationAction,
   Icon,
 } from 'react-native-ui-kitten';
-import Objective from './Objective';
+import Education from './Education';
 import Experience from './Experience';
 import Projects from './Projects/ProjectSuper';
 import Qualifications from './Qualifications';
 import { MenuIcon, EditIcon, Empty, MessageIcon } from '../Utils/customIcons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { StyleConsts } from '../ThemeConstants';
+import { Card } from 'react-native-shadow-cards';
 import Fire from '../Fire';
 
 // Profile screen
@@ -35,6 +38,8 @@ export default class Profile extends Component {
       major: [],
       projectsData: [],
       experienceData: [],
+      type: '',
+      content: '',
     };
   }
 
@@ -50,9 +55,6 @@ export default class Profile extends Component {
   EditProfile = () => (
     <TopNavigationAction
       //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page
-      onPress={() => {
-        alert('Edit Profile page is under construction!');
-      }}
       icon={this.state.isSelf == true ? EditIcon : MessageIcon}
     />
   );
@@ -86,6 +88,7 @@ export default class Profile extends Component {
       projectsData: data.profile.projects,
       experienceData: data.profile.experience,
       avatar: data.profile.avatar,
+      type: data.type,
     });
   }
 
@@ -106,142 +109,133 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <LinearGradient colors={['#EFEFEF', '#71B1C8']} style={styles.container}>
         <TopNavigation
           title="Profile"
-          alignment="center"
-          leftControl={this.OpenMenu()}
+          alignment="left"
+          style={StyleConsts.TopHeaderViewStyle}
+          titleStyle={StyleConsts.TopHeaderTitleStyle}
           rightControls={this.EditProfile()}
         />
         <ScrollView styles={{ marginBottom: 10 }}>
           <View style={styles.header}>
-            <View style={styles.headerTop}>
+            <View style={styles.center}>
               <Image
                 style={styles.avatar}
                 source={{ uri: this.state.avatar }}
               />
-            </View>
-            <View>
-              <Text style={styles.name}>
-                {'\n'}
-                {this.state.name.first}
-              </Text>
-              <Text style={styles.name}>{this.state.name.last}</Text>
-              <Text style={styles.userInfo}>
-                {'\n'}
-                {this.state.locationCurrent}{' '}
-              </Text>
-              <Text style={styles.userInfo}>
-                Year: {this.state.graduatingClass}{' '}
-              </Text>
+              <View style={styles.typeContainer}>
+                <Text style={styles.type} appearance="alternative">
+                  {this.state.type}
+                </Text>
+              </View>
             </View>
           </View>
-
-          <View style={styles.education}>
-            <Text style={styles.major}>Major:</Text>
-            <Text style={styles.userEdu}>
-              {this.state.major.map(program => {
-                return program + '\n';
-              })}
-            </Text>
-          </View>
-
-          <View style={styles.body}>
-            <View style={styles.item}>
-              <View style={styles.infoContent}>
-                <Text style={styles.info}> Objective </Text>
+          <Card style={styles.card}>
+            <View style={styles.body}>
+              <View style={styles.center}>
+                <Text style={styles.name}>
+                  {this.state.name.first} {this.state.name.last}
+                </Text>
+                <Text style={styles.center}>{this.state.locationCurrent} </Text>
+                <Text style={styles.objective}>{this.state.content}</Text>
               </View>
-              <Button
-                style={styles.button}
-                appearance="ghost"
-                textStyle={styles.buttonText}
-                onPress={() => this.toggleSection('Objective')}>
-                {' '}
-                {this.state.openSection == 'Objective' ? '-' : '+'}{' '}
-              </Button>
-            </View>
-            {this.state.openSection == 'Objective' ? (
-              <View style={styles.separator} />
-            ) : (
-              Empty()
-            )}
-            {this.state.openSection == 'Objective' ? (
-              <Objective content={this.state.content} />
-            ) : (
-              Empty()
-            )}
-            <View style={styles.item}>
-              <View style={styles.infoContent}>
-                <Text style={styles.info}> Experience </Text>
+              <View style={styles.item}>
+                <View style={styles.infoContent}>
+                  <Text style={styles.info}> Education </Text>
+                </View>
+                <Button
+                  style={styles.button}
+                  appearance="ghost"
+                  textStyle={styles.buttonText}
+                  onPress={() => this.toggleSection('Education')}>
+                  {' '}
+                  {this.state.openSection == 'Education' ? '-' : '+'}{' '}
+                </Button>
               </View>
-              <Button
-                style={styles.button}
-                appearance="ghost"
-                textStyle={styles.buttonText}
-                onPress={() => this.toggleSection('Experience')}>
-                {' '}
-                {this.state.openSection == 'Experience' ? '-' : '+'}{' '}
-              </Button>
-            </View>
-            {this.state.openSection == 'Experience' ? (
-              <View style={styles.separator} />
-            ) : (
-              Empty()
-            )}
-            {this.state.openSection == 'Experience' ? (
-              <Experience jobs={this.state.experienceData} />
-            ) : (
-              Empty()
-            )}
-            <View style={styles.item}>
-              <View style={styles.infoContent}>
-                <Text style={styles.info}> Projects </Text>
+              {this.state.openSection == 'Education' ? (
+                <View style={styles.separator} />
+              ) : (
+                Empty()
+              )}
+              {this.state.openSection == 'Education' ? (
+                <Education majors={this.state.major} />
+              ) : (
+                Empty()
+              )}
+              <View style={styles.item}>
+                <View style={styles.infoContent}>
+                  <Text style={styles.info}> Experience </Text>
+                </View>
+                <Button
+                  style={styles.button}
+                  appearance="ghost"
+                  textStyle={styles.buttonText}
+                  onPress={() => this.toggleSection('Experience')}>
+                  {' '}
+                  {this.state.openSection == 'Experience' ? '-' : '+'}{' '}
+                </Button>
               </View>
-              <Button
-                style={styles.button}
-                appearance="ghost"
-                textStyle={styles.buttonText}
-                onPress={() => this.toggleSection('Projects')}>
-                {' '}
-                {this.state.openSection == 'Projects' ? '-' : '+'}{' '}
-              </Button>
-            </View>
-            {this.state.openSection == 'Projects' ? (
-              <View style={styles.separator} />
-            ) : (
-              Empty()
-            )}
-            {this.state.openSection == 'Projects' ? (
-              <Projects data={this.state.projectsData} />
-            ) : (
-              Empty()
-            )}
-            <View style={styles.item}>
-              <View style={styles.infoContent}>
-                <Text style={styles.info}> Qualifications </Text>
+              {this.state.openSection == 'Experience' ? (
+                <View style={styles.separator} />
+              ) : (
+                Empty()
+              )}
+              {this.state.openSection == 'Experience' ? (
+                <Experience jobs={this.state.experienceData} />
+              ) : (
+                Empty()
+              )}
+              <View style={styles.item}>
+                <View style={styles.infoContent}>
+                  <Text style={styles.info}> Projects </Text>
+                </View>
+                <Button
+                  style={styles.button}
+                  appearance="ghost"
+                  textStyle={styles.buttonText}
+                  onPress={() => this.toggleSection('Projects')}>
+                  {' '}
+                  {this.state.openSection == 'Projects' ? '-' : '+'}{' '}
+                </Button>
               </View>
-              <Button
-                style={styles.button}
-                appearance="ghost"
-                textStyle={styles.buttonText}
-                onPress={() => this.toggleSection('Qualifications')}>
-                {' '}
-                {this.state.openSection == 'Qualifications' ? '-' : '+'}{' '}
-              </Button>
+              {this.state.openSection == 'Projects' ? (
+                <View style={styles.separator} />
+              ) : (
+                Empty()
+              )}
+              {this.state.openSection == 'Projects' ? (
+                <Projects data={this.state.projectsData} />
+              ) : (
+                Empty()
+              )}
+              <View style={styles.item}>
+                <View style={styles.infoContent}>
+                  <Text style={styles.info}> Qualifications </Text>
+                </View>
+                <Button
+                  style={styles.button}
+                  appearance="ghost"
+                  textStyle={styles.buttonText}
+                  onPress={() => this.toggleSection('Qualifications')}>
+                  {' '}
+                  {this.state.openSection == 'Qualifications' ? '-' : '+'}{' '}
+                </Button>
+              </View>
+              {this.state.openSection == 'Qualifications' ? (
+                <View style={styles.separator} />
+              ) : (
+                Empty()
+              )}
+              {this.state.openSection == 'Qualifications' ? (
+                <Qualifications list={this.state.list} />
+              ) : (
+                Empty()
+              )}
             </View>
-            {this.state.openSection == 'Qualifications' ? (
-              <View style={styles.separator} />
-            ) : (
-              Empty()
-            )}
-            {this.state.openSection == 'Qualifications' ? (
-              <Qualifications list={this.state.list} />
-            ) : (
-              Empty()
-            )}
-          </View>
+          </Card>
         </ScrollView>
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -249,63 +243,61 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    flex: '1',
+    backgroundColor: '#EFEFEF',
+    alignItems: 'center',
   },
   header: {
-    flexDirection: 'row',
-    display: 'flex',
-    height: 175,
-    backgroundColor: 'maroon',
+    backgroundColor: 'transparent',
   },
-  headerTop: {
-    width: '50%',
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   avatar: {
-    flex: 1,
     width: 130,
     height: 130,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginTop: 20,
-    marginBottom: 20,
-    marginLeft: 25,
     borderRadius: 130 / 2,
     overflow: 'hidden',
+    marginBottom: 30,
+    marginTop: 20,
+    borderWidth: 3,
+    borderColor: '#f5f5f5',
   },
-  userInfo: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: '600',
+  typeContainer: {
+    borderRadius: 20,
+    backgroundColor: 'transparent',
+    width: 80,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'center',
+    marginBottom: 15,
+    borderColor: '#f5f5f5',
+    borderWidth: 2,
   },
-  education: {
-    backgroundColor: 'maroon',
-    height: 120,
+  type: {
+    fontSize: 15,
+    color: '#f5f5f5',
+    fontWeight: 'bold',
   },
   name: {
     fontSize: 22,
-    color: 'white',
+    color: 'black',
     fontWeight: '600',
     alignSelf: 'center',
-    position: 'flexbox',
+    marginTop: 20,
+    marginBottom: 10,
   },
-  major: {
-    fontSize: 22,
-    color: 'white',
-    fontWeight: 500,
-    marginBottom: 5,
-    marginLeft: 30,
-  },
-  userEdu: {
+  objective: {
     fontSize: 15,
-    fontWeight: 600,
-    alignSelf: 'left',
-    color: 'white',
-    marginLeft: 30,
+    color: '#949494',
+    fontStyle: 'italic',
+    alignSelf: 'center',
+    textAlign: 'center',
+    margin: 5,
   },
   body: {
-    backgroundColor: 'white',
-    flex: '1',
+    backgroundColor: 'transparent',
     alignItems: 'center',
   },
   item: {
@@ -336,4 +328,8 @@ const styles = StyleSheet.create({
     height: 2,
     width: 300,
   },
+  card: {
+    marginTop: 20,
+    marginBottom: 80,
+  }
 });
