@@ -246,7 +246,7 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    flex: '1',
+    flex: 1,
   },
   header: {
     flexDirection: 'row',
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: 'white',
-    flex: '1',
+    flex: 1,
     alignItems: 'center',
   },
   item: {
