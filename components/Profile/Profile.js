@@ -14,7 +14,7 @@ import {
   TopNavigationAction,
   Icon,
 } from 'react-native-ui-kitten';
-import Education from './Education';
+import Objective from './Objective';
 import Experience from './Experience';
 import Projects from './Projects/ProjectSuper';
 import Qualifications from './Qualifications';
@@ -35,8 +35,6 @@ export default class Profile extends Component {
       major: [],
       projectsData: [],
       experienceData: [],
-      type: '',
-      content: '',
     };
   }
 
@@ -52,6 +50,9 @@ export default class Profile extends Component {
   EditProfile = () => (
     <TopNavigationAction
       //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page
+      onPress={() => {
+        alert('Edit Profile page is under construction!');
+      }}
       icon={this.state.isSelf == true ? EditIcon : MessageIcon}
     />
   );
@@ -85,7 +86,6 @@ export default class Profile extends Component {
       projectsData: data.profile.projects,
       experienceData: data.profile.experience,
       avatar: data.profile.avatar,
-      type: data.type,
     });
   }
 
@@ -115,48 +115,58 @@ export default class Profile extends Component {
         />
         <ScrollView styles={{ marginBottom: 10 }}>
           <View style={styles.header}>
-            <View style={styles.center}>
+            <View style={styles.headerTop}>
               <Image
                 style={styles.avatar}
                 source={{ uri: this.state.avatar }}
               />
             </View>
-            <View style={styles.typeContainer}>
-              <Text style={styles.type} appearance="alternative">
-                {this.state.type}
-              </Text>
-            </View>
-            <View style={styles.center}>
+            <View>
               <Text style={styles.name}>
-                {this.state.name.first} {this.state.name.last}
+                {'\n'}
+                {this.state.name.first}
               </Text>
-              <Text style={styles.center}>{this.state.locationCurrent} </Text>
-              <Text style={styles.objective}>{this.state.content}</Text>
+              <Text style={styles.name}>{this.state.name.last}</Text>
+              <Text style={styles.userInfo}>
+                {'\n'}
+                {this.state.locationCurrent}{' '}
+              </Text>
+              <Text style={styles.userInfo}>
+                Year: {this.state.graduatingClass}{' '}
+              </Text>
             </View>
           </View>
 
+          <View style={styles.education}>
+            <Text style={styles.major}>Major:</Text>
+            <Text style={styles.userEdu}>
+              {this.state.major.map(program => {
+                return program + '\n';
+              })}
+            </Text>
+          </View>
+
           <View style={styles.body}>
-            <View style={styles.separator} />
             <View style={styles.item}>
               <View style={styles.infoContent}>
-                <Text style={styles.info}> Education </Text>
+                <Text style={styles.info}> Objective </Text>
               </View>
               <Button
                 style={styles.button}
                 appearance="ghost"
                 textStyle={styles.buttonText}
-                onPress={() => this.toggleSection('Education')}>
+                onPress={() => this.toggleSection('Objective')}>
                 {' '}
-                {this.state.openSection == 'Education' ? '-' : '+'}{' '}
+                {this.state.openSection == 'Objective' ? '-' : '+'}{' '}
               </Button>
             </View>
-            {this.state.openSection == 'Education' ? (
+            {this.state.openSection == 'Objective' ? (
               <View style={styles.separator} />
             ) : (
               Empty()
             )}
-            {this.state.openSection == 'Education' ? (
-              <Education majors={this.state.major} />
+            {this.state.openSection == 'Objective' ? (
+              <Objective content={this.state.content} />
             ) : (
               Empty()
             )}
@@ -239,50 +249,59 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    flex: 1,
+    flex: '1',
   },
   header: {
-    backgroundColor: 'white',
+    flexDirection: 'row',
+    display: 'flex',
+    height: 175,
+    backgroundColor: 'maroon',
   },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  headerTop: {
+    width: '50%',
   },
   avatar: {
     flex: 1,
     width: 130,
     height: 130,
+    borderWidth: 1,
+    borderColor: 'black',
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 25,
     borderRadius: 130 / 2,
     overflow: 'hidden',
-    marginBottom: 20,
   },
-  typeContainer: {
-    borderRadius: 20,
-    backgroundColor: '#71B1C8',
-    width: 80,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    marginBottom: 15,
-  },
-  type: {
-    fontSize: 20,
+  userInfo: {
+    fontSize: 16,
     color: 'white',
-  },
-  name: {
-    fontSize: 22,
-    color: 'black',
     fontWeight: '600',
     alignSelf: 'center',
   },
-  objective: {
-    fontSize: 15,
-    color: '#949494',
-    fontStyle: 'italic',
+  education: {
+    backgroundColor: 'maroon',
+    height: 120,
+  },
+  name: {
+    fontSize: 22,
+    color: 'white',
+    fontWeight: '600',
     alignSelf: 'center',
-    textAlign: 'center',
-    margin: 5,
+    position: 'flexbox',
+  },
+  major: {
+    fontSize: 22,
+    color: 'white',
+    fontWeight: 500,
+    marginBottom: 5,
+    marginLeft: 30,
+  },
+  userEdu: {
+    fontSize: 15,
+    fontWeight: 600,
+    alignSelf: 'left',
+    color: 'white',
+    marginLeft: 30,
   },
   body: {
     backgroundColor: 'white',
