@@ -35,3 +35,4 @@ const App = () => (
 );
 // Export it as the root component
 export default App;
+

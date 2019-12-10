@@ -59,44 +59,43 @@ export default class PostCard extends React.Component {
     }
   };
 
-  convertTime = (timeInSec) => {
-    
-    if (timeInSec == null){
-      return "nan"
+  convertTime = timeInSec => {
+    if (timeInSec == null) {
+      return '';
     }
 
-    let secPerMin = 60
-    let secPerHour = 60 * secPerMin
-    let secPerDay = 24 * secPerHour
-    let secPerWeek = 7 * secPerDay
-    let secPerMon = 4 * secPerWeek
-    let secPerYear = 12 * secPerMon
+    let secPerMin = 60;
+    let secPerHour = 60 * secPerMin;
+    let secPerDay = 24 * secPerHour;
+    let secPerWeek = 7 * secPerDay;
+    let secPerMon = 4 * secPerWeek;
+    let secPerYear = 12 * secPerMon;
 
-    let timeDiff = Date.now() - timeInSec;
+    let timeDiff = new Date() 
+    timeDiff = timeDiff.getSeconds() - timeInSec;
 
-    if (timeDiff/secPerMin < 1){
-      return "A moment ago"
+    console.log('log');
+    console.log(timeDiff);
+    console.log('log2');
+    console.log(timeInSec);
+
+    if (timeDiff / secPerMin < 1) {
+      return 'A moment ago';
+    } else if (timeDiff / secPerHour < 1) {
+      timeDiff = parseInt(timeDiff / secPerMin);
+      return toString(timeDiff) + ' mins ago';
+    } else if (timeDiff / secPerDay < 1) {
+      return toString(parseInt(timeDiff / secPerHour)) + ' hours ago';
+    } else if (timeDiff / secPerWeek < 1) {
+      return toString(parseInt(timeDiff / secPerDay)) + ' days ago';
+    } else if (timeDiff / secPerMon < 1) {
+      return toString(parseInt(timeDiff / secPerWeek)) + ' weeks ago';
+    } else if (timeDiff / secPerYear < 1) {
+      return toString(parseInt(timeDiff / secPerMon)) + ' months ago';
+    } else {
+      return toString(parseInt(timeDiff / secPerYear)) + ' years ago';
     }
-    else if (timeDiff/secPerHour < 1) {
-      timeDiff = parseInt(timeDiff/secPerMin)
-      return toString(timeDiff) + " mins ago"
-    }
-    else if (timeDiff/secPerDay < 1) {
-      return toString(parseInt(timeDiff/secPerHour)) + " hours ago"
-    }
-    else if (timeDiff/secPerWeek < 1) {
-      return toString(parseInt(timeDiff/secPerDay)) + " days ago"
-    }
-    else if (timeDiff/secPerMon < 1) {
-      return toString(parseInt(timeDiff/secPerWeek)) + " weeks ago"
-    }
-    else if (timeDiff/secPerYear < 1){
-      return toString(parseInt(timeDiff/secPerMon)) + " months ago"
-    }
-    else {
-      return toString(parseInt(timeDiff/secPerYear)) + " years ago"
-    }
-  }
+  };
 
   getAvatar() {
     if (this.props.annonymity == true) {
@@ -125,12 +124,13 @@ export default class PostCard extends React.Component {
           flex: 1,
           flexDirection: 'row',
           flexWrap: 'wrap',
-          marginTop: 8,
+          marginVertical: 6,
           marginLeft: 2,
           marginRight: 2,
-          width: Dimensions.get('window').width - 15,
+          width: Dimensions.get('window').width - 25,
           maxHeight: '800px',
           overflow: 'hidden',
+          borderRadius: 20,
         }}>
         {/*main view*/}
         <View
