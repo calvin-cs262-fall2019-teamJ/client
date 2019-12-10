@@ -138,7 +138,7 @@ export default class PostCard extends React.Component {
             paddingTop: 10,
             maxWidth: Dimensions.get('window').width - 25,
             flex: 1,
-            flexDirection: 'col',
+            flexDirection: 'column',
           }}>
           <View
             style={{
