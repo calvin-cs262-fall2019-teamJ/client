@@ -22,17 +22,23 @@ const TabBarComponent = ({ navigation }) => {
   var changeColor = (colorName) =>{
     let stringColor = ThemeStyles.CalvinBlue
 
-    if (colorName == "marron"){
+    if (colorName == "marron" || colorName == 0){
       stringColor = ThemeStyles.CalvinMaroon
     }
-    else if (colorName == "yellow") {
+    
+    else if (colorName == "red" || colorName == 1) {
+      stringColor = ThemeStyles.CalvinRed
+    }
+    
+    else if (colorName == "blue" || colorName == 2) {
+      stringColor = ThemeStyles.CalvinBlue
+    }
+
+    else if (colorName == "yellow" || colorName == 3) {
       stringColor = ThemeStyles.CalvinYellow
     }
     else if (colorName == "white") {
       stringColor = ThemeStyles.CalvinWhite
-    }
-    else if (colorName) {
-      stringColor = ThemeStyles.CalvinRed
     }
     this.setState({
       background: stringColor
@@ -41,6 +47,7 @@ const TabBarComponent = ({ navigation }) => {
   const onSelect = (index) => {
     const selectedTabRoute = navigation.state.routes[index];
     navigation.navigate(selectedTabRoute.routeName);
+    this.changeColor(index)
   };
 
   return (
