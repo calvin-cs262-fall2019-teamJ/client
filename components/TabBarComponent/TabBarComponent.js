@@ -40,7 +40,7 @@ const TabBarComponent = ({ navigation }) => {
     else if (colorName == "white") {
       stringColor = ThemeStyles.CalvinWhite
     }
-    this.setState({
+    setState({
       background: stringColor
     })
   }
