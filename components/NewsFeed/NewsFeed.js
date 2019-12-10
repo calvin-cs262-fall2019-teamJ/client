@@ -19,9 +19,11 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Constants from 'expo-constants';
+import {LinearGradient} from 'expo-linear-gradient'
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
+import {StyleConsts} from '../ThemeConstants';
 
 class NewsFeed extends React.Component<Props> {
     constructor(props) {
@@ -92,11 +94,15 @@ class NewsFeed extends React.Component<Props> {
   /* Renders the component*/
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+
+      <LinearGradient 
+        colors = {["#71B1C8", "#EFEFEF"]}
+        style = {styles.container}>
         <TopNavigation
           title="Home"
-          alignment="center"
-          leftControl={this.OpenMenu()}
+          alignment="left"
+          style = {StyleConsts.TopHeaderViewStyle}
+          titleStyle = {StyleConsts.TopHeaderTitleStyle}
           rightControls={this.AddConversation()}
         />
                 <ScrollView style={styles.scrollView}>
@@ -141,22 +147,20 @@ class NewsFeed extends React.Component<Props> {
           icon = {this.AddIcon}
           color = "black"
           />
-      </SafeAreaView>
+          </LinearGradient>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    //alignItems: 'center',
+    alignItems: 'center',
     //justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#EFEFEF',
+    
   },
   scrollView: {
-    backgroundColor: '#EFEFEF',
     justifyContent: 'space-between',
-    paddingTop: 'flex',
     marginHorizontal: 1,
   },
 });
