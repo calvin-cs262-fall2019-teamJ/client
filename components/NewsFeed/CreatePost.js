@@ -294,7 +294,7 @@ class CreatePost extends React.Component<Props> {
               alignContent: 'space-between',
               backgroundColor: '#EEEEEE',
               maxWidth: '80%',
-              maxHeight: '30%',
+              maxHeight: Dimensions.get('window').height*0.3,
               marginBottom: 5,
             }}>
             <Button onPress={this.setPublic} status={this.state.buttonLabel[0]}>
