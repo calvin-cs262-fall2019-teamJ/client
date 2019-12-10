@@ -1,4 +1,5 @@
 // Import the screens
+
 import { mainNavigator } from './components/Navigation';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import 'react-native-svg';
@@ -34,3 +35,4 @@ const App = () => (
 );
 // Export it as the root component
 export default App;
+

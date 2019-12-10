@@ -19,14 +19,14 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Constants from 'expo-constants';
-import {LinearGradient} from 'expo-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient';
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
-import {StyleConsts} from '../ThemeConstants';
+import { StyleConsts } from '../ThemeConstants';
 
 class NewsFeed extends React.Component<Props> {
-    constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       postInfo: [
@@ -76,36 +76,37 @@ class NewsFeed extends React.Component<Props> {
   );
 
   createPost = () => {
-    this.props.navigation.navigate("CreatePost")
-  }
+    this.props.navigation.navigate('CreatePost');
+  };
 
   MenuIcon = style => <Icon {...style} name="menu-outline" />;
   AddIcon = style => <Icon {...style} name="plus-outline" />;
 
-  AddConversation = () => (
+  RightConvo = () => [
+    <TopNavigationAction
+      onPress={() => this.props.navigation.navigate('CreatePost')}
+      icon={this.AddIcon}
+    />,
     <TopNavigationAction
       onPress={() => this.props.navigation.navigate('Search')}
       icon={this.SearchIcon}
-    />
-  );
+    />,
+  ];
 
   SearchIcon = style => <Icon {...style} name="search-outline" />;
 
   /* Renders the component*/
   render() {
     return (
-
-      <LinearGradient 
-        colors = {["#71B1C8", "#EFEFEF"]}
-        style = {styles.container}>
+      <LinearGradient colors={['#EFEFEF', '#EFEFEF', '#EFEFEF', '#71B1C8']} style={styles.container}>
         <TopNavigation
           title="Home"
           alignment="left"
-          style = {StyleConsts.TopHeaderViewStyle}
-          titleStyle = {StyleConsts.TopHeaderTitleStyle}
-          rightControls={this.AddConversation()}
+          style={StyleConsts.TopHeaderViewStyle}
+          titleStyle={StyleConsts.TopHeaderTitleStyle}
+          rightControls={this.RightConvo()}
         />
-                <ScrollView style={styles.scrollView}>
+        <ScrollView style={styles.scrollView}>
           {this.state.postInfo.map(post => {
             return (
               <PostCard
@@ -130,24 +131,7 @@ class NewsFeed extends React.Component<Props> {
             );
           })}
         </ScrollView>
-        <Button
-          appearance="fill"
-          style={{
-            position: 'absolute',
-            marginTop: Dimensions.get('window').height * 0.89,
-            marginLeft: Dimensions.get('window').width * 0.82,
-            width: 60,
-            height: 60,
-            borderRadius: 60,
-            backgroundColor: '#FF522D',
-            borderColor: '#FF522D',
-          }}
-          textStyle={{ color: '#FF4821' }}
-          onPress={this.createPost}
-          icon = {this.AddIcon}
-          color = "black"
-          />
-          </LinearGradient>
+      </LinearGradient>
     );
   }
 }
@@ -156,16 +140,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     //justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#EFEFEF',
-    
   },
   scrollView: {
     justifyContent: 'space-between',
     marginHorizontal: 1,
   },
 });
-
-const postText =
-  'The quick brown fox jumped over the lazy dog. A pangram, or holoalphabetic sentence, is a sentence that contains every letter of the alphabet at least once.';
 
 export default NewsFeed;

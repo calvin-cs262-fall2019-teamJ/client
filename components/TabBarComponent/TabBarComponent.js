@@ -12,9 +12,32 @@ import {
   TopNavigationAction,
 } from 'react-native-ui-kitten';
 import { goToProfile } from '../Navigation';
-
+import * as ThemeStyles from '../ThemeConstants';
 const TabBarComponent = ({ navigation }) => {
+  
+  this.state = {
+    background: ThemeStyles.CalvinBlue
+  }
 
+  var changeColor = (colorName) =>{
+    let stringColor = ThemeStyles.CalvinBlue
+
+    if (colorName == "marron"){
+      stringColor = ThemeStyles.CalvinMaroon
+    }
+    else if (colorName == "yellow") {
+      stringColor = ThemeStyles.CalvinYellow
+    }
+    else if (colorName == "white") {
+      stringColor = ThemeStyles.CalvinWhite
+    }
+    else if (colorName) {
+      stringColor = ThemeStyles.CalvinRed
+    }
+    this.setState({
+      background: stringColor
+    })
+  }
   const onSelect = (index) => {
     const selectedTabRoute = navigation.state.routes[index];
     navigation.navigate(selectedTabRoute.routeName);
@@ -23,7 +46,7 @@ const TabBarComponent = ({ navigation }) => {
   return (
     <SafeAreaView>
       <BottomNavigation selectedIndex={navigation.state.index} onSelect={onSelect} 
-      style={{ backgroundColor: '#71B1C8'}} 
+      style={{ backgroundColor: this.state.background}} 
       indicatorStyle={{ backgroundColor: 'white'}}>
         <BottomNavigationTab icon={PersonIcon}/>
         <BottomNavigationTab icon={MentorIcon}/>
