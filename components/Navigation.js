@@ -2,40 +2,33 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import { ChatStack, LoginStack, SettingsStack, NewsFeedStack } from './SubStacks';
 import { Navigation } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+
 
 // Import the screens
-import DrawerNav from './DrawerNav/DrawerNav';
+import TabBarComponent from './TabBarComponent/TabBarComponent';
 import Profile from './Profile/Profile';
 import NewsFeed from './NewsFeed/NewsFeed';
 import FindMentor from './FindMentor/FindMentor';
 import Search from './Search/Search';
 
-export const DrawerNavigator = createDrawerNavigator(
+export const TabNavigator = createBottomTabNavigator(
   {
+    Profile: Profile,
+    "Find a Mentor": FindMentor,
     "News Feed": NewsFeedStack,
     Chat: ChatStack,
-    "Find a Mentor": {
-      screen: FindMentor,
-      navigationOptions: {
-        header: null,
-      },
-    },
     Settings: SettingsStack,
-    Profile: {
-      screen: Profile,
-      navigationOptions: {
-        header: false,
-      },
-    },
+    
   },
   {
-    contentComponent: DrawerNav,
+    tabBarComponent: TabBarComponent,
   }
 );
 
 export const mainNavigator = createStackNavigator({
   Home: {
-    screen: DrawerNavigator,
+    screen: TabNavigator,
     navigationOptions: {
       header: null,
       headerLeft: null,
