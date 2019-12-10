@@ -15,6 +15,8 @@ import {
 } from 'react-native-ui-kitten';
 import { Card } from 'react-native-shadow-cards';
 import { MenuIcon } from '../Utils/customIcons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { StyleConsts } from '../ThemeConstants';
 import Fire from '../Fire';
 
 // screen for the "Settings" page
@@ -67,11 +69,12 @@ export default class Settings extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <LinearGradient colors={['#EFEFEF', '#71B1C8']} style={styles.container}>
         <TopNavigation
-          title="Settings"
-          alignment="center"
-          leftControl={this.OpenMenu()}
+          title="Setting"
+          alignment="left"
+          style={StyleConsts.TopHeaderViewStyle}
+          titleStyle={StyleConsts.TopHeaderTitleStyle}
         />
         <View style={styles.item}>
           <View style={styles.infoContent}>
@@ -123,7 +126,7 @@ export default class Settings extends React.Component {
             </Button>
           </View>
         </Card>
-      </View>
+      </LinearGradient>
     );
   }
 }
