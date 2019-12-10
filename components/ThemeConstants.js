@@ -4,6 +4,7 @@ import Constants from 'expo-constants'
 export const StyleConsts = StyleSheet.create({
   TopHeaderViewStyle: {
     backgroundColor: "transparent",
+    paddingTop: Constants.statusBarHeight
   },
   TopHeaderTitleStyle:{
     fontSize: 24,
