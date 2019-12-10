@@ -31,14 +31,15 @@ export default class Settings extends React.Component {
     };
   }
 
+  // naviagates to the account info page
+  goToAccount = () => {
+    this.props.navigation.navigate('Account');
+  };
+
   // signs out
   goToSignOut = () => {
     this.props.navigation.navigate('SignIn');
   };
-  
-  goToSignOut = () => {
-    this.props.navigation.navigate('SignIn');
-  }
 
   // will open the drawer
   OpenMenu = () => (
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 15,
     color: '#333333',
-    fontWeight: 600,
+    fontWeight: '600',
     justifyContent: 'flex-start',
   },
   button: {

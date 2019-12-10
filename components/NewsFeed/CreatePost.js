@@ -18,7 +18,6 @@ import {
   Keyboard,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -33,6 +32,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
+import * as ThemeStyle from '../ThemeConstants';
 
 class CreatePost extends React.Component<Props> {
   constructor(props) {
@@ -76,14 +76,14 @@ class CreatePost extends React.Component<Props> {
     console.log(this.state.images);
   };
 
+  back = style => <Icon {...style} name="arrow-ios-back-outline" />;
+
   backButton = () => (
     <TopNavigationAction
       onPress={() => this.props.navigation.navigate('News Feed')}
       icon={this.back}
     />
   );
-
-  back = style => <Icon {...style} name="arrow-ios-back-outline" />;
 
   AddConversation = () => (
     <TopNavigationAction
@@ -95,22 +95,13 @@ class CreatePost extends React.Component<Props> {
   settingsIcon = style => <Icon {...style} name="settings-2-outline" />;
   addIcon = style => <Icon {...style} name="plus-outline" />;
   topNavigation = () => {
-    return (
-      <View>
-        <View
-          style={{
-            height: Constants.statusBarHeight,
-            backgroundColor: 'white',
-          }}
-        />
-        <TopNavigation
-          title="New Post"
-          alignment="center"
-          leftControl={this.backButton()}
-          hear
-        />
-      </View>
-    );
+      return(<TopNavigation
+        title="NewPost"
+        alignment="left"
+        style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
+        titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
+        leftControl={this.backButton}
+      />)
   };
 
   annonymousLabel = () => {
@@ -150,7 +141,7 @@ class CreatePost extends React.Component<Props> {
         </View>
         <Button
           appearance="ghost"
-          style={{ color: 'black', alignSelf: 'right' }}
+          style={{ color: 'black', alignSelf: 'flex-start' }}
           status="basic"
           size="giant"
           icon={this.settingsIcon}
@@ -195,7 +186,7 @@ class CreatePost extends React.Component<Props> {
             marginBottom: 30,
           }}>
           <TextInput
-            textAlignVertical="Top"
+            textAlignVertical="top"
             style={styles.textInput}
             placeholderTextColor="black"
             placeholder="Say something!"
@@ -205,7 +196,7 @@ class CreatePost extends React.Component<Props> {
                 textInput: text,
                 change: true,
               });
-              console.log(this.state.textInput)
+              console.log(this.state.textInput);
             }}
           />
         </View>
@@ -299,8 +290,8 @@ class CreatePost extends React.Component<Props> {
               paddingLeft: '5%',
               alignContent: 'space-between',
               backgroundColor: '#EEEEEE',
-              maxWidth: '80%',
-              maxHeight: '30%',
+              maxWidth: Dimensions.get('window').width * 0.8,
+              maxHeight: Dimensions.get('window').height * 0.3,
               marginBottom: 5,
             }}>
             <Button onPress={this.setPublic} status={this.state.buttonLabel[0]}>
@@ -326,7 +317,7 @@ class CreatePost extends React.Component<Props> {
             }}>
             <Text
               style={{
-                alignSelf: 'left',
+                alignSelf: 'flex-start',
                 fontSize: 14,
                 fontWeight: 'bold',
                 marginVertical: 10,
@@ -376,11 +367,15 @@ class CreatePost extends React.Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        {this.topNavigation()}
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <LinearGradient
-            colors={['#FFFFFF', '#FFDCD5']}
+            colors={[
+              ThemeStyle.OffWhiteBackground,
+              ThemeStyle.OffWhiteBackground,
+              ThemeStyle.CalvinBlue,
+            ]}
             style={styles.mainView}>
+            {this.topNavigation()}
             {this.mainHeader()}
             {this.settingsView()}
 
@@ -471,6 +466,7 @@ const styles = {
     opacity: 0.8,
   },
   textInput: {
+    textAlignVertical: 'top',
     marginTop: 5,
     marginLeft: 10,
     marginBottom: 30,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, withNavigation, StackNavigator } from 'react-navigation';
+import { withNavigation, StackNavigator } from 'react-navigation';
 import { StyleSheet } from 'react-native';
 import {
   Drawer,
@@ -12,18 +12,19 @@ import {
   TopNavigationAction,
 } from 'react-native-ui-kitten';
 import { goToProfile } from '../Navigation';
-
+import * as ThemeStyles from '../ThemeConstants';
 const TabBarComponent = ({ navigation }) => {
 
   const onSelect = (index) => {
     const selectedTabRoute = navigation.state.routes[index];
     navigation.navigate(selectedTabRoute.routeName);
+
   };
 
   return (
-    <SafeAreaView>
-      <BottomNavigation selectedIndex={navigation.state.index} onSelect={onSelect} 
-      style={{ backgroundColor: '#71B1C8'}} 
+    <Layout>
+      <BottomNavigation selectedIndex={navigation.state.index} onSelect={onSelect}
+      style={{ backgroundColor: ThemeStyles.CalvinBlue}} 
       indicatorStyle={{ backgroundColor: 'white'}}>
         <BottomNavigationTab icon={PersonIcon}/>
         <BottomNavigationTab icon={MentorIcon}/>
@@ -31,7 +32,7 @@ const TabBarComponent = ({ navigation }) => {
         <BottomNavigationTab icon={MessageIcon}/>
         <BottomNavigationTab icon={SettingsIcon}/>
       </BottomNavigation>
-    </SafeAreaView>
+    </Layout>
   );
 };
 

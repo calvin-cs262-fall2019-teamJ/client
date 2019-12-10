@@ -73,7 +73,7 @@ export default class MentorCard extends React.Component<Props> {
         <Layout
           style={{
             flex: 1,
-            flexDirection: 'col',
+            flexDirection: 'column',
             flexGap: 0,
             height: 38,
             backgroundColor: this.props.backgroundColor,

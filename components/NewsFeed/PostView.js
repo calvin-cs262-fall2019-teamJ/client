@@ -13,7 +13,6 @@ import {
   Dimensions,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   View,
   TouchableOpacity,
   TouchableHighlight,
@@ -68,14 +67,14 @@ class PostView extends React.Component<Props> {
   /* Renders the component*/
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <Layout style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <View
             style={{
               paddingTop: 10,
               maxWidth: Dimensions.get('window').width - 25,
               flex: 1,
-              flexDirection: 'col',
+              flexDirection: 'column',
             }}>
             <TouchableOpacity
               onPress={() => {
@@ -152,7 +151,7 @@ class PostView extends React.Component<Props> {
             </Button>
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </Layout>
     );
   }
 }

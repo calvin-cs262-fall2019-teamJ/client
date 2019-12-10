@@ -116,6 +116,6 @@ export default class ChatDM extends React.Component {
 const styles = StyleSheet.create({
     container: {
        paddingTop: Constants.statusBarHeight,
-        flex: '1',
+        flex: 1,
     }
 })

@@ -14,8 +14,6 @@ import {
   Dimensions,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
-  View,
   TouchableHighlight,
 } from 'react-native';
 import Constants from 'expo-constants';
@@ -23,7 +21,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Card } from 'react-native-paper';
 import PostCard from './PostCard';
 import Fire from '../Fire';
-import { StyleConsts } from '../ThemeConstants';
+import * as ThemeStyle from '../ThemeConstants';
 
 class NewsFeed extends React.Component<Props> {
   constructor(props) {
@@ -60,8 +58,8 @@ class NewsFeed extends React.Component<Props> {
     });
   }
 
-  profilePress = () => {
-    this.props.navigation.navigate('Profile');
+  profilePress = userID => {
+    this.props.navigation.navigate('Profile', { userID });
   };
 
   textPress = paramsVal => {
@@ -98,19 +96,25 @@ class NewsFeed extends React.Component<Props> {
   /* Renders the component*/
   render() {
     return (
-      <LinearGradient colors={['#EFEFEF', '#71B1C8']} style={styles.container}>
+      <LinearGradient
+        colors={[
+          ThemeStyle.OffWhiteBackground,
+          ThemeStyle.OffWhiteBackground,
+          ThemeStyle.CalvinBlue,
+        ]}
+        style={styles.container}>
         <TopNavigation
           title="Home"
           alignment="left"
-          style={StyleConsts.TopHeaderViewStyle}
-          titleStyle={StyleConsts.TopHeaderTitleStyle}
+          style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
+          titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
           rightControls={this.RightConvo()}
         />
         <ScrollView style={styles.scrollView}>
           {this.state.postInfo.map(post => {
             return (
               <PostCard
-                annonymous={post.annonymous}
+                anonymous={post.annonymous}
                 bgcolor="white"
                 text={post.text}
                 userImageSrc=<Image
@@ -125,7 +129,7 @@ class NewsFeed extends React.Component<Props> {
                 />
                 userName={post.nameLabel}
                 timeStamp={post.timeStamp}
-                postNav={this.profilePress}
+                profileNav={() => {this.profilePress(post.owner)}}
                 postView={params => this.textPress(params)}
               />
             );
@@ -140,7 +144,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     //justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
+    //paddingTop: Constants.statusBarHeight,
     backgroundColor: '#EFEFEF',
   },
   scrollView: {

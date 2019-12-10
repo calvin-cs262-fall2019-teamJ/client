@@ -1,14 +1,15 @@
-import {StyleSheet} from 'react-native'
+import {Platform, StyleSheet} from 'react-native'
 import Constants from 'expo-constants'
 
 export const StyleConsts = StyleSheet.create({
   TopHeaderViewStyle: {
     backgroundColor: "transparent",
-    paddingTop: Constants.statusBarHeight + 10,
+    marginTop: Constants.statusBarHeight
   },
   TopHeaderTitleStyle:{
-    fontSize: 24,
-    fontWeight: "bold"
+    fontSize: Platform.OS === 'ios' ? 24: 30,
+    fontWeight: "bold",
+    paddingVertical: 10
   }
 });
 
@@ -17,3 +18,4 @@ export const CalvinWhite = "#FFFFFF"
 export const CalvinMaroon = "#8C2131"
 export const CalvinRed = "#C2002F"
 export const CalvinYellow = "#F3CD00"
+export const OffWhiteBackground = '#EFEFEF'

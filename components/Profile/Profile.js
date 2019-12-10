@@ -112,7 +112,7 @@ export default class Profile extends Component {
       <LinearGradient colors={['#EFEFEF', '#71B1C8']} style={styles.container}>
         <TopNavigation
           title="Profile"
-          alignment="left"
+          alignment="start"
           style={StyleConsts.TopHeaderViewStyle}
           titleStyle={StyleConsts.TopHeaderTitleStyle}
           rightControls={this.EditProfile()}
