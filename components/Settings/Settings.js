@@ -71,7 +71,7 @@ export default class Settings extends React.Component {
     return (
       <LinearGradient colors={['#EFEFEF', '#71B1C8']} style={styles.container}>
         <TopNavigation
-          title="Setting"
+          title="Settings"
           alignment="left"
           style={StyleConsts.TopHeaderViewStyle}
           titleStyle={StyleConsts.TopHeaderTitleStyle}
