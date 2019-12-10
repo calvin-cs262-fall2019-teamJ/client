@@ -189,7 +189,7 @@ class CreatePost extends React.Component<Props> {
             marginBottom: 30,
           }}>
           <TextInput
-            textAlignVertical="Top"
+            textAlignVertical="top"
             style={styles.textInput}
             placeholderTextColor="black"
             placeholder="Say something!"
@@ -475,6 +475,7 @@ const styles = {
     opacity: 0.8,
   },
   textInput: {
+    textAlignVertical="top",
     marginTop: 5,
     marginLeft: 10,
     marginBottom: 30,
