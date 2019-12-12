@@ -34,8 +34,8 @@ export default class Search extends React.Component {
     <ListItem
       title={`${item.name}`}
       description={`${item.location}`}
-      // iconUri = {`${item.picture}`}
-      // icon ={iconUri => this.renderItemIcon(iconUri)}
+      iconUri = {`${item.avatar}`}
+      icon ={iconUri => this.renderItemIcon(iconUri)}
     />
   );
 

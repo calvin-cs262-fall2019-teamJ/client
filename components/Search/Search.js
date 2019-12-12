@@ -24,6 +24,7 @@ import {
   TopNavigationAction,
   Modal,
 } from 'react-native-ui-kitten';
+import SearchBar from 'react-native-dynamic-search-bar';
 import { Card } from 'react-native-paper';
 import MapView from 'react-native-maps';
 import Constants from 'expo-constants';
@@ -37,17 +38,16 @@ import { UIManager } from 'react-native';
 import * as ThemeStyle from '../ThemeConstants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Empty } from '../Utils/customIcons';
-import SearchBar from 'react-native-dynamic-search-bar';
+
 import Fire from '../Fire';
 
 export default class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      search: '',
       view: 'default',
       searchBarShown: 'small',
-      inputInfo: '',
+      searchStr: '',
       originalData: [
         {
           name: 'Jane Doe',
@@ -176,11 +176,7 @@ export default class Search extends React.Component {
         iconSize="20"
         noExtraMargin={true}
         onChangeText={text => {
-          this.setState({
-            searchBarShown: 'large',
-            inputInfo: text,
-            view: 'searching',
-          });
+          this.updateSearch(text)
         }}
         onPressCancel={() => {
           this.setState({ searchBarShown: 'large' });
@@ -192,26 +188,29 @@ export default class Search extends React.Component {
 
   updateSearch = search => {
     if (search == '') {
-      this.setState({ view: 'default', search: search });
+      this.setState({ view: 'default', searchStr: search, searchBarShown: 'large' });
     } else {
-      this.filter('name', search);
       this.applySearch(search)
     }
   };
 
-  updateInput = val => {
-    this.setState({ inputInfo: val });
-  };
-
-  renderItemIcon = (style, iconUri) => (
-    <Image
-      source={require('../../assets/kvlinden1.png')}
-      style={{ width: 50, height: 50 }}
-    />
-  );
-
  async applySearch(searchItem){
-    let temp = await Fire.SearchUser(searchItem)
+    console.log("Bill".includes("B"))
+    let temp = await Fire.shared.searchUser(searchItem)
+    let data = []
+    temp.forEach(element=>{
+      data.push({
+        name: element.profile.nameFirst + " " + element.profile.nameLast,
+        location: element.profile.locationCurrent,
+        avatar: element.profile.avatar,
+        link: element.docID
+      })
+    })
+    this.setState({
+      shownData: data,
+      searchStr: searchItem,
+      view: 'searching',
+    });
   }
 
   filter = (searchParam, searchText) => {
@@ -222,7 +221,7 @@ export default class Search extends React.Component {
     //console.log(shownItems);
     this.setState({
       shownData: shownItems,
-      search: searchText,
+      searchStr: searchText,
       view: 'searching',
     });
   };

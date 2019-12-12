@@ -29,7 +29,7 @@ export default class Recents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: departmentMembers
+      users: departmentMembers.slice(1)
     };
   }
   render() {

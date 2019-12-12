@@ -82,7 +82,7 @@ export default class SearchDefaultView extends React.Component {
                 borderRadius: 15,
                 borderWidth: 2,
               }}
-              source={require('../../assets/kvlinden1.png')}
+              source={require('../NewsFeed/18942381.jpg')}
             />
             userName="Keith VanderLinden"
             timeStamp="12 mins ago"
