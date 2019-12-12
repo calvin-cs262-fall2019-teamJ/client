@@ -65,7 +65,7 @@ export default class ChatDM extends React.Component {
           messages: [
             {
               _id: 1,
-              text: 'Hi there! are you looking for a summer internship?',
+              text: 'Hi Samuel Jr.! My company is currently hiring for a Software Development Intern next summer. Would you like to meet up sometime this week and talk about it?',
               createdAt: new Date(),
               user: {
                 _id: 2,
