@@ -14,6 +14,8 @@ export const SearchIcon = style => <Icon {...style} name="search-outline" />;
 
 export const EditIcon = style => <Icon {...style} name="edit-outline" />;
 
+export const HelpIcon = style => <Icon {...style} name="question-mark-circle-outline" />;
+
 export const MessageIcon = style => (
   <Icon {...style} name="message-circle-outline" />
 );
