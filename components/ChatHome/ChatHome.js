@@ -29,43 +29,46 @@ class ChatHome extends React.Component<Props> {
           avatar:
             'https://images.unsplash.com/photo-1494790108377-be9c29b29330',
           name: 'Johana James',
-          date: '9:00 AM',
+          date: 'Today',
         },
-        {
-          name: 'Juliana Lim',
-          avatar:
-            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-          date: 'Yesterday',
-        },
+         {
+          name: 'Janice Billings',
+          avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+          date: 'yesterday',
+        }
       ],
       display: false,
     };
   }
 
-    OpenMenu = () => (
-    <TopNavigationAction onPress={()=> this.props.navigation.toggleDrawer()} icon={this.MenuIcon}/>
+  OpenMenu = () => (
+    <TopNavigationAction
+      onPress={() => this.props.navigation.toggleDrawer()}
+      icon={this.MenuIcon}
+    />
   );
 
-   MenuIcon = (style) => (
-  <Icon {...style} name='menu-outline' />
-);
+  MenuIcon = style => <Icon {...style} name="menu-outline" />;
 
-AddConversation = () => [
-  <TopNavigationAction onPress={()=> this.props.navigation.navigate('Search')} icon={this.PlusICon}/>,
-   <TopNavigationAction
+  AddConversation = () => [
+    <TopNavigationAction
+      onPress={() => this.props.navigation.navigate('Search')}
+      icon={this.PlusICon}
+    />,
+    <TopNavigationAction
       onPress={() => this.triggerModal()}
       icon={this.HelpIcon}
     />,
-];
+  ];
 
-close = () =>{
+  close = () => {
     this.setState(prevState => {
-      return{
-        display:false,
+      return {
+        display: false,
       };
     });
-  } 
-  
+  };
+
   triggerModal() {
     this.setState(prevState => {
       return {
@@ -74,29 +77,27 @@ close = () =>{
     });
   }
 
-  PlusICon = (style) => (
-  <Icon {...style} name='plus-outline' />
-);
+  PlusICon = style => <Icon {...style} name="plus-outline" />;
 
-HelpIcon = style => <Icon {...style} name="question-mark-circle-outline" />;
+  HelpIcon = style => <Icon {...style} name="question-mark-circle-outline" />;
 
   openChat = name => {
-    this.props.navigation.navigate('ChatDM', { name: name })
-  }
+    this.props.navigation.navigate('ChatDM', { name: name });
+  };
   render() {
     return (
-      <Layout style={{paddingTop: Constants.statusBarHeight}} >    
-       <ChatModal
+      <Layout style={{ paddingTop: Constants.statusBarHeight }}>
+        <ChatModal
           data="Chat Help Page"
           display={this.state.display}
-          close = {this.close}
+          close={this.close}
         />
-      <TopNavigation
-        title='Conversations'
-        alignment='center'
-        leftControl={this.OpenMenu()}
-        rightControls={this.AddConversation()}
-    />
+        <TopNavigation
+          title="Conversations"
+          alignment="center"
+          leftControl={this.OpenMenu()}
+          rightControls={this.AddConversation()}
+        />
         <ScrollView>
           {this.state.messages.map(convo => {
             return (
