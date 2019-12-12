@@ -1,3 +1,4 @@
+// import components
 import {Platform, StyleSheet} from 'react-native';
 import Constants from 'expo-constants';
 
