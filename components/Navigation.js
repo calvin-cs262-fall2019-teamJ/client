@@ -1,4 +1,4 @@
-// import conpoenents
+// import components
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import { ChatStack, LoginStack, SettingsStack, NewsFeedStack } from './SubStacks';
