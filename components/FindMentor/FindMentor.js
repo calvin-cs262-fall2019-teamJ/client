@@ -21,8 +21,9 @@ import {
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ThemeStyles from '../ThemeConstants';
-import { SearchIcon, BackIcon, MenuIcon } from '../Utils/customIcons';
+import { SearchIcon, BackIcon, MenuIcon, HelpIcon } from '../Utils/customIcons';
 import Fire from '../Fire';
+import MentorModal from '../Modal/MentorModal';
 
 // screen for the "Find Mentor" page
 export default class FindMentor extends React.Component {
@@ -34,6 +35,7 @@ export default class FindMentor extends React.Component {
       viewMode: 'default',
       search: '',
       dataisLoaded: false,
+      display: false,
     };
   }
 
@@ -78,6 +80,15 @@ export default class FindMentor extends React.Component {
     this.parseMentor(data);
   }
 
+  //closes the modal page when user clicks close
+  close = () => {
+    this.setState(prevState => {
+      return {
+        display: false,
+      };
+    });
+  };
+
   // will open the draer
   OpenMenu = () => (
     <TopNavigationAction
@@ -102,7 +113,7 @@ export default class FindMentor extends React.Component {
   };
 
   // when pressed, it will change the top navigation to a search bar
-  expandSearchBar = () => (
+  expandSearchBar = () => [
     <TopNavigationAction
       onPress={() => {
         this.setState({
@@ -110,8 +121,18 @@ export default class FindMentor extends React.Component {
         });
       }}
       icon={SearchIcon}
-    />
-  );
+    />,
+    <TopNavigationAction onPress={() => this.triggerModal()} icon={HelpIcon} />,
+  ];
+
+  //setting the modal status to true, showing the modal
+  triggerModal() {
+    this.setState(prevState => {
+      return {
+        display: true,
+      };
+    });
+  }
 
   // lets the back button navigate to the
   backNavigation = () => {
@@ -196,6 +217,11 @@ export default class FindMentor extends React.Component {
           }}>
           Your Department
         </Text>
+        <MentorModal
+          data="Mentor Help Page"
+          display={this.state.display}
+          close={this.close}
+        />
         <ScrollView>
           {this.state.yourDepartmentList.map(mentor => {
             return (
