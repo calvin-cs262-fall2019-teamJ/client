@@ -1,3 +1,4 @@
+// import database
 import { firebase } from '@firebase/app';
 import '@firebase/firestore';
 import '@firebase/auth';
@@ -8,9 +9,9 @@ class Fire {
       this.init();
     }
     this.dbh = firebase.firestore();
-    // this.observeAuth();
   }
 
+  // initializing the database
   init = () =>
     firebase.initializeApp({
       apiKey: 'AIzaSyDOJIsQAZZrzEcOtFJ3QTor6_US2lMcCBw',
@@ -22,6 +23,7 @@ class Fire {
       appId: '1:96122407891:web:85c939306a90d8eae9bd26',
       measurementId: 'G-PY37PP5T20',
     });
+
 
   observeAuth = () =>
     firebase.auth().onAuthStateChanged(this.onAuthStateChanged);
@@ -38,6 +40,7 @@ class Fire {
     // }
   };
 
+  // logging in with firebase
   Login = (email, password) => {
     return firebase
       .auth()
@@ -49,7 +52,8 @@ class Fire {
         return error.message;
       });
   };
-
+  
+  // signing up with firebase
   SignUp = (email, password) => {
     alert('signup');
     return firebase
@@ -62,11 +66,13 @@ class Fire {
         return error.message;
       });
   };
-
+  
+  // getting user ID
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
   }
 
+  // pulling mentor list from the firebase
   pullMentorList = () => {
     let datalist = []; // where to store the data
     return this.dbh
@@ -87,10 +93,9 @@ class Fire {
       });
   };
 
-  //takes in unique id of the user
+  // takes in unique ID of the user
   PullUserInfo = id => {
     let datalist = []; // where to store the data
-
     return this.dbh
       .collection('user')
       .doc(id)
@@ -108,7 +113,7 @@ class Fire {
       });
   };
 
-  //takes in unique id of the user
+  // takes in unique id of the user
   searchUser = query => {
     let datalist = []; // where to store the data
     let datalist_filtered = [];
