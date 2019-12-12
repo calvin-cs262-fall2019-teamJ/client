@@ -27,7 +27,7 @@ export default class Search extends React.Component {
     />
   );
   componentDidUpdate() {
-    alert(this.props.shownData.length);
+   // alert(this.props.shownData.length);
   }
 
   renderItem = ({ item, index }) => (

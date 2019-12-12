@@ -44,8 +44,8 @@ export default class Search extends React.Component {
     super(props);
     this.state = {
       search: '',
-      view: 'defualt',
-      searbarShown: 'small',
+      view: 'searching',
+      searchBarShown: 'small',
       inputInfo: '',
       originalData: [
         {
@@ -147,14 +147,13 @@ export default class Search extends React.Component {
         fontSize="20"
         cancelIconSize="20"
         iconSize="20"
-        noExtraMargin
+        noExtraMargin={true}
         onChangeText={text => {
           this.updateSearch(text);
         }}
         onPressCancel={() => {
-          this.setState({ searbarShown: 'small', view: 'defualt' });
+          this.setState({ searchBarShown: 'small', view: 'default' });
         }}
-        onPress={() => alert('onPress')}
       />
     </Layout>
   );
@@ -171,25 +170,25 @@ export default class Search extends React.Component {
         placeholder="Enter Text here"
         cancelIconSize="20"
         iconSize="20"
-        noExtraMargin
+        noExtraMargin={true}
         onChangeText={text => {
           this.setState({
-            searbarShown: 'large',
+            searchBarShown: 'large',
             inputInfo: text,
             view: 'searching',
           });
         }}
         onPressCancel={() => {
-          this.setState({ searbarShown: 'large' });
+          this.setState({ searchBarShown: 'large' });
         }}
-        onPress={() => this.setState({ searbarShown: 'large' })}
+        onPress={() => this.setState({ searchBarShown: 'large' })}
       />
     </Layout>
   );
 
   updateSearch = search => {
     if (search == '') {
-      this.setState({ view: 'defualt', search: search });
+      this.setState({ view: 'default', search: search });
     } else {
       this.filter('name', search);
     }
@@ -225,20 +224,20 @@ export default class Search extends React.Component {
       <LinearGradient
         colors={['white', ThemeStyle.OffWhiteBackground, ThemeStyle.CalvinBlue]}
         style={styles.container}>
-        <Layout style={{ marginTop: 10 }}>
+        <Layout style={{ marginTop: 0 }}>
           <TopNavigation
             alignment="left"
             leftControl={
-              this.state.searbarShown == 'small' ? this.BackAction() : Empty()
+              this.state.searchBarShown == 'small' ? this.BackAction() : Empty()
             }
             rightControls={
-              this.state.searbarShown == 'small'
+              this.state.searchBarShown == 'large'
                 ? this.SearchBarSmall()
                 : this.SearchBarlarge()
             }
           />
           <View style={{ backgroundColor: 'white' }} />
-          {this.state.view == 'defualt' ? (
+          {this.state.view == 'default' ? (
             <SearchDefaultView
               toProfile={() => this.props.navigation.navigate('Profile')}
             />
@@ -260,7 +259,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'black',
-    position: 'relative',
+    position: 'absolute',
+    alignSelf: 'flex-start',
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width,
     paddingTop: Constants.statusBarHeight,
   },
 });
