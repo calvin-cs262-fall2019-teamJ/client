@@ -24,6 +24,7 @@ import * as ThemeStyles from '../ThemeConstants';
 import { StyleConsts } from '../ThemeConstants';
 import { Card } from 'react-native-shadow-cards';
 import Fire from '../Fire';
+import ProfileModal from '../Modal/ProfileModal';
 
 // Profile screen
 export default class Profile extends Component {
@@ -41,6 +42,7 @@ export default class Profile extends Component {
       experienceData: [],
       type: '',
       content: '',
+      display: false,
     };
   }
 
@@ -52,13 +54,38 @@ export default class Profile extends Component {
     />
   );
 
+  close = () => {
+    this.setState(prevState => {
+      return {
+        display: false,
+      };
+    });
+  };
+
+   HelpIcon = style => <Icon {...style} name="question-mark-circle-outline" />;
+
   // conditionally rendered on weather you're viewing your profile or someone elses
-  EditProfile = () => (
+  EditProfile = () => [
     <TopNavigationAction
       //onPress={() => this.props.navigation.toggleDrawer()} will naviagate to edit profile page
       icon={this.state.isSelf == true ? EditIcon : MessageIcon}
-    />
-  );
+    />,
+    <TopNavigationAction
+      onPress={() => this.triggerModal()}
+      icon={this.HelpIcon}
+    />,
+  ];
+
+
+  triggerModal() {
+    this.setState(prevState => {
+      return {
+        display: true,
+      };
+    });
+  }
+
+
 
   toggleSection = section => {
     let condition = '';
@@ -124,6 +151,11 @@ export default class Profile extends Component {
           style={StyleConsts.TopHeaderViewStyle}
           titleStyle={StyleConsts.TopHeaderTitleStyle}
           rightControls={this.EditProfile()}
+        />
+         <ProfileModal
+          data="Profile Help Page"
+          display={this.state.display}
+          close = {this.close}
         />
         <ScrollView styles={{ marginBottom: 10 }}>
           <View style={styles.header}>
