@@ -18,4 +18,5 @@ export const CalvinWhite = "#FFFFFF"
 export const CalvinMaroon = "#8C2131"
 export const CalvinRed = "#C2002F"
 export const CalvinYellow = "#F3CD00"
+export const CalvinYellowLight = "#ffe866"
 export const OffWhiteBackground = '#EFEFEF'

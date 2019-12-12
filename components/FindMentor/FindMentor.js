@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, SearchBar } from 'react-native-elements';
 import {
+  Button,
   Layout,
   Icon,
   Text,
@@ -11,7 +12,6 @@ import {
 import MentorCard from './mentorCard';
 import OtherDepartments from './OtherDeptView';
 import {
-  Button,
   Dimensions,
   StyleSheet,
   View,
@@ -19,6 +19,8 @@ import {
   ScrollView,
 } from 'react-native';
 import Constants from 'expo-constants';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as ThemeStyles from '../ThemeConstants';
 import { SearchIcon, BackIcon, MenuIcon } from '../Utils/customIcons';
 import Fire from '../Fire';
 
@@ -72,7 +74,7 @@ export default class FindMentor extends React.Component {
   };
 
   async componentDidMount() {
-    let data = await Fire.shared.pullMentorList(); //querries the database 
+    let data = await Fire.shared.pullMentorList(); //querries the database
     this.parseMentor(data);
   }
 
@@ -88,16 +90,12 @@ export default class FindMentor extends React.Component {
   defaultNavigation = () => {
     return (
       <View>
-        <View
-          style={{
-            height: Constants.statusBarHeight,
-          }}
-        />
         <TopNavigation
           title="Mentors"
-          alignment="center"
+          alignment="start"
           rightControls={this.expandSearchBar()}
-          leftControl={this.OpenMenu()}
+          style={ThemeStyles.StyleConsts.TopHeaderViewStyle}
+          titleStyle={ThemeStyles.StyleConsts.TopHeaderTitleStyle}
         />
       </View>
     );
@@ -130,33 +128,36 @@ export default class FindMentor extends React.Component {
   // defines how the top naviagation looks when the search bar is pressed
   searchBarExpanded = () => {
     return (
-      <SearchBar
-        ref={search => (this.search = search)}
-        platform="ios"
-        lightTheme="true"
-        round //To make the searchbar corner round (default square)
-        searchIcon={{ size: 24 }} //Size of the search icon
-        placeholder="Search..."
-        containerStyle={{
-          backgroundColor: 'white',
-          borderWidth: 0,
-          borderColor: 'white',
-          minWidth: '80%',
-          paddingBottom: 10,
-        }}
-        inputContainerStyle={{
-          backgroundColor: '#E7E7E7',
-          marginTop: Constants.statusBarHeight,
-          minWidth: '78%',
-          paddingBottom: 5,
-          opacity: 100,
-          height: 40,
-        }}
-        onChangeText={text => this.updateSearch(text)}
-        value={this.state.search}
-        placeholderTextColor={'#g5g5g5'}
-        showCancel="true"
-      />
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <Button>text</Button>
+        <SearchBar
+          ref={search => (this.search = search)}
+          platform="ios"
+          lightTheme="true"
+          round //To make the searchbar corner round (default square)
+          searchIcon={{ size: 24 }} //Size of the search icon
+          placeholder="Search..."
+          containerStyle={{
+            backgroundColor: 'white',
+            borderWidth: 0,
+            borderColor: 'white',
+            minWidth: '80%',
+            paddingBottom: 10,
+          }}
+          inputContainerStyle={{
+            backgroundColor: '#E7E7E7',
+            marginTop: Constants.statusBarHeight,
+            minWidth: '78%',
+            paddingBottom: 5,
+            opacity: 100,
+            height: 40,
+          }}
+          onChangeText={text => this.updateSearch(text)}
+          value={this.state.search}
+          placeholderTextColor={'#g5g5g5'}
+          showCancel="true"
+        />
+      </View>
     );
   };
 
@@ -177,7 +178,14 @@ export default class FindMentor extends React.Component {
 
   render() {
     return (
-      <Layout style={{ bottom: 0 }}>
+      <LinearGradient
+        colors={[
+          'white',
+          ThemeStyles.OffWhiteBackground,
+          ThemeStyles.OffWhiteBackground,
+          ThemeStyles.CalvinBlue,
+        ]}
+        style={styles.container}>
         {this.topNaviagationMode()}
         <Text
           style={{
@@ -199,7 +207,7 @@ export default class FindMentor extends React.Component {
                 company={mentor.company}
                 openChat={this.openChat}
                 grad={mentor.grad}
-                backgroundColor="white"
+                backgroundColor="transparent"
               />
             );
           })}
@@ -209,7 +217,17 @@ export default class FindMentor extends React.Component {
         ) : (
           <View />
         )}
-      </Layout>
+      </LinearGradient>
     );
   }
 }
+
+const styles = {
+  container: {
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+};

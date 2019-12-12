@@ -95,13 +95,28 @@ class CreatePost extends React.Component<Props> {
   settingsIcon = style => <Icon {...style} name="settings-2-outline" />;
   addIcon = style => <Icon {...style} name="plus-outline" />;
   topNavigation = () => {
-      return(<TopNavigation
+    return (
+      <TopNavigation
         title="NewPost"
         alignment="left"
         style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
         titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
         leftControl={this.backButton}
-      />)
+      />
+    );
+  };
+  defaultNavigation = () => {
+    return (
+      <View>
+        <TopNavigation
+          title="New Post"
+          alignment="start"
+          leftControl={this.backButton()}
+          style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
+          titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
+        />
+      </View>
+    );
   };
 
   annonymousLabel = () => {
@@ -370,12 +385,13 @@ class CreatePost extends React.Component<Props> {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <LinearGradient
             colors={[
+              'white',
               ThemeStyle.OffWhiteBackground,
               ThemeStyle.OffWhiteBackground,
               ThemeStyle.CalvinBlue,
             ]}
             style={styles.mainView}>
-            {this.topNavigation()}
+            {this.defaultNavigation()}
             {this.mainHeader()}
             {this.settingsView()}
 

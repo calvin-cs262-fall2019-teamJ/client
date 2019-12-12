@@ -10,6 +10,7 @@ import {
 } from 'react-native-ui-kitten';
 import MentorCard from './mentorCard';
 import { Dimensions, StyleSheet, View, ScrollView } from 'react-native';
+import * as ThemeStyles from '../ThemeConstants'
 import Constants from 'expo-constants';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import { Card } from 'react-native-paper';
@@ -39,7 +40,8 @@ export default class OtherDepartments extends React.Component {
           height: 300,
           width: Dimensions.get('window').width * 0.95,
           borderRadius: 20,
-          bottom: 0,
+          top: 0,
+          backgroundColor: "transparent"
         }}
         indicator={this.paginationStatus()}>
         {this.props.data.map(department => {
@@ -55,7 +57,7 @@ export default class OtherDepartments extends React.Component {
   
   render() {
     return (
-      <Layout style={{ marginTop: 20 }}>
+      <Layout style={{ marginTop: 10, backgroundColor: "transparent"}}>
         <Text
           style={{
             fontSize: 20,
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
     maxWidth: Dimensions.get('window').width * 0.99,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     borderRadius: 20,
   },
 
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
   eachDepartment: {
     marginLeft: 10,
     marignTop: 10,
-    backgroundColor: '#FFE8E3',
+    backgroundColor: ThemeStyles.CalvinYellowLight,
     borderRadius: 20,
   },
 });

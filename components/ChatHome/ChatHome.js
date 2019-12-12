@@ -9,9 +9,10 @@ import {
   TopNavigationAction,
 } from 'react-native-ui-kitten';
 import Conversation from './Conversation';
-import { Button, StyleSheet, View, ListView, ScrollView } from 'react-native';
+import { Button, Dimensions, StyleSheet, View, ListView, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-
+import {  LinearGradient } from 'expo-linear-gradient'
+import * as ThemeStyle from '../ThemeConstants';
 import { GiftedChat } from 'react-native-gifted-chat'; // 0.3.0
 import Fire from '../Fire';
 
@@ -40,34 +41,44 @@ class ChatHome extends React.Component<Props> {
     };
   }
 
-    OpenMenu = () => (
-    <TopNavigationAction onPress={()=> this.props.navigation.toggleDrawer()} icon={this.MenuIcon}/>
+  OpenMenu = () => (
+    <TopNavigationAction
+      onPress={() => this.props.navigation.toggleDrawer()}
+      icon={this.MenuIcon}
+    />
   );
 
-   MenuIcon = (style) => (
-  <Icon {...style} name='menu-outline' />
-);
+  MenuIcon = style => <Icon {...style} name="menu-outline" />;
 
-AddConversation = () => (
-  <TopNavigationAction onPress={()=> this.props.navigation.navigate('Search')} icon={this.PlusICon}/>
-);
+  AddConversation = () => (
+    <TopNavigationAction
+      onPress={() => this.props.navigation.navigate('Search')}
+      icon={this.PlusICon}
+    />
+  );
 
-  PlusICon = (style) => (
-  <Icon {...style} name='plus-outline' />
-);
+  PlusICon = style => <Icon {...style} name="plus-outline" />;
 
   openChat = name => {
-    this.props.navigation.navigate('ChatDM', { name: name })
-  }
+    this.props.navigation.navigate('ChatDM', { name: name });
+  };
   render() {
     return (
-      <Layout style={{paddingTop: Constants.statusBarHeight}} >    
-      <TopNavigation
-        title='Conversations'
-        alignment='center'
-        leftControl={this.OpenMenu()}
-        rightControls={this.AddConversation()}
-    />
+      <LinearGradient
+        colors={[
+          'white',
+          ThemeStyle.OffWhiteBackground,
+          ThemeStyle.OffWhiteBackground,
+          ThemeStyle.CalvinBlue,
+        ]}
+        style={styles.container}>
+        <TopNavigation
+          title="Conversations"
+          alignment="start"
+          style={ThemeStyle.StyleConsts.TopHeaderViewStyle}
+          titleStyle={ThemeStyle.StyleConsts.TopHeaderTitleStyle}
+          rightControls={this.AddConversation()}
+        />
         <ScrollView>
           {this.state.messages.map(convo => {
             return (
@@ -80,9 +91,17 @@ AddConversation = () => (
             );
           })}
         </ScrollView>
-      </Layout>
+      </LinearGradient>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    //alignItems: 'center',
+    //justifyContent: 'center',
+    //paddingTop: Constants.statusBarHeight,
+    minHeight: Dimensions.get('window').height
+  },
+});
 
 export default ChatHome;

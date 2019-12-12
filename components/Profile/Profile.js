@@ -20,6 +20,7 @@ import Projects from './Projects/ProjectSuper';
 import Qualifications from './Qualifications';
 import { MenuIcon, EditIcon, Empty, MessageIcon } from '../Utils/customIcons';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as ThemeStyles from '../ThemeConstants';
 import { StyleConsts } from '../ThemeConstants';
 import { Card } from 'react-native-shadow-cards';
 import Fire from '../Fire';
@@ -109,7 +110,14 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <LinearGradient colors={['#EFEFEF', '#71B1C8']} style={styles.container}>
+      <LinearGradient
+        colors={[
+          'white',
+          ThemeStyles.OffWhiteBackground,
+          ThemeStyles.OffWhiteBackground,
+          ThemeStyles.CalvinBlue,
+        ]}
+        style={styles.container}>
         <TopNavigation
           title="Profile"
           alignment="start"
@@ -242,7 +250,6 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#EFEFEF',
     alignItems: 'center',
   },
@@ -261,7 +268,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 20,
     borderWidth: 3,
-    borderColor: '#f5f5f5',
+    borderColor: ThemeStyles.CalvinBlue,
   },
   typeContainer: {
     borderRadius: 20,
@@ -272,12 +279,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     marginBottom: 15,
-    borderColor: '#f5f5f5',
+    borderColor: ThemeStyles.CalvinBlue,
     borderWidth: 2,
+    resizeMode: 'contain',
   },
   type: {
     fontSize: 15,
-    color: '#f5f5f5',
+    color: ThemeStyles.CalvinBlue,
     fontWeight: 'bold',
   },
   name: {
@@ -331,5 +339,5 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 20,
     marginBottom: 80,
-  }
+  },
 });

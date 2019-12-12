@@ -3,7 +3,7 @@
  * and sound according to their perference
  */
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Dimensions, Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import {
   Layout,
@@ -16,6 +16,7 @@ import {
 import { Card } from 'react-native-shadow-cards';
 import { MenuIcon } from '../Utils/customIcons';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as ThemeStyles from '../ThemeConstants';
 import { StyleConsts } from '../ThemeConstants';
 import Fire from '../Fire';
 
@@ -70,7 +71,14 @@ export default class Settings extends React.Component {
 
   render() {
     return (
-      <LinearGradient colors={['#EFEFEF', '#71B1C8']} style={styles.container}>
+      <LinearGradient
+        colors={[
+          'white',
+          ThemeStyles.OffWhiteBackground,
+          ThemeStyles.OffWhiteBackground,
+          ThemeStyles.CalvinBlue,
+        ]}
+        style={styles.container}>
         <TopNavigation
           title="Settings"
           alignment="left"
@@ -135,9 +143,9 @@ export default class Settings extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
     padding: 10,
     backgroundColor: '#f5f5f5',
+    height: Dimensions.get('window').height
   },
   toggle: {
     justifyContent: 'flex-start',
@@ -174,9 +182,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   password: {
-    fontSize: 9, 
+    fontSize: 9,
     marginTop: 10,
     color: '#989898',
-  }
-
+  },
 });

@@ -96,6 +96,7 @@ export default class MentorCard extends React.Component<Props> {
         </Layout>
         <Button
           appearance="ghost"
+          size="medium"
           icon={this.PersonIcon}
           style={styles.button}
           onPress={() => this.togglePersonIcon()}
@@ -113,7 +114,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   name: {
-    color: '#5F1100',
+    color: 'black',
+    fontWeight: 'bold',
     fontSize: 15,
   },
   position: {

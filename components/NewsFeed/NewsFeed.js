@@ -98,7 +98,7 @@ class NewsFeed extends React.Component<Props> {
     return (
       <LinearGradient
         colors={[
-          ThemeStyle.OffWhiteBackground,
+          'white',
           ThemeStyle.OffWhiteBackground,
           ThemeStyle.CalvinBlue,
         ]}
@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     //justifyContent: 'center',
     //paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#EFEFEF',
+    
+    minHeight: Dimensions.get('window').height
   },
   scrollView: {
     justifyContent: 'space-between',
