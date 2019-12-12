@@ -81,7 +81,7 @@ export default class Settings extends React.Component {
         style={styles.container}>
         <TopNavigation
           title="Settings"
-          alignment="left"
+          alignment="start"
           style={StyleConsts.TopHeaderViewStyle}
           titleStyle={StyleConsts.TopHeaderTitleStyle}
         />
@@ -142,10 +142,9 @@ export default class Settings extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#f5f5f5',
-    height: Dimensions.get('window').height
+    backgroundColor: '#EFEFEF',
+    alignItems: 'center',
+    height: Dimensions.get('window').height,
   },
   toggle: {
     justifyContent: 'flex-start',
