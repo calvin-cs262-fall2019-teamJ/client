@@ -1,17 +1,15 @@
 import ChatDM from './ChatDM/ChatDM';
 import ChatHome from './ChatHome/ChatHome';
-
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
-
 import Settings from './Settings/Settings';
 import Profile from './Profile/Profile';
 import PostView from './NewsFeed/PostView';
 import NewsFeed from './NewsFeed/NewsFeed';
 import CreatePost from './NewsFeed/CreatePost';
-
 import { createStackNavigator } from 'react-navigation-stack';
 
+// going from chathome to chatdm
 export const ChatStack = createStackNavigator({
   ChatHome: {
     screen: ChatHome,
@@ -29,6 +27,7 @@ export const ChatStack = createStackNavigator({
   },
 });
 
+// going from signup to signin
 export const LoginStack = createStackNavigator({
    SignUp: {
     screen: SignUp,
@@ -46,6 +45,7 @@ export const LoginStack = createStackNavigator({
   },
 });
 
+// going to settings
 export const SettingsStack = createStackNavigator({
   Settings: {
     screen: Settings,
@@ -56,6 +56,7 @@ export const SettingsStack = createStackNavigator({
   },
 });
 
+// going from newsfeed to createpost and postview
 export const NewsFeedStack = createStackNavigator({
   "News Feed": {
       screen: NewsFeed,
