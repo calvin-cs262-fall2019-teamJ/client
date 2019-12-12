@@ -1,3 +1,4 @@
+// import the screens
 import ChatDM from './ChatDM/ChatDM';
 import ChatHome from './ChatHome/ChatHome';
 import SignIn from './SignIn/SignIn';
@@ -7,6 +8,8 @@ import Profile from './Profile/Profile';
 import PostView from './NewsFeed/PostView';
 import NewsFeed from './NewsFeed/NewsFeed';
 import CreatePost from './NewsFeed/CreatePost';
+
+// import components
 import { createStackNavigator } from 'react-navigation-stack';
 
 // going from chathome to chatdm
