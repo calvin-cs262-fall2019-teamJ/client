@@ -66,9 +66,9 @@ class Fire {
   get uid() {
     return (firebase.auth().currentUser || {}).uid;
   }
-  
-    pullMentorList = () => {
-     let datalist = [] // where to store the data
+
+  pullMentorList = () => {
+    let datalist = []; // where to store the data
     return this.dbh
       .collection('user')
       .where('mentor', '==', true)
@@ -78,8 +78,8 @@ class Fire {
           datalist.push(doc.data()); // add the data to the array
         });
       })
-      .then(()=> {
-        return datalist
+      .then(() => {
+        return datalist;
       })
       .catch(function(error) {
         console.log('Error getting documents: ', error);
@@ -89,23 +89,54 @@ class Fire {
 
   //takes in unique id of the user
   PullUserInfo = id => {
-     let datalist = [] // where to store the data
+    let datalist = []; // where to store the data
+
     return this.dbh
       .collection('user')
       .doc(id)
       .get()
       .then(function(querySnapshot) {
-          // doc.data() is never undefined for query doc snapshots
-          datalist.push(querySnapshot.data()); // add the data to the array
+        // doc.data() is never undefined for query doc snapshots
+        datalist.push(querySnapshot.data()); // add the data to the array
       })
       .then(function(data) {
-        return datalist[0] //return the top element
+        return datalist[0]; //return the top element
       })
       .catch(function(error) {
         console.log('Error getting documents: ', error);
         return error;
       });
   };
+
+  //takes in unique id of the user
+  searchUser = query => {
+    let datalist = []; // where to store the data
+    let datalist_filtered = [];
+    return this.dbh
+      .collection('user')
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          datalist.push(doc.data()); // add the data to the array
+        });
+      })
+      .then(function(data) {
+        datalist_filtered = datalist.filter(item => {
+          return (
+            item.profile.nameLast.toLowerCase().includes(query.toLowerCase()) ||
+            item.profile.nameFirst.toLowerCase().includes(query.toLowerCase())
+          );
+        });
+        console.log(datalist_filtered);
+        console.log('grrrr!');
+        return datalist_filtered;
+      })
+      .catch(function(error) {
+        console.log('Error getting documents: ', error);
+        return error;
+      });
+  };
+
   //Async function that pulls posts; returns nested object iff query is succesful
   PullPosts() {
     let postList = []; // where to store the data
