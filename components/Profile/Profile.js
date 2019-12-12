@@ -78,7 +78,7 @@ export default class Profile extends Component {
    */
   async readData() {
     // "await" says do not continue until this command has been fully executed
-    let data = await Fire.shared.PullUserInfo('T41MxCh0VTy8qRc7vcPK');
+    let data = await Fire.shared.PullUserInfo('vnX0Jux5a6p2yQXKv58a');
     this.setState({
       name: { first: data.profile.nameFirst, last: data.profile.nameLast },
       locationCurrent: data.profile.locationCurrent,
