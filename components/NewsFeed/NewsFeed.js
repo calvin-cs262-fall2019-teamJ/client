@@ -128,7 +128,7 @@ class NewsFeed extends React.Component<Props> {
                   source={require('./18942381.jpg')}
                 />
                 userName={post.nameLabel}
-                timeStamp={post.timeStamp}
+                // timeStamp={post.timeStamp}
                 profileNav={() => {this.profilePress(post.owner)}}
                 postView={params => this.textPress(params)}
               />
