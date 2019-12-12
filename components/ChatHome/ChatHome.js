@@ -9,10 +9,19 @@ import {
   TopNavigationAction,
 } from 'react-native-ui-kitten';
 import Conversation from './Conversation';
-import { Button, StyleSheet, View, ListView, ScrollView } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  View,
+  ListView,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import Constants from 'expo-constants';
 import ChatModal from '../Modal/ChatModal';
-
+import { LinearGradient } from 'expo-linear-gradient';
+import * as ThemeStyles from '../ThemeConstants';
+import { StyleConsts } from '../ThemeConstants';
 import { GiftedChat } from 'react-native-gifted-chat'; // 0.3.0
 import Fire from '../Fire';
 
@@ -31,11 +40,12 @@ class ChatHome extends React.Component<Props> {
           name: 'Johana James',
           date: 'Today',
         },
-         {
+        {
           name: 'Janice Billings',
-          avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-          date: 'yesterday',
-        }
+          avatar:
+            'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+          date: 'Yesterday',
+        },
       ],
       display: false,
     };
@@ -86,33 +96,50 @@ class ChatHome extends React.Component<Props> {
   };
   render() {
     return (
-      <Layout style={{ paddingTop: Constants.statusBarHeight }}>
-        <ChatModal
-          data="Chat Help Page"
-          display={this.state.display}
-          close={this.close}
-        />
-        <TopNavigation
-          title="Conversations"
-          alignment="center"
-          leftControl={this.OpenMenu()}
-          rightControls={this.AddConversation()}
-        />
-        <ScrollView>
-          {this.state.messages.map(convo => {
-            return (
-              <Conversation
-                date={convo.date}
-                name={convo.name}
-                avatar={convo.avatar}
-                openChat={this.openChat}
-              />
-            );
-          })}
-        </ScrollView>
+      <Layout>
+        <LinearGradient
+          colors={[
+            'white',
+            ThemeStyles.OffWhiteBackground,
+            ThemeStyles.OffWhiteBackground,
+            ThemeStyles.CalvinBlue,
+          ]}
+          style={styles.container}>
+          <ChatModal
+            data="Chat Help Page"
+            display={this.state.display}
+            close={this.close}
+          />
+          <TopNavigation
+            title="Conversations"
+            alignment="start"
+            style={StyleConsts.TopHeaderViewStyle}
+            titleStyle={StyleConsts.TopHeaderTitleStyle}
+            rightControls={this.AddConversation()}
+          />
+          <ScrollView>
+            {this.state.messages.map(convo => {
+              return (
+                <Conversation
+                  date={convo.date}
+                  name={convo.name}
+                  avatar={convo.avatar}
+                  openChat={this.openChat}
+                />
+              );
+            })}
+          </ScrollView>
+        </LinearGradient>
       </Layout>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#EFEFEF',
+    alignItems: 'start',
+    height: Dimensions.get('window').height,
+  },
+});
 
 export default ChatHome;
