@@ -27,6 +27,7 @@ export const TabNavigator = createBottomTabNavigator(
 );
 
 export const mainNavigator = createStackNavigator({
+  LoginProcess: { screen: LoginStack },
   Home: {
     screen: TabNavigator,
     navigationOptions: {
@@ -35,7 +36,6 @@ export const mainNavigator = createStackNavigator({
       gesturesEnabled: false,
     },
   },
-  LoginProcess: { screen: LoginStack },
   
   Search: {
     screen: Search,
