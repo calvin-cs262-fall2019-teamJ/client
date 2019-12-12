@@ -1,6 +1,7 @@
-import {Platform, StyleSheet} from 'react-native'
-import Constants from 'expo-constants'
+import {Platform, StyleSheet} from 'react-native';
+import Constants from 'expo-constants';
 
+// make constant headers
 export const StyleConsts = StyleSheet.create({
   TopHeaderViewStyle: {
     backgroundColor: "transparent",
@@ -13,6 +14,7 @@ export const StyleConsts = StyleSheet.create({
   }
 });
 
+// make variables for each color
 export const CalvinBlue = "#71B1C8"
 export const CalvinWhite = "#FFFFFF"
 export const CalvinMaroon = "#8C2131"
