@@ -59,7 +59,6 @@ export default class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: '1',
-    alignItems: 'center',
   },
   list: {
     height: '100%',

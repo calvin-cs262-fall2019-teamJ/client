@@ -4,7 +4,6 @@ import {
   Image,
   Avatar,
 } from 'react-native-elements';
-import SearchBar from 'react-native-dynamic-search-bar';
 import {
   StyleSheet,
   Text,
@@ -38,13 +37,15 @@ import { UIManager } from 'react-native';
 import * as ThemeStyle from '../ThemeConstants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Empty } from '../Utils/customIcons';
+import SearchBar from 'react-native-dynamic-search-bar';
+import Fire from '../Fire';
 
 export default class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       search: '',
-      view: 'searching',
+      view: 'default',
       searchBarShown: 'small',
       inputInfo: '',
       originalData: [
@@ -148,6 +149,9 @@ export default class Search extends React.Component {
         cancelIconSize="20"
         iconSize="20"
         noExtraMargin={true}
+        onPress={() => {
+          console.log("pressed")
+        }}
         onChangeText={text => {
           this.updateSearch(text);
         }}
@@ -191,6 +195,7 @@ export default class Search extends React.Component {
       this.setState({ view: 'default', search: search });
     } else {
       this.filter('name', search);
+      this.applySearch(search)
     }
   };
 
@@ -205,12 +210,16 @@ export default class Search extends React.Component {
     />
   );
 
+ async applySearch(searchItem){
+    let temp = await Fire.SearchUser(searchItem)
+  }
+
   filter = (searchParam, searchText) => {
     let allItems = JSON.parse(JSON.stringify(this.state.originalData));
     let shownItems = allItems.filter(item => {
       return item[searchParam].toLowerCase().includes(searchText.toLowerCase());
     });
-    console.log(shownItems);
+    //console.log(shownItems);
     this.setState({
       shownData: shownItems,
       search: searchText,
@@ -221,17 +230,14 @@ export default class Search extends React.Component {
   render() {
     const { search } = this.state;
     return (
-      <LinearGradient
-        colors={['white', ThemeStyle.OffWhiteBackground, ThemeStyle.CalvinBlue]}
-        style={styles.container}>
-        <Layout style={{ marginTop: 0 }}>
+        <Layout style={styles.container}>
           <TopNavigation
             alignment="left"
             leftControl={
               this.state.searchBarShown == 'small' ? this.BackAction() : Empty()
             }
             rightControls={
-              this.state.searchBarShown == 'large'
+              this.state.searchBarShown == 'small'
                 ? this.SearchBarSmall()
                 : this.SearchBarlarge()
             }
@@ -249,7 +255,6 @@ export default class Search extends React.Component {
             />
           )}
         </Layout>
-      </LinearGradient>
     );
   }
 }
@@ -263,6 +268,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
-    paddingTop: Constants.statusBarHeight,
+    marginTop: Constants.statusBarHeight,
+    marginBottom: Constants.statusBarHeight,
   },
 });
