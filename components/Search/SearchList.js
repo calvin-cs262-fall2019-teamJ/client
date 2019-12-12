@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { SearchBar, Image } from 'react-native-elements';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import {
   Button,
   List,
@@ -12,18 +12,13 @@ import {
   TopNavigationAction,
 } from 'react-native-ui-kitten';
 import Constants from 'expo-constants';
+import * as ThemeStyle from '../ThemeConstants';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      inputInfo: '',
-    };
   }
-
-  updateInput = val => {
-    this.setState({ inputInfo: val });
-  };
 
   renderItemIcon = (style, iconUri) => (
     <Image
@@ -31,26 +26,32 @@ export default class Search extends React.Component {
       style={{ width: 50, height: 50 }}
     />
   );
+  componentDidUpdate() {
+    alert(this.props.shownData.length);
+  }
+
+  renderItem = ({ item, index }) => (
+    <ListItem
+      title={`${item.name}`}
+      description={`${item.location}`}
+      // iconUri = {`${item.picture}`}
+      // icon ={iconUri => this.renderItemIcon(iconUri)}
+    />
+  );
 
   render() {
-    const renderItem = ({ item, index }) => (
-      <ListItem
-        title={`${item.name}`}
-        description={`${item.location}`}
-        // iconUri = {`${item.picture}`}
-        // icon ={iconUri => this.renderItemIcon(iconUri)}
-      />
-    );
-
     return (
-      <Layout style={styles.container}>
-
-        <List
-          style={styles.list}
-          data={this.props.shownData}
-          renderItem={renderItem}
-        />
-      </Layout>
+      <LinearGradient
+        colors={['white', ThemeStyle.OffWhiteBackground, ThemeStyle.CalvinBlue]}
+        style={styles.container}>
+        <ScrollView>
+          <List
+            style={styles.list}
+            data={this.props.shownData}
+            renderItem={this.renderItem}
+          />
+        </ScrollView>
+      </LinearGradient>
     );
   }
 }
@@ -58,6 +59,7 @@ export default class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: '1',
+    alignItems: 'center',
   },
   list: {
     height: '100%',

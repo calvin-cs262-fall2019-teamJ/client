@@ -24,7 +24,8 @@ import Constants from 'expo-constants';
 import PostCard from '../NewsFeed/PostCard';
 import PopulatedMap from './mapView';
 import Recents from './Recents';
-
+import * as ThemeStyle from '../ThemeConstants';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const markers = [
   {
@@ -36,43 +37,42 @@ const markers = [
 
 // holds all the activity elements for the search page
 export default class SearchDefaultView extends React.Component {
-  constructor(props){
-    super(props)
-    this.state={
-      
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
   render() {
     return (
-      <ScrollView>
-        <View
-          style={{
-            padding: 10,
-          }}>
-          <Recents toProfile={this.props.toProfile} />
-          <PopulatedMap
-            style={{
-              flex: 1,
-              marginTop: 10,
-              paddingHorizontal: 10,
-              height: Dimensions.get('window').height * 0.5,
-              borderRadius: 20,
-            }}
-            region={{
-              latitude: 42.96336,
-              longitude: -85.668083,
-              latitudeDelta: 0.1,
-              longitudeDelta: 0.1,
-            }}
-            annotations={markers}
-            showsUserLocation={true}
-          />
-        </View>
+      <LinearGradient
+        colors={['white', ThemeStyle.OffWhiteBackground, ThemeStyle.CalvinBlue]}
+        style={{alignItems: 'center'}}>
+        <ScrollView>
+          <View
+            >
+            <Recents toProfile={this.props.toProfile} />
+            <PopulatedMap
+              style={{
+                flex: 1,
+                marginTop: 10,
+                paddingHorizontal: 10,
+                height: Dimensions.get('window').height * 0.5,
+                borderRadius: 20,
+              }}
+              region={{
+                latitude: 42.96336,
+                longitude: -85.668083,
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1,
+              }}
+              annotations={markers}
+              showsUserLocation={true}
+            />
+          </View>
           <PostCard
             bgcolor="white"
             text={
-              "I'm happy to announce that I've been given the honor of being a panelist at next years World Economic Forum. I'll also be presenting a talk about the how the use of AI in agriculture could help address world hunger."
+              "I'm happy to announce that poop I've been given the honor of being a panelist at next years World Economic Forum. I'll also be presenting a talk about the how the use of AI in agriculture could help address world hunger."
             }
             userImageSrc=<Image
               style={{
@@ -89,8 +89,8 @@ export default class SearchDefaultView extends React.Component {
             postNav={this.toProfile}
             postView={params => this.textPress(params)}
           />
-        
-      </ScrollView>
+        </ScrollView>
+      </LinearGradient>
     );
   }
 }

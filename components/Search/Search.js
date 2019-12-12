@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { SearchBar, Image, Avatar } from 'react-native-elements';
-//import SearchBar from 'react-native-dynamic-search-bar';
+import {
+  //SearchBar,
+  Image,
+  Avatar,
+} from 'react-native-elements';
+import SearchBar from 'react-native-dynamic-search-bar';
 import {
   StyleSheet,
   Text,
@@ -31,6 +35,9 @@ import SearchDefaultView from './SearchDefaultView';
 import SearchList from './SearchList';
 import { ifIphoneX } from 'react-native-iphone-x-helper';
 import { UIManager } from 'react-native';
+import * as ThemeStyle from '../ThemeConstants';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Empty } from '../Utils/customIcons';
 
 export default class Search extends React.Component {
   constructor(props) {
@@ -38,6 +45,7 @@ export default class Search extends React.Component {
     this.state = {
       search: '',
       view: 'defualt',
+      searbarShown: 'small',
       inputInfo: '',
       originalData: [
         {
@@ -118,35 +126,63 @@ export default class Search extends React.Component {
   }
 
   BackAction = () => (
-    <TopNavigationAction
-      onPress={() => this.props.navigation.goBack()}
-      icon={this.BackIcon}
-    />
+    <Layout style={{ marginTop: 10 }}>
+      <TopNavigationAction
+        onPress={() => this.props.navigation.goBack()}
+        icon={this.BackIcon}
+      />
+    </Layout>
   );
 
   BackIcon = style => <Icon {...style} name="arrow-back" />;
 
-  SearchBarComponent = () => (
-    <Layout style={{ width: 300 }}>
+  SearchBarlarge = () => (
+    <Layout>
       <SearchBar
-        lightTheme="true"
-        round //To make the searchbar corner round (default square)
-        searchIcon={{ size: 24 }} //Size of the search icon
-        placeholder="Type Here..."
-        containerStyle={{
-          backgroundColor: 'white',
-          borderColor: 'white',
-          marginTop: 0,
+        pfontColor="#c6c6c6"
+        iconColor="#c6c6c6"
+        shadowColor="white"
+        cancelIconColor="c6c6c6"
+        backgroundColor="white"
+        fontSize="20"
+        cancelIconSize="20"
+        iconSize="20"
+        noExtraMargin
+        onChangeText={text => {
+          this.updateSearch(text);
         }}
-        inputContainerStyle={{
-          backgroundColor: 'white',
-          marginTop: 0,
-          borderColor: 'white',
+        onPressCancel={() => {
+          this.setState({ searbarShown: 'small', view: 'defualt' });
         }}
-        onChangeText={text => this.updateSearch(text)}
-        value={this.state.search}
-        placeholderTextColor={'#g5g5g5'}
-        style={{ borderColor: 'white' }}
+        onPress={() => alert('onPress')}
+      />
+    </Layout>
+  );
+
+  SearchBarSmall = () => (
+    <Layout style={{ width: 250, overflow: 'hidden' }}>
+      <SearchBar
+        pfontColor="#c6c6c6"
+        iconColor="white"
+        shadowColor="white"
+        cancelIconColor="c6c6c6"
+        backgroundColor="white"
+        fontSize="20"
+        placeholder="Enter Text here"
+        cancelIconSize="20"
+        iconSize="20"
+        noExtraMargin
+        onChangeText={text => {
+          this.setState({
+            searbarShown: 'large',
+            inputInfo: text,
+            view: 'searching',
+          });
+        }}
+        onPressCancel={() => {
+          this.setState({ searbarShown: 'large' });
+        }}
+        onPress={() => this.setState({ searbarShown: 'large' })}
       />
     </Layout>
   );
@@ -186,25 +222,35 @@ export default class Search extends React.Component {
   render() {
     const { search } = this.state;
     return (
-      <View style={styles.container}>
-        <TopNavigation
-          alignment="left"
-          leftControl={this.BackAction()}
-          rightControls={this.SearchBarComponent()}
-        />
-        <View style={{ backgroundColor: 'white' }} />
-        {this.state.view == 'defualt' ? (
-          <SearchDefaultView
-            toProfile={() => this.props.navigation.navigate('Profile')}
+      <LinearGradient
+        colors={['white', ThemeStyle.OffWhiteBackground, ThemeStyle.CalvinBlue]}
+        style={styles.container}>
+        <Layout style={{ marginTop: 10 }}>
+          <TopNavigation
+            alignment="left"
+            leftControl={
+              this.state.searbarShown == 'small' ? this.BackAction() : Empty()
+            }
+            rightControls={
+              this.state.searbarShown == 'small'
+                ? this.SearchBarSmall()
+                : this.SearchBarlarge()
+            }
           />
-        ) : (
-          <SearchList
-            data={this.state.data}
-            shownData={this.state.shownData}
-            filter={this.filter}
-          />
-        )}
-      </View>
+          <View style={{ backgroundColor: 'white' }} />
+          {this.state.view == 'defualt' ? (
+            <SearchDefaultView
+              toProfile={() => this.props.navigation.navigate('Profile')}
+            />
+          ) : (
+            <SearchList
+              data={this.state.data}
+              shownData={this.state.shownData}
+              filter={this.filter}
+            />
+          )}
+        </Layout>
+      </LinearGradient>
     );
   }
 }
