@@ -21,7 +21,7 @@
     "react-native-web": "0.11.7",
     "expect": "24.9.0",
     "moment": "*",
-    "firebase": "7.2.2",
+    "firebase": "10.9.0",
     "rn-viewpager": "1.2.9",
     "@firebase/app": "0.4.26",
     "@firebase/auth": "0.13.2",
